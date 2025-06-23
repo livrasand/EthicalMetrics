@@ -27,14 +27,23 @@ func Init() error {
 
 func createTable() error {
 	query := `
+	CREATE TABLE IF NOT EXISTS sites (
+		id TEXT PRIMARY KEY,         -- site_id (UUID)
+		name TEXT,
+		created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+		admin_token TEXT             -- clave secreta para el dashboard
+	);
+
 	CREATE TABLE IF NOT EXISTS events (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		event_type TEXT,
 		module TEXT,
+		site_id TEXT,               -- se vincula con la tabla sites
 		duration_ms INTEGER,
-		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-	);
-	`
+		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY(site_id) REFERENCES sites(id)
+	);`
+
 	_, err := DB.Exec(query)
 	return err
 }
