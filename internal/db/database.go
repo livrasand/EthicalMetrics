@@ -27,6 +27,7 @@ func Init() error {
 
 func createTable() error {
 	query := `
+<<<<<<< HEAD
 	CREATE TABLE IF NOT EXISTS sites (
 		id TEXT PRIMARY KEY,         -- site_id (UUID)
 		name TEXT,
@@ -34,10 +35,13 @@ func createTable() error {
 		admin_token TEXT             -- clave secreta para el dashboard
 	);
 
+=======
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
 	CREATE TABLE IF NOT EXISTS events (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		event_type TEXT,
 		module TEXT,
+<<<<<<< HEAD
 		site_id TEXT,               -- se vincula con la tabla sites
 		duration_ms INTEGER,
 		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -47,3 +51,12 @@ func createTable() error {
 	_, err := DB.Exec(query)
 	return err
 }
+=======
+		duration_ms INTEGER,
+		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+	);
+	`
+	_, err := DB.Exec(query)
+	return err
+}
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)

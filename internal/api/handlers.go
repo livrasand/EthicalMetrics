@@ -1,6 +1,7 @@
 package api
 
 import (
+<<<<<<< HEAD
 	crand "crypto/rand"
 	"encoding/base64"
 	"encoding/json"
@@ -89,6 +90,40 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(e.SiteID, e.Module, e.EventType, e.Duration)
+=======
+	"encoding/json"
+	"net/http"
+
+	"github.com/livrasand/ethicalmetrics/internal/db"
+)
+
+type Event struct {
+	EventType string `json:"evento"`
+	Module    string `json:"modulo"`
+	Duration  int    `json:"duracion_ms"`
+}
+
+type moduloStat struct {
+	Modulo string `json:"modulo"`
+	Total  int    `json:"total"`
+}
+
+type diaStat struct {
+	Dia   string `json:"dia"`
+	Total int    `json:"total"`
+}
+
+func TrackHandler(w http.ResponseWriter, r *http.Request) {
+	var e Event
+	err := json.NewDecoder(r.Body).Decode(&e)
+	if err != nil || e.EventType == "" {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+	_, err = db.DB.Exec(
+		"INSERT INTO events (event_type, module, duration_ms) VALUES (?, ?, ?)",
+		e.EventType, e.Module, e.Duration)
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
 	if err != nil {
 		http.Error(w, "DB Error", http.StatusInternalServerError)
 		return
@@ -97,6 +132,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
+<<<<<<< HEAD
 	siteID := r.URL.Query().Get("site")
 	token := r.URL.Query().Get("token")
 
@@ -175,15 +211,35 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 			"dia":   dia,
 			"total": total,
 		})
+=======
+	rows1, _ := db.DB.Query(`SELECT module, COUNT(*) FROM events GROUP BY module`)
+	var porModulo []moduloStat
+	for rows1.Next() {
+		var m moduloStat
+		rows1.Scan(&m.Modulo, &m.Total)
+		porModulo = append(porModulo, m)
+	}
+
+	rows2, _ := db.DB.Query(`SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) FROM events GROUP BY 1`)
+	var porDia []diaStat
+	for rows2.Next() {
+		var d diaStat
+		rows2.Scan(&d.Dia, &d.Total)
+		porDia = append(porDia, d)
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
 	}
 
 	resp := map[string]interface{}{
 		"por_modulo": porModulo,
 		"por_dia":    porDia,
 	}
+<<<<<<< HEAD
 
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		log.Println("Error al codificar JSON:", err)
 		http.Error(w, "Error interno", http.StatusInternalServerError)
 	}
+=======
+	json.NewEncoder(w).Encode(resp)
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
 }

@@ -16,6 +16,7 @@
   <canvas id="visitasChart"></canvas>
 
   <script>
+<<<<<<< HEAD
     const urlParams = new URLSearchParams(window.location.search);
     const site = urlParams.get("site");
     const token = urlParams.get("token");
@@ -37,6 +38,16 @@
       const porModulo = data.por_modulo;
       const porDia = data.por_dia;
 
+=======
+    async function cargarDatos() {
+      const res = await fetch('/stats');
+      const data = await res.json();
+
+      const porModulo = data.por_modulo;
+      const porDia = data.por_dia;
+
+      // Módulos
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
       new Chart(document.getElementById("modulosChart"), {
         type: 'bar',
         data: {
@@ -49,6 +60,10 @@
         }
       });
 
+<<<<<<< HEAD
+=======
+      // Visitas por día
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
       new Chart(document.getElementById("visitasChart"), {
         type: 'line',
         data: {
@@ -62,6 +77,11 @@
         }
       });
     }
+<<<<<<< HEAD
+=======
+
+    cargarDatos();
+>>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
   </script>
 </body>
 </html>
