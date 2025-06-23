@@ -2,14 +2,13 @@ package api
 
 import (
 	"encoding/json"
-	"net/http"
-
-	"github.com/livrasand/ethicalmetrics/internal/db"
-
+	"log"
 	"math/rand"
+	"net/http"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/livrasand/ethicalmetrics/internal/db"
 )
 
 func NuevoHandler(w http.ResponseWriter, r *http.Request) {
@@ -50,16 +49,6 @@ type Event struct {
 	Duration  int    `json:"duracion_ms"`
 }
 
-type moduloStat struct {
-	Modulo string `json:"modulo"`
-	Total  int    `json:"total"`
-}
-
-type diaStat struct {
-	Dia   string `json:"dia"`
-	Total int    `json:"total"`
-}
-
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	var e Event
 	err := json.NewDecoder(r.Body).Decode(&e)
@@ -77,9 +66,14 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = db.DB.Exec(
-		"INSERT INTO events (event_type, module, site_id, duration_ms) VALUES (?, ?, ?, ?)",
-		e.EventType, e.Module, e.SiteID, e.Duration)
+	stmt, err := db.DB.Prepare(`INSERT INTO events (site_id, module, event, duration_ms, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`)
+	if err != nil {
+		http.Error(w, "DB Error", http.StatusInternalServerError)
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(e.SiteID, e.Module, e.EventType, e.Duration)
 	if err != nil {
 		http.Error(w, "DB Error", http.StatusInternalServerError)
 		return
@@ -88,25 +82,90 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
-	rows1, _ := db.DB.Query(`SELECT module, COUNT(*) FROM events GROUP BY module`)
-	var porModulo []moduloStat
-	for rows1.Next() {
-		var m moduloStat
-		rows1.Scan(&m.Modulo, &m.Total)
-		porModulo = append(porModulo, m)
+	siteID := r.URL.Query().Get("site")
+	token := r.URL.Query().Get("token")
+
+	log.Println("→ Recibida solicitud /stats")
+	log.Println("Site:", siteID)
+	log.Println("Token:", token)
+
+	if siteID == "" || token == "" {
+		http.Error(w, "Parámetros requeridos", http.StatusForbidden)
+		return
 	}
 
-	rows2, _ := db.DB.Query(`SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) FROM events GROUP BY 1`)
-	var porDia []diaStat
+	var count int
+	err := db.DB.QueryRow(
+		"SELECT COUNT(*) FROM sites WHERE id = ? AND admin_token = ?",
+		siteID, token).Scan(&count)
+
+	if err != nil {
+		log.Println("Error al consultar la DB:", err)
+		http.Error(w, "Error interno", http.StatusInternalServerError)
+		return
+	}
+
+	if count == 0 {
+		log.Println("🔒 Token inválido o no coincide")
+		http.Error(w, "Token inválido", http.StatusForbidden)
+		return
+	}
+
+	log.Println("✅ Token válido. Consultando datos...")
+
+	// Estadísticas por módulo (filtrando por site_id)
+	rows1, err := db.DB.Query(`SELECT module, COUNT(*) FROM events WHERE site_id = ? GROUP BY module`, siteID)
+	if err != nil {
+		log.Println("Error en consulta por módulo:", err)
+		http.Error(w, "Error interno", http.StatusInternalServerError)
+		return
+	}
+	defer rows1.Close()
+
+	var porModulo []map[string]interface{}
+	for rows1.Next() {
+		var modulo string
+		var total int
+		if err := rows1.Scan(&modulo, &total); err != nil {
+			log.Println("Error al escanear módulo:", err)
+			continue
+		}
+		porModulo = append(porModulo, map[string]interface{}{
+			"modulo": modulo,
+			"total":  total,
+		})
+	}
+
+	// Estadísticas por día (filtrando por site_id)
+	rows2, err := db.DB.Query(`SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) FROM events WHERE site_id = ? GROUP BY 1`, siteID)
+	if err != nil {
+		log.Println("Error en consulta por día:", err)
+		http.Error(w, "Error interno", http.StatusInternalServerError)
+		return
+	}
+	defer rows2.Close()
+
+	var porDia []map[string]interface{}
 	for rows2.Next() {
-		var d diaStat
-		rows2.Scan(&d.Dia, &d.Total)
-		porDia = append(porDia, d)
+		var dia string
+		var total int
+		if err := rows2.Scan(&dia, &total); err != nil {
+			log.Println("Error al escanear día:", err)
+			continue
+		}
+		porDia = append(porDia, map[string]interface{}{
+			"dia":   dia,
+			"total": total,
+		})
 	}
 
 	resp := map[string]interface{}{
 		"por_modulo": porModulo,
 		"por_dia":    porDia,
 	}
-	json.NewEncoder(w).Encode(resp)
+
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		log.Println("Error al codificar JSON:", err)
+		http.Error(w, "Error interno", http.StatusInternalServerError)
+	}
 }

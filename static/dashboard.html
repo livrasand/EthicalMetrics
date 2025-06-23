@@ -16,14 +16,27 @@
   <canvas id="visitasChart"></canvas>
 
   <script>
-    async function cargarDatos() {
-      const res = await fetch('/stats');
-      const data = await res.json();
+    const urlParams = new URLSearchParams(window.location.search);
+    const site = urlParams.get("site");
+    const token = urlParams.get("token");
 
+    if (!site || !token) {
+      document.body.innerHTML = "<h2>🔒 Acceso denegado</h2>";
+    } else {
+      cargarDatos(site, token);
+    }
+
+    async function cargarDatos(site, token) {
+      const res = await fetch(`/stats?site=${site}&token=${token}`);
+      if (!res.ok) {
+        document.body.innerHTML = "<h2>🔒 Acceso denegado o inválido</h2>";
+        return;
+      }
+
+      const data = await res.json();
       const porModulo = data.por_modulo;
       const porDia = data.por_dia;
 
-      // Módulos
       new Chart(document.getElementById("modulosChart"), {
         type: 'bar',
         data: {
@@ -36,7 +49,6 @@
         }
       });
 
-      // Visitas por día
       new Chart(document.getElementById("visitasChart"), {
         type: 'line',
         data: {
@@ -50,8 +62,6 @@
         }
       });
     }
-
-    cargarDatos();
   </script>
 </body>
 </html>

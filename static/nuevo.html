@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear nueva cuenta | EthicalMetrics</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    .box { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 2rem; }
+    code { background: #e7e7e7; padding: 0.2rem 0.4rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>🆕 Crear cuenta en EthicalMetrics</h1>
+  <p>Presiona el botón para generar tu cuenta privada. Se te asignará un <strong>ID de sitio</strong> y un <strong>token de administrador</strong>.</p>
+  <button onclick="crearCuenta()">Crear mi cuenta</button>
+
+  <div class="box" id="resultado" style="display:none;">
+    <h2>🎉 ¡Tu cuenta está lista!</h2>
+    <p><strong>Tu ID de sitio:</strong><br><code id="site"></code></p>
+    <p><strong>Tu token de admin:</strong><br><code id="token"></code></p>
+    <p><strong>Script para tu sitio web:</strong></p>
+    <code id="script"></code>
+    <p><a id="linkDashboard" target="_blank">👉 Ir a mi Dashboard</a></p>
+  </div>
+
+  <script>
+    async function crearCuenta() {
+      const res = await fetch("/nuevo");
+      const data = await res.json();
+
+      document.getElementById("site").textContent = data.site_id;
+      document.getElementById("token").textContent = data.admin_token;
+      document.getElementById("script").textContent = data.instruccion;
+      document.getElementById("linkDashboard").href = `/dashboard.html?site=${data.site_id}&token=${data.admin_token}`;
+
+      document.getElementById("resultado").style.display = "block";
+    }
+  </script>
+</body>
+</html>
