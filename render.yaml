@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ethicalmetrics
+    env: go
+    plan: free
+    autoDeploy: true
+    buildCommand: go build -o server ./cmd/server
+    startCommand: ./server
+    envVars:
+      - key: DB_KEY
+        value: U2VjdXJlQDEyMzQ1Njc4OUAhQCMkJV4mKigpKys=
