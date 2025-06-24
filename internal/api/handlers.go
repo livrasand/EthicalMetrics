@@ -67,11 +67,23 @@ type diaStat struct {
 }
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
-	var e Event
-	body, _ := io.ReadAll(r.Body)
-	err := json.Unmarshal(body, &e)
+	// Asegura que sea POST
+	if r.Method != http.MethodPost {
+		http.Error(w, "Método no permitido", http.StatusMethodNotAllowed)
+		return
+	}
 
-	if err != nil || e.EventType == "" {
+	// Leer todo el cuerpo
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Error leyendo body", http.StatusBadRequest)
+		return
+	}
+
+	var e Event
+	// Decodificar manualmente el JSON
+	err = json.Unmarshal(body, &e)
+	if err != nil || e.EventType == "" || e.SiteID == "" {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
@@ -92,6 +104,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "DB Error", http.StatusInternalServerError)
 		return
 	}
+
 	w.WriteHeader(http.StatusCreated)
 }
 
