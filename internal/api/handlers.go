@@ -2,6 +2,9 @@ package api
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7d3a12a (Actualizar README.md con descripción y características de EthicalMetrics; mejorar la seguridad en handlers.go con validaciones y generación de tokens seguros; ajustar la configuración de render.yaml para usar una clave de base de datos segura.)
 	crand "crypto/rand"
 	"encoding/base64"
 	"encoding/json"
