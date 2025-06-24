@@ -16,6 +16,19 @@ func Init() error {
 		return fmt.Errorf("DB_KEY no definida")
 	}
 
+	// Si el archivo existe y no está cifrado, lanzar error para evitar sobrescribirlo sin cifrado
+	if _, err := os.Stat("metrics.db"); err == nil {
+		// Intentar abrir con clave, si falla, advertir y salir
+		tmpDB, err := sql.Open("sqlite3", fmt.Sprintf("file:metrics.db?_pragma_key=%s", key))
+		if err == nil {
+			defer tmpDB.Close()
+			_, err = tmpDB.Exec("SELECT count(*) FROM sqlite_master;")
+			if err != nil {
+				return fmt.Errorf("el archivo metrics.db ya existe y no está cifrado con SQLCipher, elimínalo manualmente para continuar")
+			}
+		}
+	}
+
 	var err error
 	DB, err = sql.Open("sqlite3", fmt.Sprintf("file:metrics.db?_pragma_key=%s&_pragma_cipher_page_size=4096", key))
 	if err != nil {
@@ -51,6 +64,7 @@ func createTable() error {
 	_, err := DB.Exec(query)
 	return err
 }
+<<<<<<< HEAD
 =======
 		duration_ms INTEGER,
 		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -60,3 +74,5 @@ func createTable() error {
 	return err
 }
 >>>>>>> 97bd8ba (Agregar implementación inicial de EthicalMetrics con soporte para SQLCipher y manejo de eventos)
+=======
+>>>>>>> d5c0bdb (Agregar archivo .gitignore para excluir metrics.db; mejorar la inicialización de la base de datos con validaciones de cifrado; actualizar el script de seguimiento para incluir site_id; añadir script en nuevo.html para la creación de cuentas.)

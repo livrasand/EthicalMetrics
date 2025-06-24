@@ -29,7 +29,20 @@
 <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js"
         defer data-site-id="YOUR_SITE_ID">
 </script>
-````
+```
+
+¡Listo! Con eso, se registra automáticamente un evento "visita".
+
+Opción con módulo personalizado:
+
+```html
+<body data-modulo="home">
+  ...
+  <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js" defer></script>
+</body>
+```
+
+Así el evento "visita" se atribuye automáticamente al módulo home.
 
 4. Access the dashboard at:
 
