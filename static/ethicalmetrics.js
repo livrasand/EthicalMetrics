@@ -2,12 +2,28 @@
   if (navigator.doNotTrack === "1") return;
 
   const API_URL = "/track";
-  const MODULE = document.body?.dataset?.modulo || "inicio";
   const LOAD_TIME = Math.round(performance.now());
 
-  // Obtener el site_id del atributo data-site-id del script
-  const SCRIPT = document.currentScript || document.querySelector('script[data-site-id]');
-  const SITE_ID = SCRIPT?.getAttribute('data-site-id');
+  const SCRIPT = document.currentScript || document.querySelector('script[src*="ethicalmetrics.js"]');
+  const URL_PARAMS = new URL(SCRIPT?.src || "").searchParams;
+  let SITE_ID = URL_PARAMS.get("id") || SCRIPT?.getAttribute("data-site-id");
+
+  const MODULE = document.body?.dataset?.modulo || "inicio";
+
+  if (!SITE_ID) {
+    console.warn("[EthicalMetrics] No se proporcionó site_id.");
+    return;
+  }
+
+  // Manejo de cola tipo GA
+  window.ethicalData = window.ethicalData || [];
+  const queue = window.ethicalData;
+
+  window.ethicalData = {
+    push: handleCommand
+  };
+
+  queue.forEach(handleCommand);
 
   // Evento automático de visita
   send({
@@ -17,12 +33,34 @@
     site_id: SITE_ID
   });
 
-  // Exponer función global
+  // Función global alternativa
   window.ethical = {
     track: send
   };
 
-  // Función para enviar cualquier evento personalizado
+  function handleCommand(args) {
+    if (!Array.isArray(args)) return;
+
+    const [command, payload] = args;
+
+    if (command === "init") {
+      // Se ignora por ahora, se puede usar en el futuro
+    }
+
+    else if (command === "config" && typeof payload === "string") {
+      SITE_ID = payload;
+    }
+
+    else if (command === "event" && typeof payload === "object") {
+      send(Object.assign({
+        evento: "personalizado",
+        modulo: MODULE,
+        duracion_ms: 0,
+        site_id: SITE_ID
+      }, payload));
+    }
+  }
+
   function send(data) {
     try {
       if (navigator.doNotTrack === "1") return;

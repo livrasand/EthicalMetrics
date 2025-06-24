@@ -3,12 +3,10 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-
+	"io"
 	"github.com/livrasand/ethicalmetrics/internal/db"
-
 	"math/rand"
 	"time"
-
 	"github.com/google/uuid"
 )
 
@@ -28,7 +26,15 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]string{
 		"site_id":     siteID,
 		"admin_token": adminToken,
-		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js" defer data-site-id="` + siteID + `"></script>`,
+		"instruccion": `<!-- EthicalMetrics --> 
+		<script async src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>
+		<script>
+		window.ethicalData = window.ethicalData || [];
+		function em(){ ethicalData.push(arguments); }
+		em('init', new Date());
+		em('config', '` + siteID + `');
+		</script>`,
+
 	}
 	json.NewEncoder(w).Encode(resp)
 }
@@ -62,7 +68,9 @@ type diaStat struct {
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	var e Event
-	err := json.NewDecoder(r.Body).Decode(&e)
+	body, _ := io.ReadAll(r.Body)
+	err := json.Unmarshal(body, &e)
+
 	if err != nil || e.EventType == "" {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return

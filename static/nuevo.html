@@ -56,7 +56,8 @@ body {
   padding: 0 1rem;
   color: var(--text-strong);
   background-color: var(--page-primary);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -182,6 +183,8 @@ body {
       top: 0;
       left: 0;
       width: 100vw;
+      padding-top: 60px; 
+      padding-bottom: 50px; 
       display: flex;
       justify-content: center;
     }
@@ -208,6 +211,19 @@ body {
       background: linear-gradient(to top,
           rgba(20, 20, 20, 1),
           rgba(20, 20, 20, 0));
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .fade-overlay-back {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 10vh;
+      background: linear-gradient(to bottom,
+          rgba(20, 20, 20, 0),
+          rgba(20, 20, 20, 1));
       pointer-events: none;
       z-index: 100;
     }
@@ -240,9 +256,17 @@ body {
       width: 80%;
       max-width: 100px;
       color: #f0f0f0;
+      font-weight: 600;
       text-decoration: none;
-      font-size: clamp(0.25rem, 3.5vw, 1.5rem);
+      font-size: clamp(0.25rem, 3.5vw, 2rem);
+      transition: color 0.3s ease;
     }
+
+.logo-thin {
+  font-weight: 200;
+  opacity: 0.8;
+}
+
 
 .quote {
       display: flex;
@@ -339,15 +363,204 @@ body {
       line-height: 1.4;
       text-wrap: auto;
     }
+
+    .footer-flotante {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-contenido {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-texto {
+      font-family: "Neue Montreal Mono";
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+    
+    .footer-enlaces {
+      display: flex;
+      gap: 1.25rem;
+    }
+    
+    .footer-link {
+      font-family: "Neue Montreal Mono";
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+    
+    .footer-link:hover {
+      color: #D1B8FF;
+    }
+    
+    @media (max-width: 768px) {
+      .footer-contenido {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+      
+      .footer-enlaces {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-flotante {
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    .nav-flotante {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background: rgba(20, 20, 20, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 2000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .nav-contenido {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .nav-logo {
+      font-family: "Roobert", sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #E7DBFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-logo:hover {
+      color: #E7DBFF;
+    }
+    
+    .nav-logo-icon {
+      width: 20px;
+      height: 20px;
+      color: #D1B8FF;
+    }
+    
+    .nav-enlaces {
+      display: flex;
+      gap: 1.75rem;
+    }
+    
+    .nav-link {
+      font-family: "Neue Montreal Mono";
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      position: relative;
+      padding: 0.25rem 0;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: #D1B8FF;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, #D1B8FF, transparent);
+      transition: width 0.4s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-flotante::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to bottom, 
+        rgba(209, 184, 255, 0.1), 
+        transparent);
+      pointer-events: none;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-flotante {
+        padding: 0.65rem 1rem;
+      }
+      
+      .nav-enlaces {
+        gap: 1rem;
+      }
+      
+      .nav-link {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
+  <nav class="nav-flotante">
+    <div class="nav-contenido">
+      <a href="/" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 12L12 17L21 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 17L12 22L21 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        EthicalMetrics
+      </a>
+      
+      <div class="nav-enlaces">
+        <a href="/features" class="nav-link type-mono-01">Features</a>
+        <a href="/pricing" class="nav-link type-mono-01">Pricing</a>
+        <a href="/docs" class="nav-link type-mono-01">Docs</a>
+        <a href="/nuevo.html" class="nav-link type-mono-01">Create account</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="grid-wrapper">
     <div class="grid-container hidden"></div>
 
     <div class="logo-container hidden">
-      <a href="" class="logo">Render</a>
-
       <div class="type-heading-05 text-secondary quote">
         <p>Crear cuenta en EthicalMetrics</p>
         <p class="type-interface-00">Presiona el botón para generar tu cuenta privada.<br>Se te asignará un ID de sitio y un token de administrador.</p>
@@ -373,7 +586,6 @@ body {
     </div>
 
   </div>
-  <div class="fade-overlay"></div>
 
   
   <script>
@@ -730,5 +942,16 @@ body {
     }
   </script>
   
+  <footer class="footer-flotante">
+    <div class="footer-contenido">
+      <span class="footer-texto type-mono-01">© 2025-PRESENT EthicalMetrics OSS</span>
+      <div class="footer-enlaces">
+        <a href="/privacy" class="footer-link type-mono-01">Privacidad</a>
+        <a href="/terms" class="footer-link type-mono-01">Términos</a>
+        <a href="/docs" class="footer-link type-mono-01">Documentación</a>
+        <a href="" class="footer-link type-mono-01">Soporte</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
