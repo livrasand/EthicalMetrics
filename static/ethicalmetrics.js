@@ -1,7 +1,7 @@
 (function () {
   if (navigator.doNotTrack === "1") return;
 
-  const API_URL = "/track";
+  const API_URL = "https://ethicalmetrics.onrender.com/track";
   const LOAD_TIME = Math.round(performance.now());
 
   const SCRIPT = document.currentScript || document.querySelector('script[src*="ethicalmetrics.js"]');
