@@ -8,4 +8,4 @@ services:
     startCommand: ./server
     envVars:
       - key: DB_KEY
-        value: U2VjdXJlQDEyMzQ1Njc4OUAhQCMkJV4mKigpKys=
+        value: secure_db_key

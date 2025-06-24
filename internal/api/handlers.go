@@ -1,11 +1,12 @@
 package api
 
 import (
+	crand "crypto/rand"
+	"encoding/base64"
 	"encoding/json"
 	"log"
-	"math/rand"
 	"net/http"
-	"time"
+	"os"
 
 	"github.com/google/uuid"
 	"github.com/livrasand/ethicalmetrics/internal/db"
@@ -33,13 +34,12 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func generarToken() string {
-	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	b := make([]byte, 24)
-	rand.Seed(time.Now().UnixNano())
-	for i := range b {
-		b[i] = charset[rand.Intn(len(charset))]
+	_, err := crand.Read(b)
+	if err != nil {
+		panic(err)
 	}
-	return string(b)
+	return base64.URLEncoding.EncodeToString(b)
 }
 
 type Event struct {
@@ -50,10 +50,25 @@ type Event struct {
 }
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
+	// Limita el tamaño del cuerpo a 1KB para evitar abusos
+	r.Body = http.MaxBytesReader(w, r.Body, 1024)
+
 	var e Event
 	err := json.NewDecoder(r.Body).Decode(&e)
-	if err != nil || e.EventType == "" {
+	if err != nil || e.EventType == "" || e.SiteID == "" || len(e.EventType) > 32 || len(e.Module) > 32 {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+
+	// Validación adicional: duración no negativa y razonable
+	if e.Duration < 0 || e.Duration > 3600000 {
+		http.Error(w, "Duración inválida", http.StatusBadRequest)
+		return
+	}
+
+	// Validación de formato UUID para SiteID
+	if _, err := uuid.Parse(e.SiteID); err != nil {
+		http.Error(w, "Site ID inválido", http.StatusBadRequest)
 		return
 	}
 
@@ -85,9 +100,12 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	siteID := r.URL.Query().Get("site")
 	token := r.URL.Query().Get("token")
 
-	log.Println("→ Recibida solicitud /stats")
-	log.Println("Site:", siteID)
-	log.Println("Token:", token)
+	// Evita loguear tokens en producción
+	if ginMode := os.Getenv("GIN_MODE"); ginMode != "release" {
+		log.Println("→ Recibida solicitud /stats")
+		log.Println("Site:", siteID)
+		log.Println("Token:", token)
+	}
 
 	if siteID == "" || token == "" {
 		http.Error(w, "Parámetros requeridos", http.StatusForbidden)
