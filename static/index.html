@@ -2,12 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>EthicalMetrics - Privacy-First Analytics</title>
+  <title>Crear nueva cuenta | EthicalMetrics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/nuevo.css">
 </head>
 <body>
-  <!-- Navbar -->
   <nav class="nav-flotante">
     <div class="nav-contenido">
       <a href="/" class="nav-logo">
@@ -22,134 +21,52 @@
       <div class="nav-enlaces">
         <a href="/features" class="nav-link type-mono-01">Features</a>
         <a href="/pricing" class="nav-link type-mono-01">Pricing</a>
-        <a href="/docs" class="nav-link type-mono-01">Docs</a>
-        <a href="/nuevo.html" class="nav-link type-mono-01 active">Create account</a>
+        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="nav-link type-mono-01">Docs</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section con efecto glass y gradiente -->
-<section class="hero">
-  <div class="hero-gradient"></div>
-  <div class="hero-content glass-card">
-    <h1 class="hero-title" itemprop="headline">Analytics That <span class="text-gradient">Respect Privacy</span></h1>
-    <p class="hero-subtitle" itemprop="description">EthicalMetrics is the privacy-first alternative to Google Analytics. Get essential web insights without tracking or cookies. GDPR-compliant by design.</p>
-    <div class="hero-cta">
-      <a href="/nuevo.html" class="btn btn-glow" itemprop="url">
-        <span>Get Started Free</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a href="#how-it-works" class="btn btn-outline" aria-label="Learn how EthicalMetrics works">
-        <span>How It Works</span>
-        <div class="btn-hover-effect"></div>
-      </a>
-    </div>
-  </div>
-  <div class="hero-scroll-indicator" aria-hidden="true">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-</section>
+  <div class="grid-wrapper">
+    <div class="grid-container hidden"></div>
 
-<!-- Features Section con grid mejorado -->
-<section class="section" id="features" itemscope itemtype="https://schema.org/Product">
-  <div class="section-header">
-    <h2 class="section-title" itemprop="name">The <span class="text-accent">Ethical</span> Alternative</h2>
-    <p class="section-subtitle" itemprop="description">Why privacy-conscious businesses choose EthicalMetrics over traditional analytics</p>
-  </div>
-  
-  <div class="features-grid">
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
+    <div class="logo-container hidden">
+      <div class="type-heading-05 text-secondary quote">
+        <p>Crear cuenta en EthicalMetrics</p>
+        <p class="type-interface-00">Presiona el botón para generar tu cuenta privada.<br>Se te asignará un ID de sitio y un token de administrador.</p>
+              
+        <a id="btnCrear" onclick="crearCuenta()"
+          class="link link-text--highlight type-interface-00">
+          Crear mi cuenta <div class="link-icon"><svg fill="currentColor" width="12" height="12"
+              viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 3L8.285 3.6965L12.075 7.5H2V8.5H12.075L8.285 12.2865L9 13L14 8L9 3Z" />
+            </svg></div></a>
+
+        <div class="result-box type-interface-00 text-secondary quote" id="resultado" style="display: none;">
+        <div class="type-interface-00"><span>ID de sitio:</span><br><code id="site"></code></div>
+        <div class="type-interface-00"><span>Token de admin:</span><br><code id="token"></code></div>
+        <div class="type-interface-00"><span>Script para tu web:</span><br><code id="script"></code></div>
+        <div style="margin-top:1em;"><a class="link link-text--highlight type-interface-00" id="linkDashboard" target="_blank">Ir a mi Dashboard <div class="link-icon"><svg fill="currentColor" width="12" height="12"
+              viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 3L8.285 3.6965L12.075 7.5H2V8.5H12.075L8.285 12.2865L9 13L14 8L9 3Z" />
+            </svg></div></a></div>
+        </div>
+
       </div>
-      <h3 class="feature-title" itemprop="name">No Personal Data</h3>
-      <p class="feature-desc" itemprop="description">Unlike Google Analytics, we never collect IPs, fingerprints, or any identifiable information.</p>
     </div>
 
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16 8H15C14.4696 8 13.9609 8.21071 13.5858 8.58579C13.2107 8.96086 13 9.46957 13 10V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M8 16H9C9.53043 16 10.0391 15.7893 10.4142 15.4142C10.7893 15.0391 11 14.5304 11 14V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
-      </div>
-      <h3 class="feature-title" itemprop="name">No Third-Parties</h3>
-      <p class="feature-desc" itemprop="description">Your data never leaves your infrastructure. No external servers or CDNs involved.</p>
-    </div>
-
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
-      </div>
-      <h3 class="feature-title" itemprop="name">AES-256 Encryption</h3>
-      <p class="feature-desc" itemprop="description">All data encrypted at rest. Military-grade security for your analytics.</p>
-    </div>
-
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
-      </div>
-      <h3 class="feature-title" itemprop="name">Essential Metrics</h3>
-      <p class="feature-desc" itemprop="description">Only what matters: visits, engagement, performance. No data bloat.</p>
-    </div>
-
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
-      </div>
-      <h3 class="feature-title" itemprop="name">2KB Tracker</h3>
-      <p class="feature-desc" itemprop="description">Ultra-light vanilla JS. Faster than Google Analytics (gtag.js is 45KB).</p>
-    </div>
-
-    <div class="feature-card glass-card" itemprop="feature" itemscope itemtype="https://schema.org/PropertyValue">
-      <div class="feature-icon-container">
-        <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 16V12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="feature-icon-glow"></div>
-      </div>
-      <h3 class="feature-title" itemprop="name">Self-Hosted</h3>
-      <p class="feature-desc" itemprop="description">Full control. Deploy on your infrastructure - VPS, Docker, or localhost.</p>
-    </div>
-  </div>
-</section>
-
-<!-- How It Works con animaciones -->
-<section class="section dark-section" id="how-it-works">
-  <div class="section-header">
-    <h2 class="section-title">How <span class="text-accent">EthicalMetrics</span> Works</h2>
-    <p class="section-subtitle">Get started in 3 simple steps. No credit card required.</p>
-  </div>
-
+    <div class="info-container">
+      <div class="type-heading-05 text-secondary quote">
+        <p>How EthicalMetrics Works</p>
+        <p class="type-interface-00">Get started in 3 simple steps. No credit card required.</p>
+              
   <div class="steps-container">
     <div class="step" itemscope itemtype="https://schema.org/HowToStep">
       <div class="step-number" itemprop="position">1</div>
       <div class="step-content">
-        <h3 class="step-title" itemprop="name">Create Your Account</h3>
-        <p class="step-desc" itemprop="text">Register at <a href="/nuevo.html" class="text-accent">/nuevo.html</a> to get your unique <code>site_id</code> and <code>admin_token</code>.</p>
+        <h3 class="step-title" itemprop="name">Create your account</h3>
+        <p class="step-desc" itemprop="text">Regístrate fácil y rápido, sin correos, sin contraseñas y sin KYC.</p>
         <div class="step-illustration">
           <div class="illustration-card glass-card">
-            <div class="illustration-badge">POST /nuevo</div>
             <div class="illustration-response">
               <pre>{
   "site_id": "EM_ABC123",
@@ -164,18 +81,16 @@
     <div class="step" itemscope itemtype="https://schema.org/HowToStep">
       <div class="step-number" itemprop="position">2</div>
       <div class="step-content">
-        <h3 class="step-title" itemprop="name">Add Tracking Script</h3>
+        <h3 class="step-title" itemprop="name">Add EM Script</h3>
         <p class="step-desc" itemprop="text">Include our lightweight script in your website's &lt;head&gt;:</p>
         
         <div class="code-tabs glass-card">
           <div class="code-tab-header">
-            <button class="code-tab-btn active">Basic Implementation</button>
+            <button class="code-tab-btn active">Basic Tracking</button>
             <button class="code-tab-btn">Module Tracking</button>
           </div>
           <div class="code-tab-content active">
-            <pre><code class="language-html">&lt;script src="https://ethicalmetrics.io/em.js" 
-        defer 
-        data-site-id="YOUR_SITE_ID"&gt;
+            <pre><code class="language-html">&lt;script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"&gt;
 &lt;/script&gt;</code></pre>
             <button class="copy-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,8 +102,9 @@
           </div>
           <div class="code-tab-content">
             <pre><code class="language-html">&lt;body data-modulo="home"&gt;
-  &lt;!-- Your content --&gt;
-  &lt;script src="https://ethicalmetrics.io/em.js" defer&gt;&lt;/script&gt;
+  ...
+  &lt;script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"&gt;
+&lt;/script&gt;
 &lt;/body&gt;</code></pre>
             <button class="copy-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,13 +121,13 @@
     <div class="step" itemscope itemtype="https://schema.org/HowToStep">
       <div class="step-number" itemprop="position">3</div>
       <div class="step-content">
-        <h3 class="step-title" itemprop="name">View Your Dashboard</h3>
+        <h3 class="step-title" itemprop="name">View your analytics</h3>
         <p class="step-desc" itemprop="text">Access your private analytics dashboard with your credentials:</p>
         
         <div class="dashboard-preview glass-card">
           <div class="dashboard-preview-header">
             <div class="dashboard-url">
-              <span>https://ethicalmetrics.io/dashboard</span>
+              <span>https://ethicalmetrics.onrender.com/dashboard</span>
               <span class="query-params">?site=YOUR_SITE_ID&token=YOUR_ADMIN_TOKEN</span>
             </div>
           </div>
@@ -238,45 +154,31 @@
       </div>
     </div>
   </div>
-</section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div>
-         <a href="/" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 12L12 17L21 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 17L12 22L21 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        EthicalMetrics
-      </a>
-        <p class="footer-desc type-body-01">Privacy-first analytics for the ethical web.</p>
-      </div>
-      <div>
-        <div class="footer-links">
-          <a href="/privacy" class="footer-link type-mono-01">Privacidad</a>
-        <a href="/terms" class="footer-link type-mono-01">Términos</a>
-        <a href="/docs" class="footer-link type-mono-01">Documentación</a>
-        <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01">Soporte</a>
-          <a href="/nuevo.html" class="footer-link type-body-01">Get Started</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-links">
-          <a href="https://github.com/livrasand/EthicalMetrics" class="footer-link type-body-01">GitHub</a>
-          <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-body-01">Issues</a>
-        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>Created by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> · © 2025-PRESENT EthicalMetrics OSS</p>
+
+  </div>
+
+  <img id="block-a" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%2085H100V90H0z%22%20fill%3D%22%2359FFA4%22%2F%3E%3C%2Fsvg%3E" alt="Block A" />
+  <img id="block-b" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block B" />
+  <img id="block-c" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2063h90v4.5H0z%22%20fill%3D%22%23F347FF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22neon-pink%22%3E%3CfeGaussianBlur%20stdDeviation%3D%222%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22atop%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block C" />
+  <img id="block-d" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block D" />
+  <img id="block-e" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block E" />
+  <img id="block-f" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block F" />
+  
+  <footer class="footer-flotante">
+    <div class="footer-contenido">
+      <span class="footer-texto type-mono-01">Created by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> · © 2025-PRESENT EthicalMetrics OSS</span>
+      <div class="footer-enlaces">
+        <a href="/privacy" class="footer-link type-mono-01">Privacy</a>
+        <a href="/terms" class="footer-link type-mono-01">Terms</a>
+        <a href="/security" class="footer-link type-mono-01">Security</a>
+        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01">Docs</a>
+        <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01">Soporte</a>
+      </div>
     </div>
   </footer>
-
-  
-<script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/index.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/global-design.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/nuevo.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/global-design.js" defer></script>
 </body>
 </html>
