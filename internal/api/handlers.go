@@ -26,14 +26,7 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]string{
 		"site_id":     siteID,
 		"admin_token": adminToken,
-		"instruccion": `<!-- EthicalMetrics --> 
-		<script async src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>
-		<script>
-		window.ethicalData = window.ethicalData || [];
-		function em(){ ethicalData.push(arguments); }
-		em('init', new Date());
-		em('config', '` + siteID + `');
-		</script>`,
+		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js" defer data-site-id="` + siteID + `"></script>`,
 
 	}
 	json.NewEncoder(w).Encode(resp)
@@ -67,13 +60,11 @@ type diaStat struct {
 }
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
-	// Asegura que sea POST
 	if r.Method != http.MethodPost {
 		http.Error(w, "Método no permitido", http.StatusMethodNotAllowed)
 		return
 	}
 
-	// Leer todo el cuerpo
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Error leyendo body", http.StatusBadRequest)
@@ -81,10 +72,15 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var e Event
-	// Decodificar manualmente el JSON
 	err = json.Unmarshal(body, &e)
-	if err != nil || e.EventType == "" || e.SiteID == "" {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+	if err != nil {
+		// Mostrar qué llegó realmente
+		http.Error(w, "JSON inválido: "+err.Error()+" || Body: "+string(body), http.StatusBadRequest)
+		return
+	}
+
+	if e.EventType == "" || e.SiteID == "" {
+		http.Error(w, "Campos obligatorios faltantes", http.StatusBadRequest)
 		return
 	}
 
@@ -101,7 +97,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		"INSERT INTO events (event_type, module, site_id, duration_ms) VALUES (?, ?, ?, ?)",
 		e.EventType, e.Module, e.SiteID, e.Duration)
 	if err != nil {
-		http.Error(w, "DB Error", http.StatusInternalServerError)
+		http.Error(w, "Error al guardar evento", http.StatusInternalServerError)
 		return
 	}
 
@@ -109,7 +105,28 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
-	rows1, _ := db.DB.Query(`SELECT module, COUNT(*) FROM events GROUP BY module`)
+	siteID := r.URL.Query().Get("site")
+	token := r.URL.Query().Get("token")
+
+	if siteID == "" || token == "" {
+		http.Error(w, "Faltan parámetros", http.StatusBadRequest)
+		return
+	}
+
+	// Verificar token válido para ese site
+	row := db.DB.QueryRow("SELECT COUNT(*) FROM sites WHERE id = ? AND admin_token = ?", siteID, token)
+	var count int
+	row.Scan(&count)
+	if count == 0 {
+		http.Error(w, "Token inválido", http.StatusForbidden)
+		return
+	}
+
+	rows1, _ := db.DB.Query(`
+		SELECT module, COUNT(*) 
+		FROM events 
+		WHERE site_id = ? 
+		GROUP BY module`, siteID)
 	var porModulo []moduloStat
 	for rows1.Next() {
 		var m moduloStat
@@ -117,7 +134,11 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		porModulo = append(porModulo, m)
 	}
 
-	rows2, _ := db.DB.Query(`SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) FROM events GROUP BY 1`)
+	rows2, _ := db.DB.Query(`
+		SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) 
+		FROM events 
+		WHERE site_id = ? 
+		GROUP BY 1`, siteID)
 	var porDia []diaStat
 	for rows2.Next() {
 		var d diaStat
