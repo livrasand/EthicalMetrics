@@ -16,6 +16,22 @@
 
     const MODULE = document.body?.dataset?.modulo || "visita";
 
+    // --- NUEVO: detectar info extra ---
+    const NAVIGATOR = navigator.userAgent;
+    const REFERRER = document.referrer || "directo";
+    const PAGE = location.pathname;
+    // Detección simple de dispositivo
+    let DEVICE = "desktop";
+    if (/Mobi|Android/i.test(NAVIGATOR)) DEVICE = "mobile";
+    else if (/Tablet|iPad/i.test(NAVIGATOR)) DEVICE = "tablet";
+    // Navegador simplificado
+    let BROWSER = "Otro";
+    if (/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Chrome";
+    else if (/firefox|fxios/i.test(NAVIGATOR)) BROWSER = "Firefox";
+    else if (/safari/i.test(NAVIGATOR) && !/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Safari";
+    else if (/edg/i.test(NAVIGATOR)) BROWSER = "Edge";
+    else if (/opera|opr/i.test(NAVIGATOR)) BROWSER = "Opera";
+
     if (!SITE_ID) {
       console.warn("[EthicalMetrics] No se proporcionó site_id.");
       return;
@@ -38,7 +54,11 @@
       evento: "visita",
       modulo: MODULE,
       duracion_ms: LOAD_TIME,
-      site_id: SITE_ID
+      site_id: SITE_ID,
+      browser: BROWSER,
+      referer: REFERRER,
+      page: PAGE,
+      device: DEVICE
     });
 
     // Función global alternativa
@@ -64,7 +84,11 @@
           evento: "personalizado",
           modulo: MODULE,
           duracion_ms: 0,
-          site_id: SITE_ID
+          site_id: SITE_ID,
+          browser: BROWSER,
+          referer: REFERRER,
+          page: PAGE,
+          device: DEVICE
         }, payload));
       }
     }

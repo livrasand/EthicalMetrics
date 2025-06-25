@@ -5,8 +5,12 @@
   <title>Dashboard | EthicalMetrics</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/dashboard.css">
+  <style>
+    .chart-title {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
   <nav class="nav-flotante">
@@ -24,7 +28,7 @@
     </div>
   </nav>
 
-  <main class="main-container" id="dashboardContent">
+  <main class="main-container type-heading-05 text-secondary quote" id="dashboardContent">
     <div class="dashboard-header">
       <div class="dashboard-title">
         <svg class="dashboard-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,6 +42,7 @@
     </div>
 
     <div class="chart-grid">
+      <!-- Uso por módulo -->
       <div class="chart-card">
         <div class="chart-header">
           <h2 class="chart-title">Uso por módulo</h2>
@@ -47,12 +52,85 @@
         </div>
       </div>
 
+      <!-- Visitas por día -->
       <div class="chart-card">
         <div class="chart-header">
           <h2 class="chart-title">Visitas por día</h2>
         </div>
         <div class="chart-container">
           <canvas id="visitasChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Usuarios activos en tiempo real -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Usuarios activos ahora</h2>
+        </div>
+        <div class="chart-container">
+          <div id="usuariosActivos" class="stat-value">0</div>
+          <div class="stat-label">En este momento</div>
+        </div>
+      </div>
+
+      <!-- Dispositivos -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Dispositivos</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="dispositivosChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Países/Lugares de visita -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Países</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="paisesChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Navegadores -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Navegadores</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="navegadoresChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Referencias -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Referencias</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="referenciasChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Páginas más vistas -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Páginas más vistas</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="paginasChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Duración media de sesión -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Duración media de sesión</h2>
+        </div>
+        <div class="chart-container">
+          <div id="duracionMedia" class="stat-value">0s</div>
+          <div class="stat-label">Promedio</div>
         </div>
       </div>
     </div>
@@ -70,7 +148,7 @@
     </div>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/dashboard.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@main/global-design.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.2.0/dashboard.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.2.0/global-design.js" defer></script>
 </body>
 </html>

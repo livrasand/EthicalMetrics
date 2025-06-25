@@ -19,6 +19,9 @@ func main() {
 		log.Fatalf("Error al iniciar la BD: %v", err)
 	}
 
+	http.HandleFunc("/pricing", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/pricing.html")
+	})
 	http.HandleFunc("/nuevo", api.NuevoHandler)
 	http.HandleFunc("/stats", api.StatsHandler)
 	http.HandleFunc("/track", api.TrackHandler)

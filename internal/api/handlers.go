@@ -2,12 +2,13 @@ package api
 
 import (
 	"encoding/json"
-	"net/http"
 	"io"
-	"github.com/livrasand/ethicalmetrics/internal/db"
 	"math/rand"
+	"net/http"
 	"time"
+
 	"github.com/google/uuid"
+	"github.com/livrasand/ethicalmetrics/internal/db"
 )
 
 func NuevoHandler(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +33,6 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(resp)
 }
-
 
 func generarToken() string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -129,21 +129,46 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 
 	modCount := map[string]int{}
 	dayCount := map[string]int{}
+	browserCount := map[string]int{}
+	refererCount := map[string]int{}
+	pageCount := map[string]int{}
+	totalDuration := 0
+	sessionCount := 0
 
 	for _, raw := range eventsRaw {
 		var evt map[string]interface{}
 		json.Unmarshal([]byte(raw), &evt)
 
-		mod := evt["module"].(string)
-		ts := evt["timestamp"].(string)
+		mod, _ := evt["module"].(string)
+		ts, _ := evt["timestamp"].(string)
 
 		// agrupar por módulo
-		modCount[mod]++
+		if mod != "" {
+			modCount[mod]++
+		}
 
 		// agrupar por día
 		t, _ := time.Parse(time.RFC3339, ts)
 		day := t.Format("2006-01-02")
 		dayCount[day]++
+
+		// agrupar por navegador
+		if browser, ok := evt["browser"].(string); ok && browser != "" {
+			browserCount[browser]++
+		}
+		// agrupar por referencia
+		if referer, ok := evt["referer"].(string); ok && referer != "" {
+			refererCount[referer]++
+		}
+		// agrupar por página
+		if page, ok := evt["page"].(string); ok && page != "" {
+			pageCount[page]++
+		}
+		// calcular duración media de sesión
+		if dur, ok := evt["duration_ms"].(float64); ok && dur > 0 {
+			totalDuration += int(dur)
+			sessionCount++
+		}
 	}
 
 	var porModulo []moduloStat
@@ -156,9 +181,34 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		porDia = append(porDia, diaStat{Dia: d, Total: total})
 	}
 
+	// Navegadores
+	var navegadores []map[string]interface{}
+	for b, total := range browserCount {
+		navegadores = append(navegadores, map[string]interface{}{"navegador": b, "total": total})
+	}
+	// Referencias
+	var referencias []map[string]interface{}
+	for r, total := range refererCount {
+		referencias = append(referencias, map[string]interface{}{"referencia": r, "total": total})
+	}
+	// Páginas
+	var paginas []map[string]interface{}
+	for p, total := range pageCount {
+		paginas = append(paginas, map[string]interface{}{"pagina": p, "total": total})
+	}
+	// Duración media de sesión
+	var duracionMedia int
+	if sessionCount > 0 {
+		duracionMedia = totalDuration / sessionCount
+	}
+
 	resp := map[string]interface{}{
-		"por_modulo": porModulo,
-		"por_dia":    porDia,
+		"por_modulo":     porModulo,
+		"por_dia":        porDia,
+		"navegadores":    navegadores,
+		"referencias":    referencias,
+		"paginas":        paginas,
+		"duracion_media": duracionMedia,
 	}
 	json.NewEncoder(w).Encode(resp)
 }

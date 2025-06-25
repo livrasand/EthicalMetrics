@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Planes de Precios | EthicalMetrics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.css">
+    <style>
+        .price-container {
+position: absolute;
+      background-color: #141414;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      justify-content: space-between;
+      align-content: space-between;
+      padding: 1.5rem 1.688rem;
+      z-index: 10;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      row-gap: 0.5rem;
+    }
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+}
+
+.plan-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.plan-card .plan-price {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0;
+  color: var(--text-highlight, #59FFA4);
+}
+
+.plan-price .plan-period {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary, #aaa);
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.plan-features li {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+  color: var(--text-secondary, #ccc);
+}
+
+.plan-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #3CBF8E;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3CBF8E, #1EFE9D);
+  color: #0b0b0b;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #2db67c, #1ccf8e);
+}
+
+.highlight {
+  border: 2px solid #3CBF8E;
+  background: rgba(60, 191, 142, 0.05);
+}
+
+    </style>
+</head>
+<body>
+  <nav class="nav-flotante">
+    <div class="nav-contenido">
+      <a href="/" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 12L12 17L21 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 17L12 22L21 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        EthicalMetrics
+      </a>
+      <div class="nav-enlaces">
+        <a href="/features" class="nav-link type-mono-01">Features</a>
+        <a href="/pricing" class="nav-link type-mono-01 active">Pricing</a>
+        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="nav-link type-mono-01">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="grid-wrapper">
+    <div class="grid-container hidden"></div>
+
+<div class="price-container"> 
+    <section class="hero-center type-heading-05 text-secondary quote">
+    <h1>Planes que respetan tu privacidad</h1>
+    <p class="type-interface-00 text-secondary">Una infraestructura justa, privada y accesible para todos. Escoge el plan que se adapta a tu uso.</p>
+  </section>
+
+    <div class="plan-card glass-card type-heading-05 text-secondary quote">
+      <h2>Open Source</h2>
+      <p class="type-interface-00 text-secondary">Gratis para siempre. Flexible, extensible y comunitario.</p>
+      <div class="plan-price">Free</div>
+      <ul class="plan-features type-interface-00">
+        <li>1 sitio web</li>
+        <li>Análisis básico en tiempo real</li>
+        <li>Panel de métricas esenciales</li>
+        <li>Visualización de tráfico y eventos</li>
+        <li>Módulos ilimitados</li>
+        <li>Eventos ilimitados (limitados solo por tu RAM)</li>
+        <li>Custom events</li>
+        <li>Event properties</li>
+        <li>Session properties</li>
+        <li>Hasta 25 GB de tráfico mensual en la nube compartida</li>
+        <li>5 MB RAM total mensual</li>
+        <li>6 month data retention</li>
+        <li>Soporte comunitario</li>
+        <li>Despliegue compartido (cloud)</li>
+      </ul>
+      <a href="/" class="btn btn-primary">Start analytics</a>
+    </div>
+
+    <div class="plan-card glass-card highlight type-heading-05 text-secondary quote">
+      <h2>Pro</h2>
+      <p class="type-interface-00 text-secondary">Potenciado para producción. Infraestructura eficiente y soporte dedicado.</p>
+      <div class="plan-price">$1 USD<span class="plan-period">/mes</span></div>
+      <ul class="plan-features type-interface-00">
+        <li>1 sitio web</li>
+        <li>Análisis avanzado en tiempo real</li>
+        <li>Panel de métricas completas y personalizables</li>
+        <li>Visualización completa de tráfico, eventos y conversiones personalizadas</li>
+        <li>Módulos ilimitados</li>
+        <li>Eventos ilimitados</li>
+        <li>Custom events</li>
+        <li>Event properties</li>
+        <li>Session properties</li>
+        <li>50 MB RAM total mensual</li>
+        <li>Incluye 25 GB de transferencia mensual</li>
+        <li>Unlimited data retention</li>
+        <li>Soporte garantizado en menos de 24h</li>
+        <li>Canales: Email, Chat</li>
+        <li>Despliegue compartido (cloud)</li>
+        <li>Precios On-Demand por RAM</li>
+        <li>Data export</li>
+        <li>Data import</li>
+      </ul>
+      <a href="/" class="btn btn-primary">Select plan</a>
+    </div>
+
+</div>
+  </div>
+
+  <img id="block-a" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%2085H100V90H0z%22%20fill%3D%22%2359FFA4%22%2F%3E%3C%2Fsvg%3E" alt="Block A" />
+  <img id="block-b" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block B" />
+  <img id="block-c" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2063h90v4.5H0z%22%20fill%3D%22%23F347FF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22neon-pink%22%3E%3CfeGaussianBlur%20stdDeviation%3D%222%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22atop%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block C" />
+  <img id="block-d" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block D" />
+  <img id="block-e" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block E" />
+  <img id="block-f" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block F" />
+
+  <footer class="footer-flotante">
+    <div class="footer-contenido">
+      <span class="footer-texto type-mono-01">Created by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> · © 2025-PRESENT EthicalMetrics OSS</span>
+      <div class="footer-enlaces">
+        <a href="/privacy" class="footer-link type-mono-01">Privacy</a>
+        <a href="/terms" class="footer-link type-mono-01">Terms</a>
+        <a href="/security" class="footer-link type-mono-01">Security</a>
+        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01">Docs</a>
+        <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01">Soporte</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.2.0/global-design.js" defer></script>
+</body>
+</html>
