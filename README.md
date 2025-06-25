@@ -1,49 +1,63 @@
-# 📊 EthicalMetrics
+# EthicalMetrics (Experimental)
 
-**EthicalMetrics** is a web analytics platform that’s ethical, private, and self-hosted. No cookies, no tracking, no user identification, no third parties. Designed to respect privacy by default.
+**EthicalMetrics** is a next-generation web analytics platform built with one goal in mind: *protecting your users' privacy while delivering meaningful insights.*
 
-> 💡 Ideal for sensitive projects, private apps, decentralized platforms, or any product that truly values user privacy.
+No cookies. No trackers. No personal data. No compromises.
 
----
-
-## 🚀 Features
-
-- 🔒 **100% anonymous**: no IP tracking, no fingerprints, no sessions, no cookies.
-- 🛡️ **No third parties**: doesn’t rely on external services or CDNs.
-- 🔐 **SQLCipher encryption**: AES-256 encrypted database.
-- 📈 **Basic analytics**: visits, modules used, errors, load times.
-- 🧩 **Universal embeddable script**: pure vanilla JS, zero dependencies.
-- 🔧 **Open API**: send custom events with ease.
-- 🔐 **Token-based dashboard**: each site has a private, isolated panel.
-- 🛠️ **Self-hosted**: run it on Render, VPS, Docker, or locally.
+> **Perfect for privacy-first projects, sensitive applications, decentralized platforms, or any product that truly values user trust.**
 
 ---
 
-## 🧑‍💻 How it works
+## Why EthicalMetrics?
 
-1. The user registers at `/nuevo.html`
-2. Receives a `site_id` and `admin_token`
-3. Adds the following `<script>` to their website:
+* **Absolute Anonymity**
+  Understand your audience without ever collecting IPs, fingerprints, sessions, or cookies. Your users stay private — guaranteed.
+
+* **Zero Third-Party Dependencies**
+  No external services. No CDNs. No surprises. Full control, fully self-hosted.
+
+* **End-to-End Encryption**
+  Your data is protected with AES-256 encryption powered by SQLCipher. Privacy isn’t just a promise — it’s built in.
+
+* **Essential, Actionable Insights**
+  Track visits, module usage, errors, and load times — the core metrics you need to optimize your experience.
+
+* **Effortless Integration**
+  Lightweight, pure vanilla JavaScript snippet — zero dependencies, zero bloat.
+
+* **Flexible Open API**
+  Easily send custom events tailored to your needs.
+
+* **Secure, Token-Based Dashboard**
+  Each site gets its own private, isolated control panel with token authentication.
+
+* **Run It Anywhere**
+  Deploy on Render, VPS, Docker, or your local machine. You decide where your data lives.
+
+---
+
+## Getting Started
+
+1. Sign up at `/nuevo.html` to create your site.
+2. Receive your unique `site_id` and `admin_token`.
+3. Add this simple script tag to your website’s HTML:
 
 ```html
-<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID">
-</script>
+<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"></script>
 ```
 
-¡Listo! Con eso, se registra automáticamente un evento "visita".
+And just like that, every visit is automatically and anonymously tracked.
 
-Opción con módulo personalizado:
+Want to attribute visits by page or feature? Use a custom module:
 
 ```html
 <body data-modulo="home">
   ...
-  <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID">
+  <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"></script>
 </body>
 ```
 
-Así el evento "visita" se atribuye automáticamente al módulo home.
-
-4. Access the dashboard at:
+4. Access your secure dashboard here:
 
 ```
 https://ethicalmetrics.onrender.com/dashboard.html?site=YOUR_SITE_ID&token=YOUR_ADMIN_TOKEN
@@ -51,16 +65,23 @@ https://ethicalmetrics.onrender.com/dashboard.html?site=YOUR_SITE_ID&token=YOUR_
 
 ---
 
-## 🧠 Philosophy
+## Our Philosophy
 
-EthicalMetrics was born from a real need: measure without surveillance. It is inspired by ethical tools like Overseer, OnionShare, and Signal. We believe in a web without surveillance.
+EthicalMetrics is born from a simple truth: **analytics should empower, not surveil.** Inspired by tools like Overseer, OnionShare, and Signal, we believe privacy is not a feature — it’s a fundamental right.
 
-> ✊ Privacy is not a feature. It’s a right.
+Your users deserve transparency, respect, and control over their data. EthicalMetrics lets you measure impact *without compromise.*
 
 ---
 
-## 📬 Contact
+## Experimental & Evolving
 
-Project created by [@livrasand](https://github.com/livrasand)
-Have questions or ideas? Open an [issue](https://github.com/livrasand/EthicalMetrics/issues) or contribute!
+This project is currently **experimental and under active development**. We welcome contributions, audits, and feedback from the community to help us build the most trustworthy analytics platform possible.
 
+---
+
+## Get Involved
+
+Created by [@livrasand](https://github.com/livrasand).
+Questions, ideas, or want to contribute? Open an [issue](https://github.com/livrasand/EthicalMetrics/issues) or submit a pull request.
+
+Together, let’s redefine what analytics can be.
