@@ -1,140 +1,153 @@
-## Roadmap: Funcionalidades y Objetivos
+# Roadmap: Functionalities and Objectives
 
-### 📊 Métricas básicas
-
-* [x] Visitas y vistas por página
-* [x] Referencias (referrers)
-* [x] Tiempo de carga
-* [x] Páginas más visitadas
-* [x] Duración media de sesión
-* [x] Eventos personalizados
-* [ ] Bounce rate (por página y global)
-* [ ] Dispositivos, navegadores y sistemas operativos
-* [ ] Idiomas del navegador
-* [ ] Ubicación (ciudad, región, país) con MaxMind GeoLite2
-* [ ] UTM tracking (`utm_source`, `utm_medium`, `utm_campaign`, etc.)
-* [ ] Comparaciones temporales (semana vs semana, mes vs mes)
-* [ ] Retención (usuarios que regresan, frecuencia, duración media de visitas repetidas)
-* [ ] Funnels básicos (progresión de eventos o páginas)
-
-### 🔬 Métricas avanzadas y segmentación
-
-* [ ] Filtros por país, navegador, URL, dispositivo, fuente, etc.
-* [ ] Segmentación avanzada (criterios múltiples, condiciones AND/OR)
-* [ ] Custom dimensions y variables personalizadas
-* [ ] Visualización de journeys o navegación secuencial
-* [ ] Attribution de conversiones/eventos multi-canal
-* [ ] Objetivos (goals) definidos por el usuario, con condiciones flexibles
-* [ ] Cohortes de usuarios y comparación histórica
-* [ ] Evolución temporal por fila (row evolution)
-* [ ] Eventos enriquecidos: clics en enlaces externos, descargas, banners, errores 404, scroll, etc.
-* [ ] Duración exacta por página
-* [ ] Páginas de entrada y salida
-* [ ] Búsqueda interna del sitio
-* [ ] CTR por elemento (textos, imágenes, banners)
-* [ ] Seguimiento de formularios (envíos, abandonos, campos completados)
+🛡️ **Ethical by design. Anonymous by default. Metrics with ethics. Do EthicalMetrics!**
 
 ---
 
-## 🛍️ 2. Ecommerce y conversiones
+## 1. Basic metrics (without compromising privacy)
 
-* [ ] Seguimiento de ecommerce: productos vistos, añadidos, comprados, ingresos
-* [ ] Conversiones multi-canal (ads, orgánico, directo, referers)
-* [ ] Valor monetario asignado a eventos
-* [ ] Visualización de funnels de conversión
-* [ ] Campañas con tracking automático (Google Ads, Facebook Ads, etc.)
-
----
-
-## 🎨 3. Experiencia de usuario (UX/UI)
-
-* [ ] SPA (Single Page App) con Vue.js, React o Svelte
-* [ ] Interfaz responsive con modo claro/oscuro
-* [ ] Vista de overview por defecto con métricas clave
-* [ ] Dashboard en tiempo real
-* [ ] Paneles personalizados (drag & drop)
-* [ ] Segmentos y filtros personalizados con UI intuitiva
-* [ ] Dashboard multi-sitio
-* [ ] Visualización de user flow (flujo de navegación)
-* [ ] Page transitions (qué hizo el usuario antes/después de una página)
-* [ ] Page overlay (estadísticas visuales sobre el sitio real)
-* [ ] Anotaciones en gráficos
-* [ ] Alertas automáticas personalizadas
+- [x] Visits and views per page
+- [x] Referrers
+- [x] Load time
+- [x] Most visited pages
+- [x] Average session duration
+- [x] Custom events
+- [x] Bounce rate (per page and global)
+- [x] Devices, browsers, and operating systems
+- [x] Browser languages
+- [x] Location (city, region, country) with MaxMind GeoLite2 (no IP address storage)
+- [x] UTM tracking (`utm_source`, `utm_medium`, `utm_campaign`, etc.)
+- [x] Time-based comparisons (week vs. week, month vs. month)
+- [x] Retention (no persistent IDs)
+- [x] Basic funnels (event progression or pages)
 
 ---
 
-## 🔥 4. Funciones Premium (UX analytics visuales)
+## 2. Advanced Metrics and Ethical Segmentation
 
-* [ ] Heatmaps y scrollmaps
-* [ ] Grabación de sesiones (reproducción de interacciones reales)
-* [ ] A/B Testing nativo
-* [ ] Análisis de formularios detallado
-* [ ] Media analytics (videos/audio, pausas, porcentaje reproducido)
-
----
-
-## ⚙️ 5. Backend e infraestructura
-
-* [ ] Base de datos optimizada (índices, consultas eficientes)
-* [ ] Carga de datos asincrónica (websockets o polling)
-* [ ] Procesamiento eficiente de eventos (batch o streaming)
-* [ ] Importación/exportación de datos
-* [ ] API RESTful o GraphQL pública
-* [ ] Soporte para múltiples sitios con roll-up reporting
-* [ ] Control de usuarios por sitio (roles y permisos)
-* [ ] Auditoría y logs de actividades
-* [ ] Soporte para intranets (tracking por logs Apache/Nginx)
-* [ ] Multiidioma en la interfaz
-* [ ] Escalabilidad para alto tráfico y balanceo de carga
-* [ ] White labeling (marca blanca)
+- [ ] Filters by country, browser, URL, device, source, etc.
+- [ ] Advanced segmentation (multiple criteria without individual identification)
+- [ ] Custom dimensions and variables without identifying users
+- [ ] Journey visualization (anonymous sequential navigation)
+- [ ] Ethical attribution of multi-channel conversions/events
+- [ ] User-defined goals, with configurable conditions
+- [ ] Time cohorts without unique ID
+- [ ] Row evolution (time comparison by row)
+- [ ] Rich events: clicks, downloads, scrolling, banners, 404 errors
+- [ ] Exact duration per page
+- [ ] Entry and exit pages
+- [ ] Internal site search
+- [ ] CTR per element (text, images, buttons)
+- [ ] Form tracking (anonymous, without user identification)
 
 ---
 
-## 🔧 6. Integraciones y extensibilidad
+## 3. Ecommerce and ethical conversions
 
-* [ ] Sistema de plugins/extensiones
-* [ ] API pública de administración y tracking
-* [ ] SDKs oficiales para:
-
-  * JavaScript
-  * PHP
-  * Python
-  * Android/iOS
-* [ ] Plugins para CMS (WordPress, Joomla, Drupal)
-* [ ] Integraciones con frameworks modernos (Vue, React, Nuxt, Next, Astro, etc.)
-* [ ] Tracking sin conexión (offline tracking que se sincroniza después)
-* [ ] Tracking por logs (Apache, Nginx, IIS)
+- [ ] Tracking Ecommerce: products, carts, purchases, revenue (without identifying users)
+- [ ] Multi-channel conversions (ads, organic, direct, referrers)
+- [ ] Monetary value of events
+- [ ] Funnel visualization
+- [ ] Privacy-respecting UTM campaigns and ad tracking
 
 ---
 
-## 🛡️ 7. Privacidad y cumplimiento legal
+## 4. User Experience (UX/UI)
 
-* [x] Sin cookies
-* [x] Sin IPs
-* [x] Autohospedado
-* [x] Compatible con SQLCipher
-* [ ] Cumplimiento automático con DNT (Do Not Track)
-* [ ] Certificación explícita GDPR, CCPA, PECR
-* [ ] Herramientas legales prehechas (DPA, términos, políticas)
-* [ ] Formulario de opt-out embebible (iFrame)
-* [ ] Gestión de consentimiento granular por categoría
-* [ ] Anonimización de referrer y geodatos
-* [ ] Funciones ARCO (acceso, rectificación, cancelación, oposición)
-* [ ] Eliminación de datos de visitantes específicos ("derecho al olvido")
-* [ ] Control de cookies (1ra y 3ra parte)
-* [ ] Reemplazo de User ID por pseudónimos
+- [ ] SPA (Single Page App)
+- [ ] Responsive interface with light/dark mode
+- [ ] Default overview view with key metrics
+- [ ] Real-time dashboard
+- [ ] Custom panels (drag & drop)
+- [ ] Intuitive custom segments/filters
+- [ ] Multi-site dashboard
+- [ ] Visual user flow (anonymous flow)
+- [ ] Page transitions
+- [ ] Page overlay (site data)
+- [ ] Chart annotations
+- [ ] Alerts Customizable
 
 ---
 
-## 🧪 8. Herramientas de análisis y administración
+## 5. Visual Features (Optional)
 
-* [ ] Exportación de datos: JSON, XML, CSV, Excel
-* [ ] Reportes automáticos programables (PDF, HTML, PNG)
-* [ ] Soporte de zonas horarias por sitio
-* [ ] Exclusión de IPs o rangos de IPs
-* [ ] Exclusión de parámetros de URL
-* [ ] Dashboard embebible en apps o sitios
-* [ ] Aplicación móvil oficial
-* [ ] Soporte para múltiples monedas
-* [ ] Gestión de múltiples usuarios y sitios
-* [ ] Panel de configuración multisitio
+*(Always with consent and without hidden tracking)*
+
+- [ ] Heatmaps and scrollmaps (without fingerprinting)
+- [ ] Session recording (ethical version without identification)
+- [ ] Native A/B Testing
+- [ ] Form analysis (abandonment, fields)
+- [ ] Media analytics (videos/audio)
+
+---
+
+## 6. Backend and Infrastructure
+
+- [ ] Optimized database
+- [ ] Asynchronous loading (WebSocket or polling)
+- [ ] Efficient processing (stream/batch)
+- [ ] Secure data import/export
+- [ ] Public API (REST or GraphQL) without exposing sensitive data
+- [ ] Multi-site support (roll-up analytics)
+- [ ] User control per site (with roles)
+- [ ] Secure auditing (without IPs or (personal identifiers)
+- [ ] Log tracking (for intranets)
+- [ ] Multi-language interface
+- [ ] Scalable for high traffic
+- [ ] White labeling
+
+---
+
+## 7. Integrations and extensibility
+
+- [ ] Modular plugin/extension system
+- [ ] Public administration/tracking API
+- [ ] Official SDKs:
+
+- JavaScript
+- PHP
+- Python
+- Android / iOS
+
+- [ ] CMS plugins (WordPress, Joomla, Drupal)
+- [ ] Modern frameworks: Vue, React, Nuxt, Next, Astro, etc.
+- [ ] Offline tracking (deferred synchronization)
+- [ ] Log tracking (Apache, Nginx, IIS)
+
+---
+
+## 8. Privacy and legal compliance (non-negotiable)
+
+- [x] No cookies
+- [x] No stored IPs
+- [x] Self-hosted
+- [x] SQLCipher compatible
+- [ ] Automatic DNT (Do Not Track) compliance
+- [ ] GDPR, CCPA, PECR certifications
+- [ ] Legal tools ready (DPA, policies, terms)
+- [ ] Opt-out form (embeddable iFrame)
+- [ ] Granular consent by category
+- [ ] Referrer and geodata anonymization
+- [ ] ARCO panel: access, rectification, cancellation, opposition
+- [ ] Data deletion under the right to be forgotten
+- [ ] Cookie control (if the user opts in) (use them)
+- [ ] User ID replaced with ephemeral pseudonyms
+
+---
+
+## 9. Analyst and Administration Tools
+
+- [ ] Data export: JSON, XML, CSV, Excel
+- [ ] Automatic reports (PDF, HTML, PNG)
+- [ ] Configurable time zones per site
+- [ ] Exclusion of IP addresses or ranges
+- [ ] Exclusion of URL parameters
+- [ ] Embeddable dashboard
+- [ ] Official mobile app (ethical, no tracking)
+- [ ] Multi-currency support
+- [ ] Management of multiple users and sites
+- [ ] Unified configuration panel
+
+---
+
+> _EthicalMetrics doesn't track people, it tracks context._
