@@ -19,6 +19,11 @@ func main() {
 		log.Fatalf("Error al iniciar la BD: %v", err)
 	}
 
+	err = api.InitGeoIP()
+	if err != nil {
+		log.Fatalf("Error al iniciar GeoIP: %v", err)
+	}
+
 	http.HandleFunc("/pricing", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./static/pricing.html")
 	})

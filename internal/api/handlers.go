@@ -4,12 +4,22 @@ import (
 	"encoding/json"
 	"io"
 	"math/rand"
+	"net"
 	"net/http"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/livrasand/ethicalmetrics/internal/db"
+	"github.com/oschwald/geoip2-golang"
 )
+
+var geoDB *geoip2.Reader
+
+func InitGeoIP() error {
+	var err error
+	geoDB, err = geoip2.Open("/ruta/a/GeoLite2-Country.mmdb")
+	return err
+}
 
 func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	siteID := uuid.NewString()
@@ -120,6 +130,18 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func countryFromIP(ipStr string) string {
+	ip := net.ParseIP(ipStr)
+	if ip == nil || geoDB == nil {
+		return "Desconocido"
+	}
+	record, err := geoDB.Country(ip)
+	if err != nil || record == nil || record.Country.IsoCode == "" {
+		return "Desconocido"
+	}
+	return record.Country.IsoCode
+}
+
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	siteID := r.URL.Query().Get("site")
 	token := r.URL.Query().Get("token")
@@ -227,6 +249,46 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		duracionMedia = totalDuration / sessionCount
 	}
 
+	// Nuevas métricas
+	dispositivos := map[string]int{}
+	paises := map[string]int{}
+	usuariosActivos := 0
+	usuariosActivosWindow := time.Now().Add(-5 * time.Minute) // últimos 5 minutos
+
+	// Detecta país de la IP de la petición actual (en memoria, no guardar)
+	userIP := r.Header.Get("X-Forwarded-For")
+	if userIP == "" {
+		userIP, _, _ = net.SplitHostPort(r.RemoteAddr)
+	}
+	pais := countryFromIP(userIP)
+	paises[pais]++
+
+	for _, ev := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(ev), &evt)
+
+		// Dispositivo
+		if dev, ok := evt["device"].(string); ok {
+			dispositivos[dev]++
+		}
+		// Usuarios activos (por timestamp)
+		if tsStr, ok := evt["timestamp"].(string); ok {
+			if ts, err := time.Parse(time.RFC3339, tsStr); err == nil && ts.After(usuariosActivosWindow) {
+				usuariosActivos++
+			}
+		}
+	}
+
+	// Convertir a slice para el frontend
+	var dispositivosArr []map[string]interface{}
+	for k, v := range dispositivos {
+		dispositivosArr = append(dispositivosArr, map[string]interface{}{"dispositivo": k, "total": v})
+	}
+	var paisesArr []map[string]interface{}
+	for k, v := range paises {
+		paisesArr = append(paisesArr, map[string]interface{}{"pais": k, "total": v})
+	}
+
 	resp := map[string]interface{}{
 		"por_modulo":     porModulo,
 		"por_dia":        porDia,
@@ -234,6 +296,9 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		"referencias":    referencias,
 		"paginas":        paginas,
 		"duracion_media": duracionMedia,
+		"dispositivos":     dispositivosArr,
+		"paises":           paisesArr,
+		"usuarios_activos": usuariosActivos,
 	}
 	json.NewEncoder(w).Encode(resp)
 }
