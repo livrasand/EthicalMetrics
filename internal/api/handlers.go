@@ -88,12 +88,28 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Guarda el evento como JSON en una lista
-	eventJSON, _ := json.Marshal(map[string]interface{}{
+	eventMap := map[string]interface{}{
 		"type":        e.EventType,
 		"module":      e.Module,
 		"duration_ms": e.Duration,
 		"timestamp":   time.Now().Format(time.RFC3339),
-	})
+	}
+	// Agregar campos extra si existen en el body
+	var extra map[string]interface{}
+	json.Unmarshal(body, &extra)
+	if v, ok := extra["browser"]; ok {
+		eventMap["browser"] = v
+	}
+	if v, ok := extra["referer"]; ok {
+		eventMap["referer"] = v
+	}
+	if v, ok := extra["page"]; ok {
+		eventMap["page"] = v
+	}
+	if v, ok := extra["device"]; ok {
+		eventMap["device"] = v
+	}
+	eventJSON, _ := json.Marshal(eventMap)
 
 	err = db.RDB.RPush(db.Ctx, "events:"+e.SiteID, eventJSON).Err()
 	if err != nil {
@@ -186,15 +202,24 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	for b, total := range browserCount {
 		navegadores = append(navegadores, map[string]interface{}{"navegador": b, "total": total})
 	}
+	if navegadores == nil {
+		navegadores = []map[string]interface{}{}
+	}
 	// Referencias
 	var referencias []map[string]interface{}
 	for r, total := range refererCount {
 		referencias = append(referencias, map[string]interface{}{"referencia": r, "total": total})
 	}
+	if referencias == nil {
+		referencias = []map[string]interface{}{}
+	}
 	// Páginas
 	var paginas []map[string]interface{}
 	for p, total := range pageCount {
 		paginas = append(paginas, map[string]interface{}{"pagina": p, "total": total})
+	}
+	if paginas == nil {
+		paginas = []map[string]interface{}{}
 	}
 	// Duración media de sesión
 	var duracionMedia int
