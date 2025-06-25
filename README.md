@@ -26,8 +26,7 @@
 3. Adds the following `<script>` to their website:
 
 ```html
-<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js"
-        defer data-site-id="YOUR_SITE_ID">
+<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID">
 </script>
 ```
 
@@ -38,7 +37,7 @@ Opción con módulo personalizado:
 ```html
 <body data-modulo="home">
   ...
-  <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js" defer></script>
+  <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID">
 </body>
 ```
 

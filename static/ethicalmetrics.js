@@ -14,7 +14,7 @@
     const URL_PARAMS = new URL(SCRIPT?.src || "").searchParams;
     let SITE_ID = SCRIPT?.getAttribute("data-site-id") || new URL(SCRIPT?.src || "").searchParams.get("id");
 
-    const MODULE = document.body?.dataset?.modulo || "inicio";
+    const MODULE = document.body?.dataset?.modulo || "visita";
 
     if (!SITE_ID) {
       console.warn("[EthicalMetrics] No se proporcionó site_id.");
@@ -71,11 +71,6 @@
 
     function send(data) {
       try {
-        if (navigator.doNotTrack === "1") {
-          console.warn("[EthicalMetrics] Do Not Track activado, no se enviará evento.");
-          return;
-        }
-
         const payload = JSON.stringify(Object.assign({
           evento: "personalizado",
           modulo: "desconocido",
