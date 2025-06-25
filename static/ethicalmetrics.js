@@ -1,9 +1,4 @@
 (function () {
-  if (navigator.doNotTrack === "1") {
-    console.warn("[EthicalMetrics] Do Not Track activado, no se enviará evento.");
-    return;
-  }
-
   const API_URL = "https://ethicalmetrics.onrender.com/track";
   const LOAD_TIME = Math.round(performance.now());
 

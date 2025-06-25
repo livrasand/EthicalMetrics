@@ -26,7 +26,7 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]string{
 		"site_id":     siteID,
 		"admin_token": adminToken,
-		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js" defer data-site-id="` + siteID + `"></script>`,
+		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
 
 	}
 	json.NewEncoder(w).Encode(resp)
