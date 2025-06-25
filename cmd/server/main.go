@@ -7,9 +7,13 @@ import (
 
 	"github.com/livrasand/ethicalmetrics/internal/api"
 	"github.com/livrasand/ethicalmetrics/internal/db"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	_ = godotenv.Load()
+
 	err := db.Init()
 	if err != nil {
 		log.Fatalf("Error al iniciar la BD: %v", err)

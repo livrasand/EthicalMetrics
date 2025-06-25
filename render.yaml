@@ -7,5 +7,10 @@ services:
     buildCommand: go build -o server ./cmd/server
     startCommand: ./server
     envVars:
-      - key: DB_KEY
-        value: secure_db_key
+      - key: REDIS_ADDR
+        value: redis-15775.c239.us-east-1-2.ec2.redns.redis-cloud.com:15775
+      - key: REDIS_USER
+        value: default
+      - key: REDIS_PASS
+        value: GcGuQQUaaOeFuB2CcpFSTxhepS9PIFR4
+

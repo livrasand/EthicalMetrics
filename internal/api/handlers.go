@@ -14,9 +14,11 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	siteID := uuid.NewString()
 	adminToken := generarToken()
 
-	_, err := db.DB.Exec(
-		"INSERT INTO sites (id, name, admin_token) VALUES (?, ?, ?)",
-		siteID, "Sitio sin nombre", adminToken)
+	err := db.RDB.HSet(db.Ctx, "site:"+siteID, map[string]interface{}{
+		"name":        "Sitio sin nombre",
+		"admin_token": adminToken,
+		"created_at":  time.Now().Format(time.RFC3339),
+	}).Err()
 
 	if err != nil {
 		http.Error(w, "Error creando sitio", http.StatusInternalServerError)
@@ -27,10 +29,10 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 		"site_id":     siteID,
 		"admin_token": adminToken,
 		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
-
 	}
 	json.NewEncoder(w).Encode(resp)
 }
+
 
 func generarToken() string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -74,30 +76,28 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	var e Event
 	err = json.Unmarshal(body, &e)
 	if err != nil {
-		// Mostrar qué llegó realmente
-		http.Error(w, "JSON inválido: "+err.Error()+" || Body: "+string(body), http.StatusBadRequest)
+		http.Error(w, "JSON inválido: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	if e.EventType == "" || e.SiteID == "" {
-		http.Error(w, "Campos obligatorios faltantes", http.StatusBadRequest)
-		return
-	}
-
-	// Verifica que el sitio exista
-	row := db.DB.QueryRow("SELECT COUNT(*) FROM sites WHERE id = ?", e.SiteID)
-	var count int
-	row.Scan(&count)
-	if count == 0 {
+	// Verifica si el sitio existe
+	exists, err := db.RDB.Exists(db.Ctx, "site:"+e.SiteID).Result()
+	if err != nil || exists == 0 {
 		http.Error(w, "Site ID inválido", http.StatusForbidden)
 		return
 	}
 
-	_, err = db.DB.Exec(
-		"INSERT INTO events (event_type, module, site_id, duration_ms) VALUES (?, ?, ?, ?)",
-		e.EventType, e.Module, e.SiteID, e.Duration)
+	// Guarda el evento como JSON en una lista
+	eventJSON, _ := json.Marshal(map[string]interface{}{
+		"type":        e.EventType,
+		"module":      e.Module,
+		"duration_ms": e.Duration,
+		"timestamp":   time.Now().Format(time.RFC3339),
+	})
+
+	err = db.RDB.RPush(db.Ctx, "events:"+e.SiteID, eventJSON).Err()
 	if err != nil {
-		http.Error(w, "Error al guardar evento", http.StatusInternalServerError)
+		http.Error(w, "Error guardando evento", http.StatusInternalServerError)
 		return
 	}
 
@@ -113,37 +113,47 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Verificar token válido para ese site
-	row := db.DB.QueryRow("SELECT COUNT(*) FROM sites WHERE id = ? AND admin_token = ?", siteID, token)
-	var count int
-	row.Scan(&count)
-	if count == 0 {
+	// Verifica si el token es válido
+	storedToken, err := db.RDB.HGet(db.Ctx, "site:"+siteID, "admin_token").Result()
+	if err != nil || storedToken != token {
 		http.Error(w, "Token inválido", http.StatusForbidden)
 		return
 	}
 
-	rows1, _ := db.DB.Query(`
-		SELECT module, COUNT(*) 
-		FROM events 
-		WHERE site_id = ? 
-		GROUP BY module`, siteID)
-	var porModulo []moduloStat
-	for rows1.Next() {
-		var m moduloStat
-		rows1.Scan(&m.Modulo, &m.Total)
-		porModulo = append(porModulo, m)
+	// Obtener todos los eventos del sitio
+	eventsRaw, err := db.RDB.LRange(db.Ctx, "events:"+siteID, 0, -1).Result()
+	if err != nil {
+		http.Error(w, "Error obteniendo eventos", http.StatusInternalServerError)
+		return
 	}
 
-	rows2, _ := db.DB.Query(`
-		SELECT strftime('%Y-%m-%d', timestamp), COUNT(*) 
-		FROM events 
-		WHERE site_id = ? 
-		GROUP BY 1`, siteID)
+	modCount := map[string]int{}
+	dayCount := map[string]int{}
+
+	for _, raw := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(raw), &evt)
+
+		mod := evt["module"].(string)
+		ts := evt["timestamp"].(string)
+
+		// agrupar por módulo
+		modCount[mod]++
+
+		// agrupar por día
+		t, _ := time.Parse(time.RFC3339, ts)
+		day := t.Format("2006-01-02")
+		dayCount[day]++
+	}
+
+	var porModulo []moduloStat
+	for m, total := range modCount {
+		porModulo = append(porModulo, moduloStat{Modulo: m, Total: total})
+	}
+
 	var porDia []diaStat
-	for rows2.Next() {
-		var d diaStat
-		rows2.Scan(&d.Dia, &d.Total)
-		porDia = append(porDia, d)
+	for d, total := range dayCount {
+		porDia = append(porDia, diaStat{Dia: d, Total: total})
 	}
 
 	resp := map[string]interface{}{
