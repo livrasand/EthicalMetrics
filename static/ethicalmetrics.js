@@ -24,22 +24,38 @@
     let DEVICE = "desktop";
     if (/Mobi|Android/i.test(NAVIGATOR)) DEVICE = "mobile";
     else if (/Tablet|iPad/i.test(NAVIGATOR)) DEVICE = "tablet";
-    // Navegador simplificado
+    // Navegador detallado
     let BROWSER = "Otro";
-    if (/edg/i.test(NAVIGATOR)) BROWSER = "Edge";
+    if (/edg\/\d+/i.test(NAVIGATOR)) BROWSER = "Edge (Chromium)";
+    else if (/edge|edgios/i.test(NAVIGATOR)) BROWSER = "Edge (iOS)";
+    else if (/crios/i.test(NAVIGATOR)) BROWSER = "Chrome (iOS)";
+    else if (/fxios/i.test(NAVIGATOR)) BROWSER = "Firefox (iOS)";
+    else if (/samsung/i.test(NAVIGATOR)) BROWSER = "Samsung";
+    else if (/miui/i.test(NAVIGATOR)) BROWSER = "MIUI";
+    else if (/yabrowser|yandex/i.test(NAVIGATOR)) BROWSER = "Yandex";
     else if (/opr|opera/i.test(NAVIGATOR)) BROWSER = "Opera";
-    else if (/brave/i.test(NAVIGATOR)) BROWSER = "Brave";
-    else if (/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Chrome";
-    else if (/firefox|fxios/i.test(NAVIGATOR)) BROWSER = "Firefox";
-    else if (/safari/i.test(NAVIGATOR) && !/chrome|crios|edg|opr|opera|brave/i.test(NAVIGATOR)) BROWSER = "Safari";
-    const BROWSER_LANG = navigator.language || navigator.userLanguage || "desconocido";
+    else if (/chrome\/[.0-9]* mobile/i.test(NAVIGATOR)) BROWSER = "Chrome (webview)";
+    else if (/chromium/i.test(NAVIGATOR) && /webview/i.test(NAVIGATOR)) BROWSER = "Chromium Webview";
+    else if (/chromium/i.test(NAVIGATOR)) BROWSER = "Chromium";
+    else if (/chrome/i.test(NAVIGATOR)) BROWSER = "Chrome";
+    else if (/firefox/i.test(NAVIGATOR)) BROWSER = "Firefox";
+    else if (/safari/i.test(NAVIGATOR) && !/chrome|crios|chromium|edg|opr|opera|fxios|yabrowser|miui/i.test(NAVIGATOR)) BROWSER = "Safari";
+    else if (/ios/i.test(NAVIGATOR)) BROWSER = "iOS";
+    else if (/webview/i.test(NAVIGATOR) && /iphone|ipad|ipod/i.test(NAVIGATOR)) BROWSER = "iOS (webview)";
 
+    // Sistemas operativos detallado
     let OS = "Otro";
-    if (/windows/i.test(NAVIGATOR)) OS = "Windows";
-    else if (/macintosh|mac os x/i.test(NAVIGATOR)) OS = "MacOS";
-    else if (/linux/i.test(NAVIGATOR)) OS = "Linux";
+    if (/windows nt 10|windows nt 11/i.test(NAVIGATOR)) OS = "Windows 10/11";
+    else if (/windows nt 6\.1/i.test(NAVIGATOR)) OS = "Windows 7";
+    else if (/windows/i.test(NAVIGATOR)) OS = "Windows";
+    else if (/macintosh|mac os x/i.test(NAVIGATOR)) OS = "macOS";
+    else if (/cros/i.test(NAVIGATOR)) OS = "ChromeOS";
     else if (/android/i.test(NAVIGATOR)) OS = "Android";
     else if (/iphone|ipad|ipod/i.test(NAVIGATOR)) OS = "iOS";
+    else if (/linux/i.test(NAVIGATOR)) OS = "Linux";
+
+    // Detección de idioma del navegador
+    const BROWSER_LANG = navigator.language || (navigator.languages && navigator.languages[0]) || "desconocido";
 
     if (!SITE_ID) {
       console.warn("[EthicalMetrics] No se proporcionó site_id.");
