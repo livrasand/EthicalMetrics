@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.css">
 </head>
 <body>
+  <!-- beging nav -->
   <nav class="nav-flotante">
     <div class="nav-contenido">
       <a href="/" class="nav-logo">
@@ -17,7 +18,11 @@
         </svg>
         EthicalMetrics
       </a>
-      
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
       <div class="nav-enlaces">
         <a href="/features" class="nav-link type-mono-01">Features</a>
         <a href="/pricing" class="nav-link type-mono-01">Pricing</a>
@@ -25,6 +30,88 @@
       </div>
     </div>
   </nav>
+  <style>
+  
+  .nav-enlaces {
+    display: flex;
+    gap: 1.5em;
+  }
+  
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3em;
+    width: 2.2em;
+    height: 2.2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.3em;
+  }
+  .nav-toggle-bar {
+    width: 100%;
+    height: 1px;
+    background: #E7DBFF;
+    border-radius: 0;
+    display: block;
+    transition: 0.3s;
+  }
+  @media (max-width: 768px) {
+    .nav-contenido {
+      flex-wrap: wrap;
+    }
+    .nav-enlaces {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(20, 20, 20, 1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      width: 100vw;
+      height: 100vh;
+      max-width: 220px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.2em 1em;
+      gap: 1em;
+      display: none;
+      z-index: 200;
+      animation: fadeInNav 0.2s;
+    }
+    .nav-enlaces.open {
+      display: flex;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+  }
+  @keyframes fadeInNav {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+  </style>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.nav-toggle');
+    const enlaces = document.querySelector('.nav-enlaces');
+    if (toggle && enlaces) {
+      toggle.addEventListener('click', function() {
+        const expanded = enlaces.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', expanded);
+      });
+      // Opcional: cerrar menú al hacer click fuera
+      document.addEventListener('click', function(e) {
+        if (!toggle.contains(e.target) && !enlaces.contains(e.target)) {
+          enlaces.classList.remove('open');
+          toggle.setAttribute('aria-expanded', false);
+        }
+      });
+    }
+  });
+  </script>
+<!-- end nav -->
 
   <div class="grid-wrapper">
     <div class="grid-container hidden"></div>
@@ -166,17 +253,191 @@
   <img id="block-e" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block E" />
   <img id="block-f" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block F" />
   
-  <footer class="footer-flotante">
+  <footer class="footer-flotante" id="footerFlotante">
+    <button class="footer-toggle" aria-label="Mostrar/Ocultar footer" aria-expanded="false">
+      <span class="footer-toggle-bar"></span>
+      <span class="footer-toggle-bar"></span>
+      <span class="footer-toggle-bar"></span>
+    </button>
     <div class="footer-contenido">
-      <span class="footer-texto type-mono-01">Created by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> · © 2025-PRESENT EthicalMetrics OSS</span>
-      <div class="footer-enlaces">
-        <a href="/privacy" class="footer-link type-mono-01">Privacy</a>
-        <a href="/terms" class="footer-link type-mono-01">Terms</a>
-        <a href="/security" class="footer-link type-mono-01">Security</a>
-        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01">Docs</a>
-        <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01">Soporte</a>
+      <div class="footer-main-row">
+        <span class="footer-texto type-mono-01">
+          Maintained by
+          <a href="https://github.com/livrasand/EthicalMetrics/graphs/contributors">EthicalMetrics team and contributors</a>
+          <br>
+          Founded by
+          <a href="https://github.com/livrasand" class="text-accent">@livrasand</a>
+          <br>
+          © 2025-PRESENT EthicalMetrics OSS
+        </span>
+        <div class="footer-enlaces">
+          <a href="/about" class="footer-link type-mono-01">About</a>
+          <a href="/history" class="footer-link type-mono-01">Our history</a>
+          <a href="/privacy" class="footer-link type-mono-01">Privacy</a>
+          <a href="/terms" class="footer-link type-mono-01">Terms</a>
+          <a href="/security" class="footer-link type-mono-01">Security</a>
+          <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01">Docs</a>
+          <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01">Soporte</a>
+        </div>
       </div>
     </div>
+    <style>
+      .footer-flotante {
+        width: 100%;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 2em 0 1.2em 0;
+        color: #E7DBFF;
+        background: transparent;
+      }
+      .footer-toggle {
+        display: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -1.5em;
+        background: #18132a;
+        border: 1px solid #A47CFF;
+        border-radius: 1.5em;
+        padding: 0.4em 1.2em;
+        color: #A47CFF;
+        cursor: pointer;
+        z-index: 300;
+        align-items: center;
+        gap: 0.5em;
+        font-size: 1em;
+        transition: background 0.2s, color 0.2s;
+      }
+      .footer-toggle-bar {
+        display: inline-block;
+        width: 1.2em;
+        height: 1px;
+        background: #A47CFF;
+        margin: 0 0.1em;
+        border-radius: 0;
+        vertical-align: middle;
+      }
+      .footer-toggle-label {
+        margin-left: 0.5em;
+        font-size: 1em;
+        font-family: inherit;
+        color: #A47CFF;
+      }
+      .footer-flotante.closed .footer-contenido {
+        display: none;
+      }
+      @media (max-width: 700px) {
+        .footer-flotante {
+          padding: 0.5em 0 0.5em 0;
+          background: #18132a;
+        }
+        .footer-toggle {
+          display: flex;
+        }
+        .footer-contenido {
+          transition: max-height 0.3s, opacity 0.3s;
+          max-height: 1000px;
+          opacity: 1;
+        }
+        .footer-flotante.closed .footer-contenido {
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          padding: 0;
+        }
+      }
+      .footer-contenido {
+        max-width: 1100px;
+        padding: 0 1.5em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-main-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2em;
+        flex-wrap: wrap;
+      }
+      .footer-texto {
+        flex: 1 1 320px;
+        line-height: 1.7;
+        color: #B9B4D9;
+        min-width: 220px;
+      }
+      .footer-texto a {
+        color: #A47CFF;
+        text-decoration: underline dotted;
+        transition: color 0.2s;
+      }
+      .footer-texto a:hover {
+        color: #59FFA4;
+      }
+      .footer-enlaces {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7em 1.5em;
+        align-items: flex-start;
+        justify-content: flex-end;
+        min-width: 220px;
+      }
+      .footer-link {
+        color: #E7DBFF;
+        text-decoration: none;
+        padding: 0.2em 0;
+        border-bottom: 1.5px solid transparent;
+        transition: color 0.2s, border-bottom 0.2s;
+      }
+      .footer-link:hover {
+        color: #59FFA4;
+        border-bottom: 1.5px solid #59FFA4;
+      }
+      @media (max-width: 800px) {
+        .footer-enlaces {
+          justify-content: flex-start;
+        }
+      }
+      @media (max-width: 500px) {
+        .footer-contenido {
+          padding: 0 0.7em;
+        }
+        .footer-enlaces {
+          gap: 0.5em 1em;
+        }
+      }
+    </style>
+    <script>
+      (function() {
+        var footer = document.getElementById('footerFlotante');
+        var toggle = footer.querySelector('.footer-toggle');
+        function setClosed(closed) {
+          if (closed) {
+            footer.classList.add('closed');
+            toggle.setAttribute('aria-expanded', 'false');
+          } else {
+            footer.classList.remove('closed');
+            toggle.setAttribute('aria-expanded', 'true');
+          }
+        }
+        // Start closed on mobile
+        function checkMobile() {
+          if (window.innerWidth <= 700) {
+            setClosed(true);
+          } else {
+            setClosed(false);
+          }
+        }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isClosed = footer.classList.contains('closed');
+          setClosed(!isClosed);
+        });
+        window.addEventListener('resize', checkMobile);
+        document.addEventListener('DOMContentLoaded', checkMobile);
+      })();
+    </script>
   </footer>
   <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.js" defer></script>
   <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.1.0/global-design.js" defer></script>

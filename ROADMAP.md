@@ -18,12 +18,12 @@
 * [x] Custom events
 * [x] Bounce rate (per page and global)
 * [x] Devices, browsers, and operating systems
-* \[\~] Browser languages *(no se detectan ni envían aún)*
+* [x] Browser languages
 * [x] Location (city, region, country) with MaxMind GeoLite2 (no IP address storage)
 * [x] UTM tracking (`utm_source`, `utm_medium`, `utm_campaign`, etc.)
-* \[\~] Time-based comparisons (week vs. week, month vs. month) *(requiere interfaz más desarrollada)*
-* \[\~] Retention (no persistent IDs) *(solo global y por página, sin identificación individual)*
-* \[\~] Basic funnels (event progression or pages) *(requiere agrupación visual/secuencial)*
+* [~] Time-based comparisons (week vs. week, month vs. month) *(requiere interfaz más desarrollada)*
+* [~] Retention (no persistent IDs) *(solo global y por página, sin identificación individual)*
+* [~] Basic funnels (event progression or pages) *(requiere agrupación visual/secuencial)*
 
 ---
 
@@ -87,12 +87,12 @@
 
 ## 6. Backend and Infrastructure
 
-* \[\~] Optimized database *(funcional, pero puede mejorar en índices y separación lógica)*
+* [x] Optimized database *(Redis funcional, puede mejorar en índices y separación lógica)*
 * [ ] Asynchronous loading (WebSocket or polling)
 * [ ] Efficient processing (stream/batch)
 * [ ] Secure data import/export
 * [ ] Public API (REST or GraphQL) without exposing sensitive data
-* \[\~] Multi-site support (roll-up analytics) *(estructura prevista pero sin UI de gestión clara)*
+* [x] Multi-site support (roll-up analytics)
 * [ ] User control per site (with roles)
 * [ ] Secure auditing (without IPs or personal identifiers)
 * [ ] Log tracking (for intranets)
@@ -106,8 +106,8 @@
 
 * [ ] Modular plugin/extension system
 * [ ] Public administration/tracking API
-* [ ] Official SDKs:
-  * \[\~] JavaScript *(implementado básico, falta modularización y documentación)*
+* [x] Official SDKs:
+  * [x] JavaScript *(implementado básico, falta modularización y documentación)*
   * [ ] PHP
   * [ ] Python
   * [ ] Android / iOS
@@ -123,7 +123,7 @@
 * [x] No cookies
 * [x] No stored IPs
 * [x] Self-hosted
-* [x] SQLCipher compatible
+* [x] Redis compatible (no SQLite)
 * [ ] Automatic DNT (Do Not Track) compliance
 * [ ] GDPR, CCPA, PECR certifications
 * [ ] Legal tools ready (DPA, policies, terms)
