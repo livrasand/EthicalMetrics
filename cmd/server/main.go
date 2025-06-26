@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -11,6 +12,22 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func downloadGeoLiteDB(path string) error {
+	const url = "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb"
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	out, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	_, err = io.Copy(out, resp.Body)
+	return err
+}
+
 func main() {
 	_ = godotenv.Load()
 
@@ -19,7 +36,19 @@ func main() {
 		log.Fatalf("Error al iniciar la BD: %v", err)
 	}
 
-	err = api.InitGeoIP()
+	geoIPPath := os.Getenv("GEOIP_PATH")
+	if geoIPPath == "" {
+		geoIPPath = "./GeoLite2-City.mmdb"
+	}
+	// Si no existe, descargar automáticamente
+	if _, err := os.Stat(geoIPPath); os.IsNotExist(err) {
+		log.Println("GeoLite2-City.mmdb no encontrado, descargando...")
+		if err := downloadGeoLiteDB(geoIPPath); err != nil {
+			log.Fatalf("No se pudo descargar GeoLite2-City.mmdb: %v", err)
+		}
+		log.Println("GeoLite2-City.mmdb descargado correctamente.")
+	}
+	err = api.InitGeoIP(geoIPPath)
 	if err != nil {
 		log.Fatalf("Error al iniciar GeoIP: %v", err)
 	}

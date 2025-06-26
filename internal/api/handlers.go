@@ -15,9 +15,9 @@ import (
 
 var geoDB *geoip2.Reader
 
-func InitGeoIP() error {
+func InitGeoIP(path string) error {
 	var err error
-	geoDB, err = geoip2.Open("/ruta/a/GeoLite2-Country.mmdb")
+	geoDB, err = geoip2.Open(path)
 	return err
 }
 
