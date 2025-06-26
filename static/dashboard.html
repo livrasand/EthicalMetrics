@@ -133,6 +133,36 @@
           <div class="stat-label">Promedio</div>
         </div>
       </div>
+
+      <!-- Idiomas del navegador -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Idiomas del navegador</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="browserLangChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Sistemas operativos -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Sistemas operativos</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="osChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Ciudades -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Ciudades</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="cityChart"></canvas>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -178,6 +208,9 @@ async function cargarDatos(site, token) {
     const referencias = Array.isArray(data.referencias) ? data.referencias : [];
     const paginas = Array.isArray(data.paginas) ? data.paginas : [];
     const duracionMedia = data.duracion_media || 0;
+    const browserLangs = Array.isArray(data.browser_langs) ? data.browser_langs : [];
+    const osArr = Array.isArray(data.os) ? data.os : [];
+    const cities = Array.isArray(data.cities) ? data.cities : [];
 
     new Chart(document.getElementById("modulosChart"), {
       type: 'bar',
@@ -284,6 +317,42 @@ async function cargarDatos(site, token) {
     if (usuariosActivosDiv) {
       usuariosActivosDiv.textContent = usuariosActivos;
     }
+
+    new Chart(document.getElementById("browserLangChart"), {
+      type: 'pie',
+      data: {
+        labels: browserLangs.map(d => d.lang),
+        datasets: [{
+          label: 'Idiomas',
+          data: browserLangs.map(d => d.total),
+          backgroundColor: ['#3cbf8e', '#1a2330', '#f5a623', '#e94e77', '#4a90e2']
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("osChart"), {
+      type: 'doughnut',
+      data: {
+        labels: osArr.map(d => d.os),
+        datasets: [{
+          label: 'Sistemas operativos',
+          data: osArr.map(d => d.total),
+          backgroundColor: ['#4a90e2', '#3cbf8e', '#f5a623', '#e94e77', '#1a2330']
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("cityChart"), {
+      type: 'bar',
+      data: {
+        labels: cities.map(d => d.city),
+        datasets: [{
+          label: 'Ciudades',
+          data: cities.map(d => d.total),
+          backgroundColor: '#846bff'
+        }]
+      }
+    });
 
   } catch (e) {
     console.error("❌ Error en fetch:", e);

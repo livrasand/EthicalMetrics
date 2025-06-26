@@ -110,6 +110,12 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	if v, ok := extra["browser"]; ok {
 		eventMap["browser"] = v
 	}
+	if v, ok := extra["browser_lang"]; ok {
+		eventMap["browser_lang"] = v
+	}
+	if v, ok := extra["os"]; ok {
+		eventMap["os"] = v
+	}
 	if v, ok := extra["referer"]; ok {
 		eventMap["referer"] = v
 	}
@@ -119,6 +125,12 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	if v, ok := extra["device"]; ok {
 		eventMap["device"] = v
 	}
+	// Detectar ciudad por IP (GeoLite2)
+	userIP := r.Header.Get("X-Forwarded-For")
+	if userIP == "" {
+		userIP, _, _ = net.SplitHostPort(r.RemoteAddr)
+	}
+	eventMap["city"] = cityFromIP(userIP)
 	eventJSON, _ := json.Marshal(eventMap)
 
 	err = db.RDB.RPush(db.Ctx, "events:"+e.SiteID, eventJSON).Err()
@@ -136,10 +148,22 @@ func countryFromIP(ipStr string) string {
 		return "Desconocido"
 	}
 	record, err := geoDB.Country(ip)
-	if err != nil || record == nil || record.Country.IsoCode == "" {
+	if err != nil || record == nil || record.Country.Names["en"] == "" {
 		return "Desconocido"
 	}
-	return record.Country.IsoCode
+	return record.Country.Names["en"]
+}
+
+func cityFromIP(ipStr string) string {
+	ip := net.ParseIP(ipStr)
+	if ip == nil || geoDB == nil {
+		return "Desconocido"
+	}
+	record, err := geoDB.City(ip)
+	if err != nil || record == nil || record.City.Names["es"] == "" {
+		return "Desconocido"
+	}
+	return record.City.Names["es"]
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
@@ -172,6 +196,9 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	pageCount := map[string]int{}
 	totalDuration := 0
 	sessionCount := 0
+	browserLangCount := map[string]int{}
+	osCount := map[string]int{}
+	cityCount := map[string]int{}
 
 	for _, raw := range eventsRaw {
 		var evt map[string]interface{}
@@ -206,6 +233,15 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		if dur, ok := evt["duration_ms"].(float64); ok && dur > 0 {
 			totalDuration += int(dur)
 			sessionCount++
+		}
+		if bl, ok := evt["browser_lang"].(string); ok {
+			browserLangCount[bl]++
+		}
+		if os, ok := evt["os"].(string); ok {
+			osCount[os]++
+		}
+		if city, ok := evt["city"].(string); ok {
+			cityCount[city]++
 		}
 	}
 
@@ -288,6 +324,18 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	for k, v := range paises {
 		paisesArr = append(paisesArr, map[string]interface{}{"pais": k, "total": v})
 	}
+	var browserLangs []map[string]interface{}
+	for k, v := range browserLangCount {
+		browserLangs = append(browserLangs, map[string]interface{}{"lang": k, "total": v})
+	}
+	var osArr []map[string]interface{}
+	for k, v := range osCount {
+		osArr = append(osArr, map[string]interface{}{"os": k, "total": v})
+	}
+	var cities []map[string]interface{}
+	for k, v := range cityCount {
+		cities = append(cities, map[string]interface{}{"city": k, "total": v})
+	}
 
 	resp := map[string]interface{}{
 		"por_modulo":     porModulo,
@@ -299,6 +347,9 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		"dispositivos":     dispositivosArr,
 		"paises":           paisesArr,
 		"usuarios_activos": usuariosActivos,
+		"browser_langs": browserLangs,
+		"os":            osArr,
+		"cities":        cities,
 	}
 	json.NewEncoder(w).Encode(resp)
 }

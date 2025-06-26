@@ -26,11 +26,20 @@
     else if (/Tablet|iPad/i.test(NAVIGATOR)) DEVICE = "tablet";
     // Navegador simplificado
     let BROWSER = "Otro";
-    if (/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Chrome";
+    if (/edg/i.test(NAVIGATOR)) BROWSER = "Edge";
+    else if (/opr|opera/i.test(NAVIGATOR)) BROWSER = "Opera";
+    else if (/brave/i.test(NAVIGATOR)) BROWSER = "Brave";
+    else if (/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Chrome";
     else if (/firefox|fxios/i.test(NAVIGATOR)) BROWSER = "Firefox";
-    else if (/safari/i.test(NAVIGATOR) && !/chrome|crios/i.test(NAVIGATOR)) BROWSER = "Safari";
-    else if (/edg/i.test(NAVIGATOR)) BROWSER = "Edge";
-    else if (/opera|opr/i.test(NAVIGATOR)) BROWSER = "Opera";
+    else if (/safari/i.test(NAVIGATOR) && !/chrome|crios|edg|opr|opera|brave/i.test(NAVIGATOR)) BROWSER = "Safari";
+    const BROWSER_LANG = navigator.language || navigator.userLanguage || "desconocido";
+
+    let OS = "Otro";
+    if (/windows/i.test(NAVIGATOR)) OS = "Windows";
+    else if (/macintosh|mac os x/i.test(NAVIGATOR)) OS = "MacOS";
+    else if (/linux/i.test(NAVIGATOR)) OS = "Linux";
+    else if (/android/i.test(NAVIGATOR)) OS = "Android";
+    else if (/iphone|ipad|ipod/i.test(NAVIGATOR)) OS = "iOS";
 
     if (!SITE_ID) {
       console.warn("[EthicalMetrics] No se proporcionó site_id.");
@@ -56,9 +65,11 @@
       duracion_ms: LOAD_TIME,
       site_id: SITE_ID,
       browser: BROWSER,
+      browser_lang: BROWSER_LANG, // <--- nuevo
       referer: REFERRER,
       page: PAGE,
-      device: DEVICE
+      device: DEVICE,
+      os: OS // <--- nuevo, ver abajo
     });
 
     // Función global alternativa
