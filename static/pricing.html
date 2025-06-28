@@ -4,7 +4,56 @@
   <meta charset="UTF-8">
   <title>Pricing | EthicalMetrics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.css">
+  <link rel="stylesheet" href="css/nuevo.css">
+    <style>
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: var(--f-cursor-default);
+    }
+  }
+  a, button {
+    cursor: var(--f-cursor-pointer);
+  }
+  input[type="text"], textarea, .selectable, [contenteditable="true"] {
+    cursor: var(--f-cursor-text);
+  }
+  code, p {
+    cursor: var(--f-cursor-text);
+  }
+  .draggable, [draggable="true"] {
+    cursor: var(--f-cursor-move);
+  }
+  .crosshair-cursor {
+    cursor: var(--f-cursor-crosshair);
+  }
+  .wait-cursor {
+    cursor: var(--f-cursor-wait);
+  }
+  .help-cursor {
+    cursor: var(--f-cursor-help);
+  }
+  .not-allowed-cursor, [aria-disabled="true"], [disabled] {
+    cursor: var(--f-cursor-not-allowed);
+  }
+  </style>
+  <script>
+    function setCursor(type, selector = 'body') {
+      const cursors = {
+        default: 'var(--f-cursor-default)',
+        pointer: 'var(--f-cursor-pointer)',
+        text: 'var(--f-cursor-text)',
+        move: 'var(--f-cursor-move)',
+        crosshair: 'var(--f-cursor-crosshair)',
+        wait: 'var(--f-cursor-wait)',
+        help: 'var(--f-cursor-help)',
+        'not-allowed': 'var(--f-cursor-not-allowed)'
+      };
+      const value = cursors[type] || cursors.default;
+      document.querySelectorAll(selector).forEach(el => {
+        el.style.cursor = value;
+      });
+    }
+  </script>
     <style>
         .price-container {
 position: absolute;
