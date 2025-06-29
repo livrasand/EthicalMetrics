@@ -91,6 +91,64 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Validación estricta de campos esperados
+	if e.SiteID == "" || len(e.SiteID) > 64 {
+		http.Error(w, "site_id inválido", http.StatusBadRequest)
+		return
+	}
+	if e.EventType == "" || len(e.EventType) > 32 {
+		http.Error(w, "evento inválido", http.StatusBadRequest)
+		return
+	}
+	if e.Module == "" || len(e.Module) > 64 {
+		http.Error(w, "modulo inválido", http.StatusBadRequest)
+		return
+	}
+	if e.Duration < 0 || e.Duration > 86400000 {
+		http.Error(w, "duracion_ms inválido", http.StatusBadRequest)
+		return
+	}
+
+	// Validar campos extra si existen en el body
+	var extra map[string]interface{}
+	json.Unmarshal(body, &extra)
+	if v, ok := extra["browser"]; ok {
+		if browser, ok := v.(string); !ok || len(browser) > 64 {
+			http.Error(w, "browser inválido", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["browser_lang"]; ok {
+		if lang, ok := v.(string); !ok || len(lang) > 16 {
+			http.Error(w, "browser_lang inválido", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["os"]; ok {
+		if os, ok := v.(string); !ok || len(os) > 64 {
+			http.Error(w, "os inválido", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["referer"]; ok {
+		if ref, ok := v.(string); !ok || len(ref) > 256 {
+			http.Error(w, "referer inválido", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["page"]; ok {
+		if page, ok := v.(string); !ok || len(page) > 256 {
+			http.Error(w, "page inválido", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["device"]; ok {
+		if device, ok := v.(string); !ok || len(device) > 32 {
+			http.Error(w, "device inválido", http.StatusBadRequest)
+			return
+		}
+	}
+
 	siteKey := "site:" + e.SiteID
 
 	// Detectar origen real
@@ -136,7 +194,6 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		"timestamp":   time.Now().Format(time.RFC3339),
 	}
 	// Agregar campos extra si existen en el body
-	var extra map[string]interface{}
 	json.Unmarshal(body, &extra)
 	if v, ok := extra["browser"]; ok {
 		eventMap["browser"] = v
@@ -171,6 +228,20 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+
+	// --- RATE LIMITING POR IP ---
+	// Máximo 30 requests por minuto por IP
+	rateKey := "ratelimit:" + userIP
+	count, _ := db.RDB.Get(db.Ctx, rateKey).Int()
+	if count >= 30 {
+		http.Error(w, "Demasiadas peticiones, espera un minuto.", http.StatusTooManyRequests)
+		return
+	}
+	pipe := db.RDB.TxPipeline()
+	pipe.Incr(db.Ctx, rateKey)
+	pipe.Expire(db.Ctx, rateKey, 60*time.Second)
+	pipe.Exec(db.Ctx)
+	// --- FIN RATE LIMITING ---
 }
 
 func countryFromIP(ipStr string) string {
