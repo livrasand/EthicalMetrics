@@ -81,12 +81,25 @@
       duracion_ms: LOAD_TIME,
       site_id: SITE_ID,
       browser: BROWSER,
-      browser_lang: BROWSER_LANG, // <--- nuevo
+      browser_lang: BROWSER_LANG,
       referer: REFERRER,
       page: PAGE,
       device: DEVICE,
-      os: OS // <--- nuevo, ver abajo
+      os: OS
     });
+
+    // Enviar "heartbeat" cada 30 segundos
+    setInterval(() => {
+      send({
+        evento: "heartbeat",
+        modulo: MODULE,
+        site_id: SITE_ID,
+        page: PAGE,
+        browser: BROWSER,
+        device: DEVICE,
+        os: OS
+      });
+    }, 30000);
 
     // Función global alternativa
     window.ethical = {
@@ -140,6 +153,9 @@
             body: payload,
             keepalive: true
           }).then(r => {
+            if (r.status === 403) {
+              alert("⚠️ Este script es propiedad de otro sitio web y no funcionará aquí.");
+            }
             console.log("[EthicalMetrics] Evento enviado por fetch, status:", r.status);
           }).catch(e => {
             console.warn("[EthicalMetrics] Error al enviar evento por fetch:", e);

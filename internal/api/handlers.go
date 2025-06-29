@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -87,6 +88,36 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(body, &e)
 	if err != nil {
 		http.Error(w, "JSON inválido: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	siteKey := "site:" + e.SiteID
+
+	// Detectar origen real
+	origin := r.Header.Get("Origin")
+	if origin == "" {
+		origin = r.Header.Get("Referer")
+	}
+	if origin == "" {
+		origin = r.Host
+	}
+
+	// Leer dominio registrado
+	registeredDomain, _ := db.RDB.HGet(db.Ctx, siteKey, "domain").Result()
+	if registeredDomain == "" {
+		db.RDB.HSet(db.Ctx, siteKey, "domain", origin)
+		registeredDomain = origin
+	}
+
+	// CORS estricto: solo permite el dominio registrado
+	w.Header().Set("Access-Control-Allow-Origin", registeredDomain)
+	w.Header().Set("Vary", "Origin")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	// Validar dominio
+	if !strings.Contains(origin, registeredDomain) {
+		http.Error(w, "Este script solo puede usarse en el dominio registrado: "+registeredDomain, http.StatusForbidden)
 		return
 	}
 

@@ -189,6 +189,7 @@ if (!site || !token) {
   document.body.innerHTML = "<h2>🔒 Acceso denegado</h2>";
 } else {
   cargarDatos(site, token);
+  setInterval(() => cargarDatos(site, token), 60000); // Actualiza cada minuto
 }
 
 async function cargarDatos(site, token) {
