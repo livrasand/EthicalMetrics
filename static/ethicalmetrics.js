@@ -88,19 +88,6 @@
       os: OS
     });
 
-    // Enviar "heartbeat" cada 30 segundos
-    setInterval(() => {
-      send({
-        evento: "heartbeat",
-        modulo: MODULE,
-        site_id: SITE_ID,
-        page: PAGE,
-        browser: BROWSER,
-        device: DEVICE,
-        os: OS
-      });
-    }, 30000);
-
     // Función global alternativa
     window.ethical = {
       track: send
