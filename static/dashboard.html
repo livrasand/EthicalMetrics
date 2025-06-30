@@ -202,16 +202,187 @@
     </div>
   </main>
 
-  <footer class="footer-flotante">
+  <footer class="footer-flotante" id="footerFlotante">
+    <button class="footer-toggle" aria-label="Mostrar/Ocultar footer" aria-expanded="false">
+      <span class="footer-toggle-bar"></span>
+      <span class="footer-toggle-bar"></span>
+      <span class="footer-toggle-bar"></span>
+    </button>
     <div class="footer-contenido">
-      <span class="footer-texto type-mono-01">© 2025-PRESENT EthicalMetrics OSS</span>
-      <div class="footer-enlaces">
-        <a href="/privacy" class="footer-link type-mono-01">Privacidad</a>
-        <a href="/terms" class="footer-link type-mono-01">Términos</a>
-        <a href="/docs" class="footer-link type-mono-01">Documentación</a>
-        <a href="" class="footer-link type-mono-01">Soporte</a>
+      <div class="footer-main-row">
+        <span class="footer-texto type-mono-01">
+          Maintained by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> and 
+          <a href="https://github.com/livrasand/EthicalMetrics/graphs/contributors">contributors</a>
+          <br>
+          © 2025-PRESENT EthicalMetrics OSS
+        </span>
+        <div class="footer-enlaces">
+          <a href="/about" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m10.065 12.493l-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44m-2.875 6.493l4.332-.924M16 21l-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455zM6.158 8.633l1.114 4.456M8 21l3.105-6.21"/><circle cx="12" cy="13" r="2"/></g></svg> About</a>
+          <a href="/privacy" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 1 0 10 10a4 4 0 0 1-5-5a4 4 0 0 1-5-5M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01"/></svg> Privacy</a>
+          <a href="/terms" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 16l3-8l3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1M2 16l3-8l3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1m5 5h10M12 3v18M3 7h2c2 0 5-1 7-2c2 1 5 2 7 2h2"/></svg> Terms</a>
+          <a href="/security" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM8 12h.01M12 12h.01M16 12h.01"/></svg> Security</a>
+          <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m4-9h2m-2-4h2M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3zm3-6h2M6 8h2"/></svg> Docs</a>
+          <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"/></g></svg> Soporte</a>
+        </div>
       </div>
     </div>
+    <style>
+      .footer-flotante {
+        width: 100%;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding: 2em 0 1.2em 0;
+        color: #E7DBFF;
+        background: transparent;
+      }
+      .footer-toggle {
+        display: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -1.5em;
+        background: #18132a;
+        border: 1px solid #A47CFF;
+        border-radius: 1.5em;
+        padding: 0.4em 1.2em;
+        color: #A47CFF;
+        cursor: pointer;
+        z-index: 300;
+        align-items: center;
+        gap: 0.5em;
+        font-size: 1em;
+        transition: background 0.2s, color 0.2s;
+      }
+      .footer-toggle-bar {
+        display: inline-block;
+        width: 1.2em;
+        height: 1px;
+        background: #A47CFF;
+        margin: 0 0.1em;
+        border-radius: 0;
+        vertical-align: middle;
+      }
+      .footer-toggle-label {
+        margin-left: 0.5em;
+        font-size: 1em;
+        font-family: inherit;
+        color: #A47CFF;
+      }
+      .footer-flotante.closed .footer-contenido {
+        display: none;
+      }
+      @media (max-width: 700px) {
+        .footer-flotante {
+          padding: 0.5em 0 0.5em 0;
+          background: #18132a;
+        }
+        .footer-toggle {
+          display: flex;
+        }
+        .footer-contenido {
+          transition: max-height 0.3s, opacity 0.3s;
+          max-height: 1000px;
+          opacity: 1;
+        }
+        .footer-flotante.closed .footer-contenido {
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          padding: 0;
+        }
+      }
+      .footer-contenido {
+        max-width: 1100px;
+        padding: 0 1.5em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-main-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2em;
+        flex-wrap: wrap;
+      }
+      .footer-texto {
+        flex: 1 1 320px;
+        line-height: 1.7;
+        color: #B9B4D9;
+        min-width: 220px;
+      }
+      .footer-texto a {
+        color: #A47CFF;
+        text-decoration: underline dotted;
+        transition: color 0.2s;
+      }
+      .footer-texto a:hover {
+        color: #59FFA4;
+      }
+      .footer-enlaces {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7em 1.5em;
+        align-items: flex-start;
+        justify-content: flex-end;
+        min-width: 220px;
+      }
+      .footer-link {
+        color: #E7DBFF;
+        text-decoration: none;
+        padding: 0.2em 0;
+        border-bottom: 1.5px solid transparent;
+        transition: color 0.2s, border-bottom 0.2s;
+      }
+      .footer-link:hover {
+        color: #59FFA4;
+        border-bottom: 1.5px solid #59FFA4;
+      }
+      @media (max-width: 800px) {
+        .footer-enlaces {
+          justify-content: flex-start;
+        }
+      }
+      @media (max-width: 500px) {
+        .footer-contenido {
+          padding: 0 0.7em;
+        }
+        .footer-enlaces {
+          gap: 0.5em 1em;
+        }
+      }
+    </style>
+    <script>
+      (function() {
+        var footer = document.getElementById('footerFlotante');
+        var toggle = footer.querySelector('.footer-toggle');
+        function setClosed(closed) {
+          if (closed) {
+            footer.classList.add('closed');
+            toggle.setAttribute('aria-expanded', 'false');
+          } else {
+            footer.classList.remove('closed');
+            toggle.setAttribute('aria-expanded', 'true');
+          }
+        }
+        // Start closed on mobile
+        function checkMobile() {
+          if (window.innerWidth <= 700) {
+            setClosed(true);
+          } else {
+            setClosed(false);
+          }
+        }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isClosed = footer.classList.contains('closed');
+          setClosed(!isClosed);
+        });
+        window.addEventListener('resize', checkMobile);
+        document.addEventListener('DOMContentLoaded', checkMobile);
+      })();
+    </script>
   </footer>
 
   <!--script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.3.0/dashboard.js" defer></script-->
@@ -242,6 +413,12 @@
 
         const data = await res.json();
         console.log("Datos recibidos:", data);
+
+        // Reemplazar el título por el nombre del sitio
+        if (data.site_name) {
+          const h1 = document.querySelector('.dashboard-title h1');
+          if (h1) h1.textContent = data.site_name;
+        }
 
         const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
         const porDia = Array.isArray(data.por_dia) ? data.por_dia : [];

@@ -37,10 +37,14 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp := map[string]string{
+	// Obtener el nombre del sitio (aunque sea el predeterminado)
+	siteName, _ := db.RDB.HGet(db.Ctx, "site:"+siteID, "name").Result()
+
+	resp := map[string]interface{}{
 		"site_id":     siteID,
 		"admin_token": adminToken,
 		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
+		"site_name":   siteName,
 	}
 	json.NewEncoder(w).Encode(resp)
 }
