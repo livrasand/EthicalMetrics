@@ -213,12 +213,14 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	if v, ok := extra["device"]; ok {
 		eventMap["device"] = v
 	}
-	// Detectar ciudad por IP (GeoLite2)
+	// Detectar ciudad y país por IP (GeoLite2)
 	userIP := r.Header.Get("X-Forwarded-For")
 	if userIP == "" {
 		userIP, _, _ = net.SplitHostPort(r.RemoteAddr)
 	}
 	eventMap["city"] = cityFromIP(userIP)
+	eventMap["country"] = countryFromIP(userIP) // <--- AGREGAR ESTA LÍNEA
+	// La IP del usuario no se guarda, solo la ciudad obtenida.
 	eventJSON, _ := json.Marshal(eventMap)
 
 	err = db.RDB.RPush(db.Ctx, "events:"+e.SiteID, eventJSON).Err()
@@ -301,6 +303,7 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	browserLangCount := map[string]int{}
 	osCount := map[string]int{}
 	cityCount := map[string]int{}
+	countryCount := map[string]int{}
 
 	for _, raw := range eventsRaw {
 		var evt map[string]interface{}
@@ -344,6 +347,9 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		if city, ok := evt["city"].(string); ok {
 			cityCount[city]++
+		}
+		if country, ok := evt["country"].(string); ok {
+			countryCount[country]++
 		}
 	}
 
@@ -423,7 +429,7 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		dispositivosArr = append(dispositivosArr, map[string]interface{}{"dispositivo": k, "total": v})
 	}
 	var paisesArr []map[string]interface{}
-	for k, v := range paises {
+	for k, v := range countryCount {
 		paisesArr = append(paisesArr, map[string]interface{}{"pais": k, "total": v})
 	}
 	var browserLangs []map[string]interface{}
