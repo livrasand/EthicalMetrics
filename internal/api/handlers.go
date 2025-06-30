@@ -445,6 +445,119 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		cities = append(cities, map[string]interface{}{"city": k, "total": v})
 	}
 
+	// --- NUEVAS MÉTRICAS ---
+
+	// 1. Comparativa semanal (semana actual vs anterior)
+	weekCompare := []map[string]interface{}{}
+	weekData := map[string][2]int{} // label -> [current, previous]
+	now := time.Now()
+	currentYear, currentWeek := now.ISOWeek()
+	prevYear, prevWeek := now.AddDate(0, 0, -7).ISOWeek()
+	for _, raw := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(raw), &evt)
+		ts, _ := evt["timestamp"].(string)
+		t, err := time.Parse(time.RFC3339, ts)
+		if err != nil {
+			continue
+		}
+		year, week := t.ISOWeek()
+		label := t.Format("Mon")
+		if year == currentYear && week == currentWeek {
+			val := weekData[label]
+			val[0]++
+			weekData[label] = val
+		} else if year == prevYear && week == prevWeek {
+			val := weekData[label]
+			val[1]++
+			weekData[label] = val
+		}
+	}
+	for label, vals := range weekData {
+		weekCompare = append(weekCompare, map[string]interface{}{
+			"label":    label,
+			"current":  vals[0],
+			"previous": vals[1],
+		})
+	}
+
+	// 2. Comparativa mensual (mes actual vs anterior)
+	monthCompare := []map[string]interface{}{}
+	monthData := map[string][2]int{} // label -> [current, previous]
+	currentMonth := now.Month()
+	prevMonth := now.AddDate(0, -1, 0).Month()
+	for _, raw := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(raw), &evt)
+		ts, _ := evt["timestamp"].(string)
+		t, err := time.Parse(time.RFC3339, ts)
+		if err != nil {
+			continue
+		}
+		label := t.Format("02")
+		if t.Year() == now.Year() && t.Month() == currentMonth {
+			val := monthData[label]
+			val[0]++
+			monthData[label] = val
+		} else if t.Year() == now.Year() && t.Month() == prevMonth {
+			val := monthData[label]
+			val[1]++
+			monthData[label] = val
+		}
+	}
+	for label, vals := range monthData {
+		monthCompare = append(monthCompare, map[string]interface{}{
+			"label":    label,
+			"current":  vals[0],
+			"previous": vals[1],
+		})
+	}
+
+	// 3. Retención (por página, solo visitas repetidas)
+	retention := []map[string]interface{}{}
+	pageVisits := map[string]map[string]bool{} // page -> set de días
+	for _, raw := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(raw), &evt)
+		page, _ := evt["page"].(string)
+		ts, _ := evt["timestamp"].(string)
+		day := ""
+		if t, err := time.Parse(time.RFC3339, ts); err == nil {
+			day = t.Format("2006-01-02")
+		}
+		if page != "" && day != "" {
+			if pageVisits[page] == nil {
+				pageVisits[page] = map[string]bool{}
+			}
+			pageVisits[page][day] = true
+		}
+	}
+	for page, days := range pageVisits {
+		retention = append(retention, map[string]interface{}{
+			"label": page,
+			"value": len(days), // días distintos con visitas
+		})
+	}
+
+	// 4. Funnel básico (progresión por módulos)
+	funnel := []map[string]interface{}{}
+	modOrder := []string{"landing", "signup", "checkout", "thanks"}
+	modCountFunnel := map[string]int{}
+	for _, raw := range eventsRaw {
+		var evt map[string]interface{}
+		json.Unmarshal([]byte(raw), &evt)
+		mod, _ := evt["module"].(string)
+		if mod != "" {
+			modCountFunnel[mod]++
+		}
+	}
+	for _, mod := range modOrder {
+		funnel = append(funnel, map[string]interface{}{
+			"step":  mod,
+			"value": modCountFunnel[mod],
+		})
+	}
+
 	resp := map[string]interface{}{
 		"por_modulo":     porModulo,
 		"por_dia":        porDia,
@@ -458,6 +571,10 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		"browser_langs": browserLangs,
 		"os":            osArr,
 		"cities":        cities,
+		"week_compare":  weekCompare,
+		"month_compare": monthCompare,
+		"retention":     retention,
+		"funnel":        funnel,
 	}
 	json.NewEncoder(w).Encode(resp)
 }

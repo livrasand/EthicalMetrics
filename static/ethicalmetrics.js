@@ -83,6 +83,17 @@
     const NAVIGATOR = navigator.userAgent;
     const REFERRER = document.referrer || "directo";
     const PAGE = location.pathname;
+
+    // UTM tracking
+    function getUTMParams() {
+      const params = {};
+      const urlParams = new URLSearchParams(window.location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(key => {
+        if (urlParams.has(key)) params[key] = urlParams.get(key);
+      });
+      return params;
+    }
+    const UTM_PARAMS = getUTMParams();
     // Detección simple de dispositivo
     let DEVICE = "desktop";
     if (/Mobi|Android/i.test(NAVIGATOR)) DEVICE = "mobile";
@@ -148,7 +159,8 @@
       referer: REFERRER,
       page: PAGE,
       device: DEVICE,
-      os: OS
+      os: OS,
+      ...UTM_PARAMS // Añade los UTM si existen
     });
 
     // Función global alternativa

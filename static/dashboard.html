@@ -163,6 +163,42 @@
           <canvas id="cityChart"></canvas>
         </div>
       </div>
+
+      <!-- Comparativas temporales -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Comparativa semanal</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="weekCompareChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Comparativa mensual</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="monthCompareChart"></canvas>
+        </div>
+      </div>
+      <!-- Retención -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Retención (global/página)</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="retentionChart"></canvas>
+        </div>
+      </div>
+      <!-- Funnel básico -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Funnel básico</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="funnelChart"></canvas>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -181,43 +217,43 @@
   <!--script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.3.0/dashboard.js" defer></script-->
   <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.2.0/global-design.js" defer></script>
   <script>
+    let isLoading = false;
+    const charts = {};
+
     const urlParams = new URLSearchParams(window.location.search);
-const site = urlParams.get("site");
-const token = urlParams.get("token");
+    const site = urlParams.get("site");
+    const token = urlParams.get("token");
 
-if (!site || !token) {
-  document.body.innerHTML = "<h2>🔒 Acceso denegado</h2>";
-} else {
-  cargarDatos(site, token);
-}
-
-const charts = {};
-let isLoading = false;
-
-async function cargarDatos(site, token) {
-  if (isLoading) return;
-  isLoading = true;
-  try {
-    const res = await fetch(`/stats?site=${site}&token=${token}`);
-    if (!res.ok) {
-      document.body.innerHTML = "<h2>🔒 Acceso denegado o inválido</h2>";
-      return;
+    if (!site || !token) {
+      document.body.innerHTML = "<h2>🔒 Acceso denegado</h2>";
+    } else {
+      cargarDatos(site, token);
     }
 
-    const data = await res.json();
-    console.log("Datos recibidos:", data);
+    async function cargarDatos(site, token) {
+      if (isLoading) return;
+      isLoading = true;
+      try {
+        const res = await fetch(`/stats?site=${site}&token=${token}`);
+        if (!res.ok) {
+          document.body.innerHTML = "<h2>🔒 Acceso denegado o inválido</h2>";
+          return;
+        }
 
-    const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
-    const porDia = Array.isArray(data.por_dia) ? data.por_dia : [];
-    const navegadores = Array.isArray(data.navegadores) ? data.navegadores : [];
-    const referencias = Array.isArray(data.referencias) ? data.referencias : [];
-    const paginas = Array.isArray(data.paginas) ? data.paginas : [];
-    const duracionMedia = data.duracion_media || 0;
-    const browserLangs = Array.isArray(data.browser_langs) ? data.browser_langs : [];
-    const osArr = Array.isArray(data.os) ? data.os : [];
-    const cities = Array.isArray(data.cities) ? data.cities : [];
+        const data = await res.json();
+        console.log("Datos recibidos:", data);
 
-    const modulosCanvas = document.getElementById("modulosChart");
+        const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
+        const porDia = Array.isArray(data.por_dia) ? data.por_dia : [];
+        const navegadores = Array.isArray(data.navegadores) ? data.navegadores : [];
+        const referencias = Array.isArray(data.referencias) ? data.referencias : [];
+        const paginas = Array.isArray(data.paginas) ? data.paginas : [];
+        const duracionMedia = data.duracion_media || 0;
+        const browserLangs = Array.isArray(data.browser_langs) ? data.browser_langs : [];
+        const osArr = Array.isArray(data.os) ? data.os : [];
+        const cities = Array.isArray(data.cities) ? data.cities : [];
+
+        const modulosCanvas = document.getElementById("modulosChart");
 if (modulosCanvas) {
   if (charts.modulosChart) charts.modulosChart.destroy();
   charts.modulosChart = new Chart(modulosCanvas, {
@@ -374,6 +410,68 @@ if (modulosCanvas) {
         }]
       }
     });
+
+    // Comparativa semanal
+    if (Array.isArray(data.week_compare) && document.getElementById("weekCompareChart")) {
+      if (charts.weekCompareChart) charts.weekCompareChart.destroy();
+      charts.weekCompareChart = new Chart(document.getElementById("weekCompareChart"), {
+        type: 'line',
+        data: {
+          labels: data.week_compare.map(d => d.label),
+          datasets: [
+            { label: 'Semana actual', data: data.week_compare.map(d => d.current), borderColor: '#3cbf8e', fill: false },
+            { label: 'Semana pasada', data: data.week_compare.map(d => d.previous), borderColor: '#e94e77', fill: false }
+          ]
+        }
+      });
+    }
+
+    // Comparativa mensual
+    if (Array.isArray(data.month_compare) && document.getElementById("monthCompareChart")) {
+      if (charts.monthCompareChart) charts.monthCompareChart.destroy();
+      charts.monthCompareChart = new Chart(document.getElementById("monthCompareChart"), {
+        type: 'line',
+        data: {
+          labels: data.month_compare.map(d => d.label),
+          datasets: [
+            { label: 'Mes actual', data: data.month_compare.map(d => d.current), borderColor: '#4a90e2', fill: false },
+            { label: 'Mes pasado', data: data.month_compare.map(d => d.previous), borderColor: '#f5a623', fill: false }
+          ]
+        }
+      });
+    }
+
+    // Retención
+    if (Array.isArray(data.retention) && document.getElementById("retentionChart")) {
+      if (charts.retentionChart) charts.retentionChart.destroy();
+      charts.retentionChart = new Chart(document.getElementById("retentionChart"), {
+        type: 'bar',
+        data: {
+          labels: data.retention.map(d => d.label),
+          datasets: [{
+            label: 'Retención (%)',
+            data: data.retention.map(d => d.value),
+            backgroundColor: '#846bff'
+          }]
+        }
+      });
+    }
+
+    // Funnel básico
+    if (Array.isArray(data.funnel) && document.getElementById("funnelChart")) {
+      if (charts.funnelChart) charts.funnelChart.destroy();
+      charts.funnelChart = new Chart(document.getElementById("funnelChart"), {
+        type: 'bar',
+        data: {
+          labels: data.funnel.map(d => d.step),
+          datasets: [{
+            label: 'Usuarios',
+            data: data.funnel.map(d => d.value),
+            backgroundColor: '#3cbf8e'
+          }]
+        }
+      });
+    }
 
   } catch (e) {
     console.error("❌ Error en fetch:", e);
