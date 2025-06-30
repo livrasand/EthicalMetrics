@@ -2,14 +2,77 @@
   const API_URL = "https://ethicalmetrics.onrender.com/track";
   const LOAD_TIME = Math.round(performance.now());
 
+  // --- DNT y consentimiento ---
+  function hasConsent() {
+    return sessionStorage.getItem("ethicalmetrics_consent") === "true";
+  }
+  function setConsent(val) {
+    sessionStorage.setItem("ethicalmetrics_consent", val ? "true" : "false");
+  }
+  function showConsentBanner(onAccept) {
+    if (document.getElementById("ethicalmetrics-banner")) return;
+    const SCRIPT = document.querySelector('script[src*="ethicalmetrics.js"]');
+    // Lee opciones del script
+    const bg = SCRIPT?.getAttribute("data-banner-bg") || "#fff";
+    const color = SCRIPT?.getAttribute("data-banner-color") || "#222";
+    const btnBg = SCRIPT?.getAttribute("data-banner-btn-bg") || "#4a90e2";
+    const btnColor = SCRIPT?.getAttribute("data-banner-btn-color") || "#fff";
+    const text = SCRIPT?.getAttribute("data-banner-text") ||
+      "We respect your privacy. 'Do Not Track' is enabled in your browser, so we do not collect analytics by default.<br>Only if you accept, we will collect anonymous data to improve this site.";
+    const btnText = SCRIPT?.getAttribute("data-banner-btn-text") || "Accept";
+
+    const banner = document.createElement("div");
+    banner.id = "ethicalmetrics-banner";
+    banner.style.cssText = `
+      position:fixed;bottom:0;left:0;right:0;z-index:9999;
+      background:${bg};color:${color};padding:1em;text-align:center;
+      box-shadow:0 -2px 8px #0002;font-family:sans-serif;
+    `;
+    banner.innerHTML = `
+      <span style="display:inline-block;margin-bottom:0.5em;">
+        ${text}
+      </span>
+      <button id="ethicalmetrics-accept" style="margin-left:1em;padding:0.5em 1.5em;background:${btnBg};color:${btnColor};border:none;border-radius:4px;cursor:pointer;">
+        ${btnText}
+      </button>
+    `;
+    document.body.appendChild(banner);
+    document.getElementById("ethicalmetrics-accept").onclick = function () {
+      setConsent(true);
+      banner.remove();
+      main(true); // relanza main con consentimiento
+    };
+  }
+
   // Esperar a que el DOM esté listo para asegurar que <body> existe
   if (!document.body) {
-    document.addEventListener("DOMContentLoaded", main);
+    document.addEventListener("DOMContentLoaded", checkConsentAndRun);
   } else {
+    checkConsentAndRun();
+  }
+
+  function checkConsentAndRun() {
+    const DNT = (
+      navigator.doNotTrack == "1" ||
+      window.doNotTrack == "1" ||
+      navigator.msDoNotTrack == "1"
+    );
+    if (DNT && !hasConsent()) {
+      showConsentBanner(() => main(true));
+      return;
+    }
     main();
   }
 
-  function main() {
+  function main(force) {
+    // Si DNT está activo y no hay consentimiento, no hacer nada
+    const DNT = (
+      navigator.doNotTrack == "1" ||
+      window.doNotTrack == "1" ||
+      navigator.msDoNotTrack == "1"
+    );
+    if (DNT && !hasConsent() && !force) return;
+
     const SCRIPT = document.querySelector('script[src*="ethicalmetrics.js"]');
     const URL_PARAMS = new URL(SCRIPT?.src || "").searchParams;
     let SITE_ID = SCRIPT?.getAttribute("data-site-id") || new URL(SCRIPT?.src || "").searchParams.get("id");

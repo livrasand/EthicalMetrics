@@ -61,7 +61,24 @@ https://ethicalmetrics.onrender.com
 
 ```html
 <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"></script>
-````
+```
+
+**Ultra-simple banner customization:**  
+You can easily customize the consent banner by adding `data-*` attributes to the script tag:
+
+```html
+<script
+  src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"
+  data-banner-bg="#222"
+  data-banner-color="#fff"
+  data-banner-btn-bg="#4a90e2"
+  data-banner-btn-color="#fff"
+  data-banner-text="We respect your privacy. DNT is enabled. Only if you accept, we collect anonymous analytics."
+  data-banner-btn-text="Accept"
+></script>
+```
+
+Change colors and text as you wish — no coding required!
 
 4. Optionally, define a custom module for richer context:
 
