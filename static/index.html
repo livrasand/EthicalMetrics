@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>EthicalMetrics</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/nuevo.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@v5.0.0/styles/nuevo.css">
   <style>
   @media (hover: hover) and (pointer: fine) {
     body {
@@ -54,250 +54,100 @@
       });
     }
   </script>
+  <style>
+        .price-container {
+position: absolute;
+      background-color: #141414;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      justify-content: space-between;
+      align-content: space-between;
+      padding: 1.5rem 1.688rem;
+      z-index: 10;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      row-gap: 0.5rem;
+    }
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+}
+
+.plan-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.plan-card .plan-price {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0;
+  color: var(--text-highlight, #59FFA4);
+}
+
+.plan-price .plan-period {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary, #aaa);
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.plan-features li {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+  color: var(--text-secondary, #ccc);
+}
+
+.plan-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #3CBF8E;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3CBF8E, #1EFE9D);
+  color: #0b0b0b;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #2db67c, #1ccf8e);
+}
+
+.highlight {
+  border: 2px solid #3CBF8E;
+  background: rgba(60, 191, 142, 0.05);
+}
+
+    </style>
+    <style>
+    .chart-title {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-  <!-- beging nav -->
-  <nav class="nav-flotante">
-    <div class="nav-contenido">
-      <a href="/" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 12L12 17L21 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 17L12 22L21 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        EthicalMetrics
-      </a>
-      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-      </button>
-      <div class="nav-enlaces">
-        <a href="/about" class="nav-link type-mono-01">Our story</a>
-        <a href="/pricing" class="nav-link type-mono-01">Pricing</a>
-        <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="nav-link type-mono-01">Docs</a>
-      </div>
-    </div>
-  </nav>
-  <style>
+  <div id="header"></div>
+  <main id="main"></main>
+  <div id="footer"></div>
   
-  .nav-enlaces {
-    display: flex;
-    gap: 1.5em;
-  }
   
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.3em;
-    width: 2.2em;
-    height: 2.2em;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.3em;
-  }
-  .nav-toggle-bar {
-    width: 100%;
-    height: 1px;
-    background: #E7DBFF;
-    border-radius: 0;
-    display: block;
-    transition: 0.3s;
-  }
-  @media (max-width: 768px) {
-    .nav-contenido {
-      flex-wrap: wrap;
-    }
-    .nav-enlaces {
-      flex-direction: column;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: rgba(20, 20, 20, 1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      width: 100vw;
-      height: 100vh;
-      max-width: 220px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 1.2em 1em;
-      gap: 1em;
-      display: none;
-      z-index: 200;
-      animation: fadeInNav 0.2s;
-    }
-    .nav-enlaces.open {
-      display: flex;
-    }
-    .nav-toggle {
-      display: flex;
-    }
-  }
-  @keyframes fadeInNav {
-    from { opacity: 0; transform: translateY(-10px);}
-    to { opacity: 1; transform: translateY(0);}
-  }
-  </style>
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggle = document.querySelector('.nav-toggle');
-    const enlaces = document.querySelector('.nav-enlaces');
-    if (toggle && enlaces) {
-      toggle.addEventListener('click', function() {
-        const expanded = enlaces.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', expanded);
-      });
-      // Opcional: cerrar menú al hacer click fuera
-      document.addEventListener('click', function(e) {
-        if (!toggle.contains(e.target) && !enlaces.contains(e.target)) {
-          enlaces.classList.remove('open');
-          toggle.setAttribute('aria-expanded', false);
-        }
-      });
-    }
-  });
-  </script>
-<!-- end nav -->
-
-  <div class="grid-wrapper">
-    <div class="grid-container hidden"></div>
-
-    <div class="logo-container hidden">
-      <div class="type-heading-05 text-secondary quote">
-        <p>Crear cuenta en EthicalMetrics</p>
-        <p class="type-interface-00">Analítica web privacy-first sin cookies, sin rastreadores,<br>sin datos personales</p>
-        <p class="type-interface-00" style="margin-top: 10px;">Presiona el botón para generar tu cuenta privada.<br>Se te asignará un ID de sitio y un token de administrador.</p>
-              
-        <a id="btnCrear" onclick="crearCuenta()"
-          class="link link-text--highlight type-interface-00">
-         <div class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="m10.55 18.2l5.175-6.2h-4l.725-5.675L7.825 13H11.3zm-.396-4.2H7.169q-.407 0-.59-.355t.054-.681l5.629-8.155q.153-.215.38-.285t.48.022t.365.304t.082.463L12.866 11h3.586q.42 0 .595.383q.176.383-.095.71l-6.264 7.503q-.16.19-.386.243q-.227.052-.448-.047q-.221-.098-.338-.297q-.116-.199-.085-.45zm1.621-1.75"/></svg></div> Crear mi cuenta <div class="link-icon"><svg fill="currentColor" width="12" height="12"
-              viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 3L8.285 3.6965L12.075 7.5H2V8.5H12.075L8.285 12.2865L9 13L14 8L9 3Z" />
-            </svg></div></a>
-
-            <p class="type-interface-00" style="font-size: 10px;">No credit card required • Sin correo electrónico • Sin contraseña • Instantáneo</p>
-
-        <div class="result-box type-interface-00 text-secondary quote" id="resultado" style="display: none;">
-        <div class="type-interface-00"><span>ID de sitio:</span><br><code id="site"></code></div>
-        <div class="type-interface-00"><span>Token de admin:</span><br><code id="token"></code></div>
-        <div class="type-interface-00" style="word-break: break-all; overflow-x: auto; max-width: 100%;"><span>Script para tu web:</span><br><code id="script" style="white-space: pre-wrap; word-break: break-all; display: block; max-width: 100%;"></code></div>
-        <div style="margin-top:1em;"><a class="link link-text--highlight type-interface-00" id="linkDashboard" target="_blank">Ir a mi Dashboard <div class="link-icon"><svg fill="currentColor" width="12" height="12"
-              viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 3L8.285 3.6965L12.075 7.5H2V8.5H12.075L8.285 12.2865L9 13L14 8L9 3Z" />
-            </svg></div></a></div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="info-container">
-      <div class="type-heading-05 text-secondary quote">
-        <p>How EthicalMetrics Works?</p>
-        <p class="type-interface-00">Get started in 3 simple steps.</p>
-              
-  <div class="steps-container">
-    <div class="step" itemscope itemtype="https://schema.org/HowToStep">
-      <div class="step-number" itemprop="position">1</div>
-      <div class="step-content">
-        <p class="type-interface-01" itemprop="name">Create your account</p>
-        <p class="type-interface-00" style="opacity: 0.6;" itemprop="text">Regístrate fácil y rápido, sin correos, sin contraseñas y sin KYC.</p>
-        <div class="step-illustration">
-          <div class="illustration-card glass-card">
-            <div class="illustration-response">
-              <pre>{
-  "site_id": "EM_ABC123",
-  "admin_token": "em_xyz789"
-}</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="step" itemscope itemtype="https://schema.org/HowToStep">
-      <div class="step-number" itemprop="position">2</div>
-      <div class="step-content">
-        <p class="type-interface-01 itemprop="name">Add EM Script</p>
-        <p class="type-interface-00" style="opacity: 0.6;" itemprop="text">Include our lightweight script in your website's &lt;head&gt;:</p>
-        
-        <div class="code-tabs glass-card" style="margin-top: 1em;">
-          <div class="code-tab-header">
-            <button class="code-tab-btn active">Basic Tracking</button>
-            <button class="code-tab-btn">Module Tracking</button>
-          </div>
-          <div class="code-tab-content active">
-            <pre><code class="language-html">&lt;script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"&gt;
-&lt;/script&gt;</code></pre>
-            <button class="copy-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 16H6C5.46957 16 4.96086 15.7893 4.58579 15.4142C4.21071 15.0391 4 14.5304 4 14V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H14C14.5304 4 15.0391 4.21071 15.4142 4.58579C15.7893 4.96086 16 5.46957 16 6V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10 20H18C18.5304 20 19.0391 19.7893 19.4142 19.4142C19.7893 19.0391 20 18.5304 20 18V10C20 9.46957 19.7893 8.96086 19.4142 8.58579C19.0391 8.21071 18.5304 8 18 8H10C9.46957 8 8.96086 8.21071 8.58579 8.58579C8.21071 8.96086 8 9.46957 8 10V18C8 18.5304 8.21071 19.0391 8.58579 19.4142C8.96086 19.7893 9.46957 20 10 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Copy
-            </button>
-          </div>
-          <div class="code-tab-content">
-            <pre><code class="language-html">&lt;body data-modulo="home"&gt;
-  ...
-  &lt;script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=YOUR_SITE_ID"&gt;
-&lt;/script&gt;
-&lt;/body&gt;</code></pre>
-            <button class="copy-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 16H6C5.46957 16 4.96086 15.7893 4.58579 15.4142C4.21071 15.0391 4 14.5304 4 14V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H14C14.5304 4 15.0391 4.21071 15.4142 4.58579C15.7893 4.96086 16 5.46957 16 6V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10 20H18C18.5304 20 19.0391 19.7893 19.4142 19.4142C19.7893 19.0391 20 18.5304 20 18V10C20 9.46957 19.7893 8.96086 19.4142 8.58579C19.0391 8.21071 18.5304 8 18 8H10C9.46957 8 8.96086 8.21071 8.58579 8.58579C8.21071 8.96086 8 9.46957 8 10V18C8 18.5304 8.21071 19.0391 8.58579 19.4142C8.96086 19.7893 9.46957 20 10 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Copy
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="step" itemscope itemtype="https://schema.org/HowToStep">
-      <div class="step-number" itemprop="position">3</div>
-      <div class="step-content">
-        <p class="type-interface-01" itemprop="name">View your analytics</p>
-        <p class="type-interface-00" style="opacity: 0.6;" itemprop="text">Access your private analytics dashboard with your credentials:</p>
-        
-        <div class="dashboard-preview glass-card" style="margin-top: 1em;">
-          <div class="dashboard-preview-header">
-            <div class="dashboard-url">
-              <span>https://ethicalmetrics.onrender.com/dashboard</span>
-              <span class="query-params">?site=YOUR_SITE_ID&token=YOUR_ADMIN_TOKEN</span>
-            </div>
-          </div>
-          <div class="dashboard-preview-content">
-            <div class="metric-chart">
-              <div class="chart-placeholder"></div>
-            </div>
-            <div class="metric-stats">
-              <div class="stat-card">
-                <div class="stat-value">1,248</div>
-                <div class="stat-label">Visits</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">2.4m</div>
-                <div class="stat-label">Avg. Duration</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">68%</div>
-                <div class="stat-label">Engagement</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-      </div>
-    </div>
-
-  </div>
-
   <img id="block-a" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%2085H100V90H0z%22%20fill%3D%22%2359FFA4%22%2F%3E%3C%2Fsvg%3E" alt="Block A" />
   <img id="block-b" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block B" />
   <img id="block-c" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2063h90v4.5H0z%22%20fill%3D%22%23F347FF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22neon-pink%22%3E%3CfeGaussianBlur%20stdDeviation%3D%222%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22atop%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block C" />
@@ -305,633 +155,8 @@
   <img id="block-e" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block E" />
   <img id="block-f" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block F" />
   
-  <footer class="footer-flotante" id="footerFlotante">
-    <button class="footer-toggle" aria-label="Mostrar/Ocultar footer" aria-expanded="false">
-      <span class="footer-toggle-bar"></span>
-      <span class="footer-toggle-bar"></span>
-      <span class="footer-toggle-bar"></span>
-    </button>
-    <div class="footer-contenido">
-      <div class="footer-main-row">
-        <span class="footer-texto type-mono-01">
-          Maintained by <a href="https://github.com/livrasand" class="text-accent">@livrasand</a> and 
-          <a href="https://github.com/livrasand/EthicalMetrics/graphs/contributors">contributors</a>
-          <br>
-          © 2025-PRESENT EthicalMetrics OSS
-        </span>
-        <div class="footer-enlaces">
-          <a href="/about" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m10.065 12.493l-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44m-2.875 6.493l4.332-.924M16 21l-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455zM6.158 8.633l1.114 4.456M8 21l3.105-6.21"/><circle cx="12" cy="13" r="2"/></g></svg> About</a>
-          <a href="/privacy" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 1 0 10 10a4 4 0 0 1-5-5a4 4 0 0 1-5-5M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01"/></svg> Privacy</a>
-          <a href="/terms" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 16l3-8l3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1M2 16l3-8l3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1m5 5h10M12 3v18M3 7h2c2 0 5-1 7-2c2 1 5 2 7 2h2"/></svg> Terms</a>
-          <a href="/security" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM8 12h.01M12 12h.01M16 12h.01"/></svg> Security</a>
-          <a href="https://deepwiki.com/livrasand/EthicalMetrics" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m4-9h2m-2-4h2M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3zm3-6h2M6 8h2"/></svg> Docs</a>
-          <a href="https://github.com/livrasand/EthicalMetrics/issues" class="footer-link type-mono-01"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"/></g></svg> Soporte</a>
-        </div>
-      </div>
-    </div>
-    <style>
-      .footer-flotante {
-        width: 100%;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        padding: 2em 0 1.2em 0;
-        color: #E7DBFF;
-        background: transparent;
-      }
-      .footer-toggle {
-        display: none;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: -1.5em;
-        background: #18132a;
-        border: 1px solid #A47CFF;
-        border-radius: 1.5em;
-        padding: 0.4em 1.2em;
-        color: #A47CFF;
-        cursor: pointer;
-        z-index: 300;
-        align-items: center;
-        gap: 0.5em;
-        font-size: 1em;
-        transition: background 0.2s, color 0.2s;
-      }
-      .footer-toggle-bar {
-        display: inline-block;
-        width: 1.2em;
-        height: 1px;
-        background: #A47CFF;
-        margin: 0 0.1em;
-        border-radius: 0;
-        vertical-align: middle;
-      }
-      .footer-toggle-label {
-        margin-left: 0.5em;
-        font-size: 1em;
-        font-family: inherit;
-        color: #A47CFF;
-      }
-      .footer-flotante.closed .footer-contenido {
-        display: none;
-      }
-      @media (max-width: 700px) {
-        .footer-flotante {
-          padding: 0.5em 0 0.5em 0;
-          background: #18132a;
-        }
-        .footer-toggle {
-          display: flex;
-        }
-        .footer-contenido {
-          transition: max-height 0.3s, opacity 0.3s;
-          max-height: 1000px;
-          opacity: 1;
-        }
-        .footer-flotante.closed .footer-contenido {
-          max-height: 0;
-          opacity: 0;
-          overflow: hidden;
-          padding: 0;
-        }
-      }
-      .footer-contenido {
-        max-width: 1100px;
-        padding: 0 1.5em;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .footer-main-row {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 2em;
-        flex-wrap: wrap;
-      }
-      .footer-texto {
-        flex: 1 1 320px;
-        line-height: 1.7;
-        color: #B9B4D9;
-        min-width: 220px;
-      }
-      .footer-texto a {
-        color: #A47CFF;
-        text-decoration: underline dotted;
-        transition: color 0.2s;
-      }
-      .footer-texto a:hover {
-        color: #59FFA4;
-      }
-      .footer-enlaces {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.7em 1.5em;
-        align-items: flex-start;
-        justify-content: flex-end;
-        min-width: 220px;
-      }
-      .footer-link {
-        color: #E7DBFF;
-        text-decoration: none;
-        padding: 0.2em 0;
-        border-bottom: 1.5px solid transparent;
-        transition: color 0.2s, border-bottom 0.2s;
-      }
-      .footer-link:hover {
-        color: #59FFA4;
-        border-bottom: 1.5px solid #59FFA4;
-      }
-      @media (max-width: 800px) {
-        .footer-enlaces {
-          justify-content: flex-start;
-        }
-      }
-      @media (max-width: 500px) {
-        .footer-contenido {
-          padding: 0 0.7em;
-        }
-        .footer-enlaces {
-          gap: 0.5em 1em;
-        }
-      }
-    </style>
-    <script>
-      (function() {
-        var footer = document.getElementById('footerFlotante');
-        var toggle = footer.querySelector('.footer-toggle');
-        function setClosed(closed) {
-          if (closed) {
-            footer.classList.add('closed');
-            toggle.setAttribute('aria-expanded', 'false');
-          } else {
-            footer.classList.remove('closed');
-            toggle.setAttribute('aria-expanded', 'true');
-          }
-        }
-        // Start closed on mobile
-        function checkMobile() {
-          if (window.innerWidth <= 700) {
-            setClosed(true);
-          } else {
-            setClosed(false);
-          }
-        }
-        toggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var isClosed = footer.classList.contains('closed');
-          setClosed(!isClosed);
-        });
-        window.addEventListener('resize', checkMobile);
-        document.addEventListener('DOMContentLoaded', checkMobile);
-      })();
-    </script>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/gh/livrasand/statix-ethicalMetrics-cdn@v1.0.0/nuevo.js" defer></script>
-  <script>
-     document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar tabs de código
-  initCodeTabs();
-  
-  // Botones de copiar código
-  initCopyButtons();
-
-});
-
-        const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    const gridContainer = document.querySelector(".grid-container");
-    const loadingContainer = document.querySelector(".loading-container");
-    const logoContainer = document.querySelector(".logo-container");
-    const infoContainer = document.querySelector(".info-container");
-    const priceContainer = document.querySelector(".price-container");
-
-    let blocks = []; 
-
-    const blockOrder = [
-      "block-b",
-      "block-c",
-      "block-e",
-      "block-f",
-      "block-a",
-      "block-b",
-      "block-e",
-      "block-b",
-      "block-c",
-      "block-d",
-      "block-a",
-      "block-f",
-      "block-c",
-      "block-d",
-      "block-e",
-      "block-b",
-      "block-c",
-      "block-d",
-      "block-a",
-      "block-f",
-      "block-c",
-      "block-d",
-      "block-e",
-    ];
-
-    let lastScreenCategory = window.innerWidth <= 1024 ? "small" : "large";
-
-    function createGrid(isIntialLoad) {
-      if (!gridContainer) return;
-
-      if (!(gridContainer instanceof HTMLElement)) {
-        return;
-      }
-      gridContainer.innerHTML = ""; 
-
-      const screenWidth = window.innerWidth;
-      const screenSize =
-        screenWidth <= 430
-          ? "extraSmall"
-          : screenWidth <= 1024
-            ? "medium"
-            : "large";
-      const columns = screenSize === "large" ? 16 : 8;
-      const rows = 25;
-      const gridGap = 1;
-
-      const cellSize =
-        (window.innerWidth - (columns - 1) * gridGap) / columns;
-      const gridHeight = cellSize * rows + (rows - 1) * gridGap;
-
-      gridContainer.style.width = `${window.innerWidth}px`;
-      gridContainer.style.height = `${gridHeight}px`;
-      gridContainer.style.gridTemplateColumns = `repeat(${columns}, ${cellSize}px)`;
-      gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellSize}px)`;
-
-      
-      for (let i = 0; i < rows * columns; i++) {
-        const div = document.createElement("div");
-        div.className = "grid-item";
-        gridContainer.appendChild(div);
-      }
-
-      updateLoadingContainer(cellSize, gridGap, screenSize);
-      updateLogoContainer(cellSize, gridGap, screenSize);
-      updateInfoContainer(cellSize, gridGap, screenSize);
-      updatePriceContainer(cellSize, gridGap, screenSize);
-      
-      if (reducedMotion) {
-        updateReducedMotionBlocks(
-          cellSize,
-          gridGap,
-          screenSize,
-          isIntialLoad,
-        );
-      } else {
-        updateAllBlockPositions();
-      }
-    }
-
-    function updateContainerPosition(
-      container,
-      cellSize,
-      gridGap,
-      screenSize,
-      positions,
-    ) {
-      if (!container) return;
-
-      const { row, col, width, height } = positions[screenSize];
-
-      container.style.left = `${col * (cellSize + gridGap)}px`;
-      container.style.top = `${row * (cellSize + gridGap)}px`;
-      container.style.width = `${width * (cellSize + gridGap) - 1}px`;
-      container.style.minHeight = `${height * (cellSize + gridGap) - 1}px`;
-      container.style.height = "auto"; 
-    }
-
-    function updateLoadingContainer(cellSize, gridGap, screenSize) {
-      const containerPositions = {
-        extraSmall: { row: 8, col: 1, width: 6, height: 1 },
-        medium: { row: 6, col: 1, width: 6, height: 1 },
-        large: { row: 2, col: 10, width: 4, height: 1 },
-      };
-      updateContainerPosition(
-        loadingContainer,
-        cellSize,
-        gridGap,
-        screenSize,
-        containerPositions,
-      );
-    }
-
-    function updateLogoContainer(cellSize, gridGap, screenSize) {
-      const containerPositions = {
-        extraSmall: { row: 2, col: 1, width: 6, height: 3 },
-        medium: { row: 1, col: 1, width: 6, height: 2 },
-        large: { row: 2, col: 2, width: 5, height: 2 },
-      };
-      updateContainerPosition(
-        logoContainer,
-        cellSize,
-        gridGap,
-        screenSize,
-        containerPositions,
-      );
-    }
-
-    function updateInfoContainer(cellSize, gridGap, screenSize) {
-      const containerPositions = {
-        extraSmall: { row: 10, col: 1, width: 6, height: 16 }, // Debajo del logo en móvil
-        medium: { row: 8, col: 1, width: 6, height: 16 }, // Debajo del logo en tablet
-        large: { row: 9, col: 2, width: 12, height: 16 } // Debajo del logo en desktop
-      };
-      updateContainerPosition(
-        infoContainer,
-        cellSize,
-        gridGap,
-        screenSize,
-        containerPositions
-      );
-    }
-
-    function updatePriceContainer(cellSize, gridGap, screenSize) {
-        const containerPositions = {
-            extraSmall: { row: 2, col: 0, width: 8, height: 18 },
-            medium: { row: 1, col: 0, width: 8, height: 18 },
-            large: { row: 2, col: 2, width: 12, height: 16 }
-        };
-        updateContainerPosition(
-            priceContainer,
-            cellSize,
-            gridGap,
-            screenSize,
-            containerPositions
-        );
-    }
-
-    function updateReducedMotionBlocks(
-      cellSize,
-      gridGap,
-      screenSize,
-      isIntialLoad,
-    ) {
-      blocks.forEach((block) => block.remove());
-      blocks = []; 
-
-      const rmBlockPositions = [
-        { blockId: "block-c", row: 0, col: 3 },
-        { blockId: "block-d", row: 1, col: 7 },
-        { blockId: "block-a", row: 2, col: 13 },
-        { blockId: "block-f", row: 3, col: 13 },
-        { blockId: "block-d", row: 5, col: 7 },
-        { blockId: "block-e", row: 6, col: 1 },
-        { blockId: "block-b", row: 7, col: 9 },
-        { blockId: "block-e", row: 7, col: 10 },
-        { blockId: "block-f", row: 9, col: 3 },
-        { blockId: "block-c", row: 9, col: 4 },
-      ];
-
-      const rmBlockPositionsSmall = [
-        { blockId: "block-c", row: 0, col: 3 },
-        { blockId: "block-d", row: 2, col: 7 },
-        { blockId: "block-b", row: 3, col: 7 },
-        { blockId: "block-e", row: 6, col: 0 },
-        { blockId: "block-f", row: 7, col: 0 },
-        { blockId: "block-a", row: 8, col: 5 },
-        { blockId: "block-a", row: 10, col: 1 },
-        { blockId: "block-e", row: 13, col: 5 },
-        { blockId: "block-d", row: 16, col: 5 },
-        { blockId: "block-f", row: 16, col: 7 },
-      ];
-
-      const blockPositions =
-        screenSize === "large" ? rmBlockPositions : rmBlockPositionsSmall;
-
-      blockPositions.forEach((blockPosition) => {
-        const blockElement = document.getElementById(blockPosition.blockId);
-        if (!blockElement) return;
-        const block = blockElement.cloneNode(true);
-        if (!(block instanceof HTMLImageElement)) return;
-        document.body.appendChild(block);
-        blocks.push(block);
-
-        block.style.left = `${blockPosition.col * (cellSize + gridGap)}px`;
-        block.style.top = `${blockPosition.row * (cellSize + gridGap)}px`;
-        block.style.width = `${cellSize}px`;
-        block.style.height = `${cellSize}px`;
-
-        block.classList.add("rm-block");
-
-        if (isIntialLoad) {
-          block.classList.add("hidden");
-        }
-      });
-    }
-
-    function getAnimationDuration() {
-      const screenWidth = window.innerWidth;
-
-      const minWidth = 320;
-      const midWidth = 1024;
-      const maxWidth = 1920;
-
-      if (screenWidth <= midWidth) {
-        const ratio = (screenWidth - minWidth) / (midWidth - minWidth);
-        return 1.7 + ratio * (2.2 - 1.7);
-      } else {
-        const ratio = (screenWidth - midWidth) / (maxWidth - midWidth);
-        return 3 + ratio * (4 - 3);
-      }
-    }
-
-    let pendingDuration = null;
-
-    function startBlocks() {
-      blocks = []; 
-      const bezierCurve = "cubic-bezier(.2,0,.93,1)";
-      const baseDuration = getAnimationDuration();
-
-      console.log("Initial Animation duration:", baseDuration);
-      blockOrder.forEach((blockId, rowIndex) => {
-        const blockElement = document.getElementById(blockId);
-        if (!blockElement) return;
-        const block = blockElement.cloneNode(true);
-        if (!(block instanceof HTMLImageElement)) return;
-
-        block.classList.add("block");
-        block.alt = "Moving SVG Block";
-
-        
-        const delay = Math.random() * baseDuration + 0;
-
-        block.style.left = "-15vw";
-        block.style.animation = `slide ${baseDuration}s ${bezierCurve} ${delay}s forwards infinite`;
-
-        document.body.appendChild(block);
-        blocks.push(block);
-
-        updateBlockPosition(block, rowIndex);
-
-        
-        
-        block.addEventListener('animationiteration', () => {
-          if (pendingDuration !== null) {
-            
-            block.style.animationIterationCount = '1';
-
-            const handleEnd = () => {
-              block.removeEventListener('animationend', handleEnd);
-              block.style.animation = 'none';
-              block.style.left = '-15vw';
-
-              void block.offsetWidth;
-              const delay = Math.random() * pendingDuration + 0;
-
-              
-              console.log("Updated Animation duration:", pendingDuration);
-              const newAnimation = `slide ${pendingDuration}s ${bezierCurve} ${delay}s forwards infinite`;
-              block.style.animation = newAnimation;
-
-            };
-
-            block.addEventListener('animationend', handleEnd);
-
-          }
-        });
-
-      });
-    }
-
-    function updateBlockPosition(block, rowNumber) {
-      if (!gridContainer) return;
-
-      const rows = 25;
-      const gridGap = 1;
-      const gridRect = gridContainer.getBoundingClientRect();
-      const rowHeight = (gridRect.height - (rows - 1) * gridGap) / rows;
-
-      let topPosition = gridRect.top + rowNumber * (rowHeight + gridGap);
-      block.style.position = "absolute";
-      block.style.top = `${topPosition}px`;
-      block.style.height = `${rowHeight}px`;
-      block.style.display = "block";
-    }
-
-    function updateAllBlockPositions() {
-      blocks.forEach((block, index) => {
-        updateBlockPosition(block, index);
-      });
-    }
-
-    createGrid(true);
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const logoContainer = document.querySelector(".logo-container");
-      const loadingContainer = document.querySelector(".loading-container");
-
-      
-      logoContainer?.classList.add("fade-in");
-      loadingContainer?.classList.add("fade-in");
-      infoContainer?.classList.add("fade-in");
-
-      
-      setTimeout(() => {
-        gridContainer?.classList.add("fade-in");
-      }, 1000);
-
-      
-      
-      if (reducedMotion) {
-        setTimeout(() => {
-          document.querySelectorAll(".rm-block").forEach((block) => {
-            block.classList.add("fade-in");
-          });
-        }, 1100);
-      } else {
-        setTimeout(() => {
-          startBlocks();
-        }, 1200);
-      }
-    });
-
-    function resetBlocks() {
-      blocks.forEach((block) => {
-        block.remove();
-      });
-      blocks = [];
-    }
-
-    window.addEventListener("resize", () => {
-      if (!reducedMotion) {
-        const newCategory = window.innerWidth <= 1024 ? "small" : "large";
-
-        
-        if (newCategory !== lastScreenCategory) {
-          lastScreenCategory = newCategory;
-          resetBlocks();
-          startBlocks();
-        }
-        createGrid();
-        
-        const newDuration = getAnimationDuration();
-        pendingDuration = newDuration;
-        updateAllBlockPositions();
-      }
-    }
-    );
-
-    function initCodeTabs() {
-  const tabButtons = document.querySelectorAll('.code-tab-btn');
-  const tabContents = document.querySelectorAll('.code-tab-content');
-  
-  tabButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      // Remover clase active de todos los botones y contenidos
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      
-      // Agregar clase active al botón y contenido seleccionado
-      button.classList.add('active');
-      tabContents[index].classList.add('active');
-    });
-  });
-  
-  // Activar el primer tab por defecto
-  if (tabButtons.length > 0) {
-    tabButtons[0].click();
-  }
-}
-
-/**
- * Inicializar botones de copiar código
- */
-function initCopyButtons() {
-  const copyButtons = document.querySelectorAll('.copy-btn');
-  
-  copyButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const codeBlock = this.closest('.code-tab-content').querySelector('code');
-      const textToCopy = codeBlock.textContent;
-      
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        // Cambiar temporalmente el ícono del botón
-        const originalHTML = this.innerHTML;
-        this.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Copied!
-        `;
-        
-        // Restaurar después de 2 segundos
-        setTimeout(() => {
-          this.innerHTML = originalHTML;
-        }, 2000);
-      }).catch(err => {
-        console.error('Error al copiar texto: ', err);
-      });
-    });
-  });
-}
-  </script>
+  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@v5.0.0/scripts/main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@v5.0.0/scripts/global-design.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@v5.0.0/scripts/nuevo.js" defer></script>
 </body>
 </html>

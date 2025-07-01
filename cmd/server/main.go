@@ -28,6 +28,19 @@ func downloadGeoLiteDB(path string) error {
 	return err
 }
 
+func withCORS(h http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Access-Control-Allow-Origin", "*")
+        w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        if r.Method == "OPTIONS" {
+            w.WriteHeader(http.StatusNoContent)
+            return
+        }
+        h(w, r)
+    }
+}
+
 func main() {
 	_ = godotenv.Load()
 
@@ -57,7 +70,7 @@ func main() {
 		http.ServeFile(w, r, "./static/pricing.html")
 	})
 	http.HandleFunc("/nuevo", api.NuevoHandler)
-	http.HandleFunc("/stats", api.StatsHandler)
+	http.HandleFunc("/stats", withCORS(api.StatsHandler))
 	http.HandleFunc("/track", api.TrackHandler)
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 
