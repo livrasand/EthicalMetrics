@@ -106,6 +106,22 @@ We **welcome contributors**, audits, and ideas from the community.
 * 🔍 Fork or inspect the code — transparency is key
 * 🛠️ Help us build the most **trustworthy** analytics platform on the web
 
+### Polyrepo
+
+EthicalMetrics está organizado en múltiples repositorios especializados bajo una arquitectura desacoplada. Esto permite a los colaboradores contribuir de forma segmentada, según sus intereses o habilidades.
+
+#### Backend
+Repositorio principal que contiene la lógica del servidor, API y base de datos:
+
+→ [`github.com/livrasand/EthicalMetrics`](https://github.com/livrasand/EthicalMetrics)
+
+#### Frontend
+Frontend **estático modular desacoplado con carga dinámica desde CDN**, basado en componentes HTML reutilizables y JavaScript ligero para navegación tipo SPA:
+
+→ [`github.com/EthicalMetrics/website`](https://github.com/EthicalMetrics/website)
+
+Este frontend se distribuye a través de [jsDelivr](https://www.jsdelivr.com/) para carga instantánea y sin dependencias externas en tiempo real. Puedes contribuir con nuevos componentes, mejoras visuales o funciones interactivas.
+
 ---
 
 ## Get Involved

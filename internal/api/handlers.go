@@ -275,6 +275,11 @@ func cityFromIP(ipStr string) string {
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
+	// Agrega estos headers para permitir el acceso desde cualquier origen
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
 	siteID := r.URL.Query().Get("site")
 	token := r.URL.Query().Get("token")
 
