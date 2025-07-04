@@ -6,6 +6,24 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/styles/nuevo.css">
   <style>
+    :root {
+  --f-cursor-default: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-default.svg'), auto;
+  --f-cursor-pointer: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-pointer.svg'), auto;
+  --f-cursor-grab: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grab.svg'), auto;
+  --f-cursor-grabbed: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grabbed.svg'), auto;
+  --f-cursor-text: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-text.svg'), auto;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark; 
+  --f-cursor-default: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-default.svg'), auto;
+  --f-cursor-pointer: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-pointer.svg'), auto;
+  --f-cursor-grab: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grab.svg'), auto;
+  --f-cursor-grabbed: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grabbed.svg'), auto;
+  --f-cursor-text: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-text.svg'), auto;
+}
+
+
   @media (hover: hover) and (pointer: fine) {
     body {
       cursor: var(--f-cursor-default);
@@ -147,17 +165,10 @@ position: absolute;
   <main id="main"></main>
   <div id="footer"></div>
   
-  
-  <img id="block-a" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M0%2085H100V90H0z%22%20fill%3D%22%2359FFA4%22%2F%3E%3C%2Fsvg%3E" alt="Block A" />
-  <img id="block-b" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block B" />
-  <img id="block-c" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2063h90v4.5H0z%22%20fill%3D%22%23F347FF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22neon-pink%22%3E%3CfeGaussianBlur%20stdDeviation%3D%222%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22atop%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block C" />
-  <img id="block-d" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block D" />
-  <img id="block-e" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2090%2090%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2081h90v4.5H0z%22%20fill%3D%22%231EFE9D%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22green-glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%223%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block E" />
-  <img id="block-f" class="block" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%2290%22%20height%3D%2290%22%3E%3Cpath%20d%3D%22M0%2050H100V55H0z%22%20fill%3D%22%23E6DAFF%22%2F%3E%3Cdefs%3E%3Cfilter%20id%3D%22lila-glow%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%2F%3E%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" alt="Block F" />
-  
   <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/main.js" defer></script>
   <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/global-design.js" defer></script>
   <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/nuevo.js" defer></script>
-
+  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/nav-toggle.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/footer-logic.js" defer></script> 
 </body>
 </html>

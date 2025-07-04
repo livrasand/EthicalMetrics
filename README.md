@@ -1,5 +1,7 @@
 # EthicalMetrics
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/livrasand/EthicalMetrics)
+
 **EthicalMetrics** is a next-generation web analytics platform built with one radical goal:  
 **protecting your users' privacy while delivering meaningful insights.**
 
