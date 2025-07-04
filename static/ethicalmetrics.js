@@ -9,40 +9,113 @@
   function setConsent(val) {
     sessionStorage.setItem("ethicalmetrics_consent", val ? "true" : "false");
   }
-  function showConsentBanner(onAccept) {
-    if (document.getElementById("ethicalmetrics-banner")) return;
-    const SCRIPT = document.querySelector('script[src*="ethicalmetrics.js"]');
-    // Lee opciones del script
-    const bg = SCRIPT?.getAttribute("data-banner-bg") || "#fff";
-    const color = SCRIPT?.getAttribute("data-banner-color") || "#222";
-    const btnBg = SCRIPT?.getAttribute("data-banner-btn-bg") || "#4a90e2";
-    const btnColor = SCRIPT?.getAttribute("data-banner-btn-color") || "#fff";
-    const text = SCRIPT?.getAttribute("data-banner-text") ||
-      "We respect your privacy. 'Do Not Track' is enabled in your browser, so we do not collect analytics by default.<br>Only if you accept, we will collect anonymous data to improve this site.";
-    const btnText = SCRIPT?.getAttribute("data-banner-btn-text") || "Accept";
+ function showConsentBanner(onAccept) {
+  if (document.getElementById("ethicalmetrics-banner")) return;
 
-    const banner = document.createElement("div");
-    banner.id = "ethicalmetrics-banner";
-    banner.style.cssText = `
-      position:fixed;bottom:0;left:0;right:0;z-index:9999;
-      background:${bg};color:${color};padding:1em;text-align:center;
-      box-shadow:0 -2px 8px #0002;font-family:sans-serif;
-    `;
-    banner.innerHTML = `
-      <span style="display:inline-block;margin-bottom:0.5em;">
-        ${text}
-      </span>
-      <button id="ethicalmetrics-accept" style="margin-left:1em;padding:0.5em 1.5em;background:${btnBg};color:${btnColor};border:none;border-radius:4px;cursor:pointer;">
-        ${btnText}
-      </button>
-    `;
-    document.body.appendChild(banner);
-    document.getElementById("ethicalmetrics-accept").onclick = function () {
-      setConsent(true);
-      banner.remove();
-      main(true); // relanza main con consentimiento
-    };
-  }
+  const SCRIPT = document.querySelector('script[src*="ethicalmetrics.js"]');
+  const bg = SCRIPT?.getAttribute("data-banner-bg") || "#ffffffee";
+  const color = SCRIPT?.getAttribute("data-banner-color") || "#111";
+  const btnBg = SCRIPT?.getAttribute("data-banner-btn-bg") || "#111";
+  const btnColor = SCRIPT?.getAttribute("data-banner-btn-color") || "#fff";
+  const text = SCRIPT?.getAttribute("data-banner-text") ||
+    "Anonymous analytics help improve this site. Enable?";
+  const btnText = SCRIPT?.getAttribute("data-banner-btn-text") || "Allow";
+
+  // Inject minimal CSS
+  const style = document.createElement("style");
+  style.textContent = `
+    #ethicalmetrics-banner {
+      position: fixed;
+      bottom: 1.5em;
+      right: 1.5em;
+      z-index: 9999;
+      background: ${bg};
+      color: ${color};
+      font-family: system-ui, sans-serif;
+      font-size: 0.85rem;
+      padding: 0.75em 1em;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      backdrop-filter: blur(6px);
+      transition: opacity 0.3s ease;
+    }
+
+    #ethicalmetrics-banner .top-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1em;
+    }
+
+    #ethicalmetrics-banner button {
+      background: ${btnBg};
+      color: ${btnColor};
+      border: none;
+      padding: 0.4em 1em;
+      border-radius: 4px;
+      font-size: 0.6rem;
+      cursor: pointer;
+    }
+
+    #ethicalmetrics-banner button:hover {
+      opacity: 0.9;
+    }
+
+    #ethicalmetrics-promo {
+      font-size: 0.65rem;
+      color: #666;
+      align-self: flex-end;
+      margin-top: 0.25em;
+    }
+
+    #ethicalmetrics-promo:hover {
+      color: #141414;
+    }
+
+    @media (max-width: 600px) {
+      #ethicalmetrics-banner {
+        flex-direction: column;
+        bottom: 1em;
+        right: 1em;
+        align-items: flex-start;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Banner element
+  const banner = document.createElement("div");
+  banner.id = "ethicalmetrics-banner";
+  banner.innerHTML = `
+    <div class="top-row">
+      <button id="ethicalmetrics-close" aria-label="Close banner" style="background:none;color:${btnBg};padding:0.4em 0;">✕</button>
+      <span>${text}</span>
+      <button id="ethicalmetrics-accept">${btnText}</button>
+    </div>
+    <div id="ethicalmetrics-promo"><a href="https://ethicalmetrics.onrender.com/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;opacity:0.6;">Powered by EthicalMetrics</a></div>
+  `;
+  document.body.appendChild(banner);
+
+  document.getElementById("ethicalmetrics-accept").onclick = function () {
+    setConsent(true);
+    banner.style.opacity = "0";
+    setTimeout(() => banner.remove(), 300);
+    main(true);
+  };
+
+  document.getElementById("ethicalmetrics-close").onclick = function () {
+    setConsent(false); 
+    banner.style.opacity = "0"; 
+    setTimeout(() => banner.remove(), 300); 
+    main(false);
+  };
+
+}
 
   // Esperar a que el DOM esté listo para asegurar que <body> existe
   if (!document.body) {

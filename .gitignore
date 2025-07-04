@@ -3,3 +3,6 @@ metrics.db
 GeoLite2-Country.mmdb
 GeoLite2-City.mmdb
 GeoLite2-ASN.mmdb
+server
+/node_modules
+BRANCHS.md
