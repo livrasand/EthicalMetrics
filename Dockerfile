@@ -1,4 +1,4 @@
-FROM golang:1.21-bullseye
+FROM golang:1.23-bullseye
 
 RUN apt-get update && apt-get install -y pkg-config && \
     rm -rf /var/lib/apt/lists/*
