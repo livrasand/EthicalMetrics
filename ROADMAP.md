@@ -123,7 +123,7 @@
 * [x] No cookies
 * [x] No stored IPs
 * [x] Self-hosted
-* [x] Redis compatible (no SQLite)
+* [x] Redis compatible
 * [ ] Automatic DNT (Do Not Track) compliance
 * [ ] GDPR, CCPA, PECR certifications
 * [ ] Legal tools ready (DPA, policies, terms)
