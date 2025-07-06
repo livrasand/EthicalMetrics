@@ -200,7 +200,7 @@
         else if (/ios/i.test(NAVIGATOR)) BROWSER = "iOS";
         else if (/webview/i.test(NAVIGATOR) && /iphone|ipad|ipod/i.test(NAVIGATOR)) BROWSER = "iOS (webview)";
 
-        // Sistemas operativos detallado
+        // Sistemas operations detallado
         let OS = "Otro";
         if (/windows nt 10|windows nt 11/i.test(NAVIGATOR)) OS = "Windows 10/11";
         else if (/windows nt 6\.1/i.test(NAVIGATOR)) OS = "Windows 7";
@@ -215,7 +215,7 @@
         const BROWSER_LANG = navigator.language || (navigator.languages && navigator.languages[0]) || "desconocido";
 
         if (!SITE_ID) {
-            console.warn("[EthicalMetrics] No se proporcionó site_id.");
+            console.warn("[EthicalMetrics] No se proportionó site_id.");
             return;
         }
 

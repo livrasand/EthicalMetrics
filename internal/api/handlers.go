@@ -1,6 +1,6 @@
 package api
 
-// misspell:ignore instruccion calcular
+// misspell:ignore instruction calculator
 
 import (
 	"crypto/rand"
@@ -115,8 +115,8 @@ type processedStats struct {
 	totalDuration    int
 	sessionCount     int
 	activeUsers      int
-	weekData         map[string][2]int 
-	monthData        map[string][2]int 
+	weekData         map[string][2]int
+	monthData        map[string][2]int
 	pageVisits       map[string]map[string]bool
 }
 
@@ -146,7 +146,7 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]interface{}{
 		"site_id":     siteID,
 		"admin_token": adminToken,
-		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
+		"instruction": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
 		"site_name":   siteName,
 	}
 	json.NewEncoder(w).Encode(resp)
@@ -155,7 +155,7 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 func generarToken() string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	b := make([]byte, 24)
-	
+
 	// Usando crypto/rand para mayor seguridad
 	if _, err := rand.Read(b); err != nil {
 		log.Printf("Error generando token seguro: %v", err)
@@ -439,7 +439,7 @@ func processEvents(eventsRaw []string) *processedStats {
 		// Métricas por tiempo
 		day := t.Format("2006-01-02")
 		stats.dayCount[day]++
-		
+
 		if t.After(usuariosActivosWindow) {
 			stats.activeUsers++
 		}
@@ -456,7 +456,7 @@ func processEvents(eventsRaw []string) *processedStats {
 			val[1]++
 			stats.weekData[weekLabel] = val
 		}
-		
+
 		monthLabel := t.Format("02")
 		if t.Year() == now.Year() && t.Month() == currentMonth {
 			val := stats.monthData[monthLabel]
@@ -488,22 +488,22 @@ func buildResponse(stats *processedStats) map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"por_modulo":      processMapToSlice(stats.modCount, "modulo", "total"),
-		"por_dia":         processMapToSlice(stats.dayCount, "dia", "total"),
-		"navegadores":     processMapToSlice(stats.browserCount, "navegador", "total"),
-		"referencias":     processMapToSlice(stats.refererCount, "referencia", "total"),
-		"paginas":         processMapToSlice(stats.pageCount, "pagina", "total"),
-		"duracion_media":  duracionMedia,
-		"dispositivos":    processMapToSlice(stats.deviceCount, "dispositivo", "total"),
-		"paises":          processMapToSlice(stats.countryCount, "pais", "total"),
+		"por_modulo":       processMapToSlice(stats.modCount, "modulo", "total"),
+		"por_dia":          processMapToSlice(stats.dayCount, "dia", "total"),
+		"navegadores":      processMapToSlice(stats.browserCount, "navegador", "total"),
+		"referencias":      processMapToSlice(stats.refererCount, "referencia", "total"),
+		"paginas":          processMapToSlice(stats.pageCount, "pagina", "total"),
+		"duracion_media":   duracionMedia,
+		"dispositivos":     processMapToSlice(stats.deviceCount, "dispositivo", "total"),
+		"paises":           processMapToSlice(stats.countryCount, "pais", "total"),
 		"usuarios_activos": stats.activeUsers,
-		"browser_langs":   processMapToSlice(stats.browserLangCount, "lang", "total"),
-		"os":              processMapToSlice(stats.osCount, "os", "total"),
-		"cities":          processMapToSlice(stats.cityCount, "city", "total"),
-		"week_compare":    processComparison(stats.weekData),
-		"month_compare":   processComparison(stats.monthData),
-		"retention":       processRetention(stats.pageVisits),
-		"funnel":          processFunnel(stats.modCount),
+		"browser_langs":    processMapToSlice(stats.browserLangCount, "lang", "total"),
+		"os":               processMapToSlice(stats.osCount, "os", "total"),
+		"cities":           processMapToSlice(stats.cityCount, "city", "total"),
+		"week_compare":     processComparison(stats.weekData),
+		"month_compare":    processComparison(stats.monthData),
+		"retention":        processRetention(stats.pageVisits),
+		"funnel":           processFunnel(stats.modCount),
 	}
 }
 

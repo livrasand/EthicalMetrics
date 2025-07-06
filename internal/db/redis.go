@@ -3,8 +3,8 @@ package db
 import (
 	"context"
 	"fmt"
-	"os"
 	"github.com/redis/go-redis/v9"
+	"os"
 )
 
 var RDB *redis.Client
