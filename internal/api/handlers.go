@@ -3,20 +3,93 @@ package api
 // misspell:ignore instruccion calcular
 
 import (
+	"crypto/rand"
 	"encoding/json"
 	"io"
-	"math/rand"
+	"log"
 	"net"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/livrasand/ethicalmetrics/internal/db"
 	"github.com/oschwald/geoip2-golang"
+	"golang.org/x/time/rate"
 )
 
 var geoDB *geoip2.Reader
+
+// --- Inicio: Middleware de Rate Limiting Mejorado ---
+
+// Visitor representa a un usuario con su propio limitador y hora de última visita.
+type Visitor struct {
+	limiter  *rate.Limiter
+	lastSeen time.Time
+}
+
+// Global store para los limitadores de cada visitante.
+// La clave es la dirección IP del visitante.
+var visitors = make(map[string]*Visitor)
+var mtx sync.Mutex
+
+// Inicializa y ejecuta la limpieza periódica de visitantes antiguos.
+func init() {
+	go cleanupVisitors()
+}
+
+// RateLimitMiddleware envuelve un http.Handler para aplicar el límite de peticiones.
+func RateLimitMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Obtener la dirección IP real del visitante.
+		ip := getIP(r)
+
+		mtx.Lock()
+		v, exists := visitors[ip]
+		if !exists {
+			// Permitir 30 eventos por minuto, con ráfagas de hasta 10.
+			limiter := rate.NewLimiter(rate.Every(2*time.Second), 10)
+			v = &Visitor{limiter: limiter}
+			visitors[ip] = v
+		}
+		v.lastSeen = time.Now()
+		mtx.Unlock()
+
+		// Verificar si el visitante ha excedido el límite.
+		if !v.limiter.Allow() {
+			http.Error(w, "Demasiadas peticiones, espera un minuto.", http.StatusTooManyRequests)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+// getIP obtiene la dirección IP real del cliente, considerando proxies.
+func getIP(r *http.Request) string {
+	ip := r.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		ip, _, _ = net.SplitHostPort(r.RemoteAddr)
+	}
+	return ip
+}
+
+// cleanupVisitors elimina periódicamente los visitantes inactivos para no agotar la memoria.
+func cleanupVisitors() {
+	for {
+		time.Sleep(time.Minute)
+		mtx.Lock()
+		for ip, v := range visitors {
+			if time.Since(v.lastSeen) > 3*time.Minute {
+				delete(visitors, ip)
+			}
+		}
+		mtx.Unlock()
+	}
+}
+
+// --- Fin: Middleware de Rate Limiting ---
 
 // Event representa la estructura de datos para un evento de seguimiento.
 type Event struct {
@@ -24,17 +97,6 @@ type Event struct {
 	Module    string `json:"modulo"`
 	SiteID    string `json:"site_id"`
 	Duration  int    `json:"duracion_ms"`
-}
-
-// Estructuras para las respuestas de estadísticas.
-type moduloStat struct {
-	Modulo string `json:"modulo"`
-	Total  int    `json:"total"`
-}
-
-type diaStat struct {
-	Dia   string `json:"dia"`
-	Total int    `json:"total"`
 }
 
 // processedStats es una estructura interna para contener los datos agregados
@@ -53,9 +115,9 @@ type processedStats struct {
 	totalDuration    int
 	sessionCount     int
 	activeUsers      int
-	weekData         map[string][2]int // label -> [current, previous]
-	monthData        map[string][2]int // label -> [current, previous]
-	pageVisits       map[string]map[string]bool // page -> set of days
+	weekData         map[string][2]int 
+	monthData        map[string][2]int 
+	pageVisits       map[string]map[string]bool
 }
 
 func InitGeoIP(path string) error {
@@ -93,16 +155,21 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 func generarToken() string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	b := make([]byte, 24)
-	// Se usa crypto/rand en producción para mayor seguridad, pero para este ejemplo se mantiene math/rand.
-	rand.Seed(time.Now().UnixNano())
+	
+	// Usando crypto/rand para mayor seguridad
+	if _, err := rand.Read(b); err != nil {
+		log.Printf("Error generando token seguro: %v", err)
+		panic("No se pudo generar token seguro") // O podrías usar log.Fatal dependiendo de tu caso
+	}
+
+	// Mapear los bytes aleatorios a nuestros caracteres permitidos
 	for i := range b {
-		b[i] = charset[rand.Intn(len(charset))]
+		b[i] = charset[int(b[i])%len(charset)]
 	}
 	return string(b)
 }
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
-	// ... (El código de TrackHandler no se modifica según la solicitud)
 	if r.Method != http.MethodPost {
 		http.Error(w, "Método no permitido", http.StatusMethodNotAllowed)
 		return
@@ -260,20 +327,6 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-
-	// --- RATE LIMITING POR IP ---
-	// Máximo 30 requests por minuto por IP
-	rateKey := "ratelimit:" + userIP
-	count, _ := db.RDB.Get(db.Ctx, rateKey).Int()
-	if count >= 30 {
-		http.Error(w, "Demasiadas peticiones, espera un minuto.", http.StatusTooManyRequests)
-		return
-	}
-	pipe := db.RDB.TxPipeline()
-	pipe.Incr(db.Ctx, rateKey)
-	pipe.Expire(db.Ctx, rateKey, 60*time.Second)
-	pipe.Exec(db.Ctx)
-	// --- FIN RATE LIMITING ---
 }
 
 // StatsHandler maneja la solicitud de estadísticas. Su complejidad se reduce

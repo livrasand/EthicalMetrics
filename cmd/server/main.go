@@ -71,7 +71,7 @@ func main() {
 	})
 	http.HandleFunc("/nuevo", api.NuevoHandler)
 	http.HandleFunc("/stats", withCORS(api.StatsHandler))
-	http.HandleFunc("/track", api.TrackHandler)
+	http.Handle("/track", api.RateLimitMiddleware(http.HandlerFunc(api.TrackHandler)))
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 
 	port := os.Getenv("PORT")
