@@ -214,6 +214,27 @@
         // Detección de idioma del navegador
         const BROWSER_LANG = navigator.language || (navigator.languages && navigator.languages[0]) || "desconocido";
 
+        // Lógica para is_new_session
+        const is_new_session = !sessionStorage.getItem('ethicalmetrics_session');
+        if (is_new_session) {
+            sessionStorage.setItem('ethicalmetrics_session', 'true');
+        }
+
+        // Lógica para is_new_visit
+        const is_new_visit = !localStorage.getItem('ethicalmetrics_visited');
+        if (is_new_visit) {
+            localStorage.setItem('ethicalmetrics_visited', 'true');
+        }
+
+        // Lógica para is_unique (vista de página única por sesión)
+        const pagesViewedStr = sessionStorage.getItem('ethicalmetrics_pages_viewed') || '[]';
+        const pagesViewed = JSON.parse(pagesViewedStr);
+        const is_unique = !pagesViewed.includes(PAGE);
+        if (is_unique) {
+            pagesViewed.push(PAGE);
+            sessionStorage.setItem('ethicalmetrics_pages_viewed', JSON.stringify(pagesViewed));
+        }
+
         if (!SITE_ID) {
             console.warn("[EthicalMetrics] No se proportionó site_id.");
             return;
@@ -243,6 +264,9 @@
             page: PAGE,
             device: DEVICE,
             os: OS,
+            is_new_session: is_new_session,
+            is_new_visit: is_new_visit,
+            is_unique: is_unique,
             ...UTM_PARAMS // Añade los UTM si existen
         });
 

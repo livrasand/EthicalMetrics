@@ -118,6 +118,9 @@ type processedStats struct {
 	weekData         map[string][2]int
 	monthData        map[string][2]int
 	pageVisits       map[string]map[string]bool
+	newVisitorsCount int
+	newSessionsCount int
+	uniqueViewsCount int
 }
 
 func InitGeoIP(path string) error {
@@ -246,6 +249,25 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	if v, ok := extra["is_new_session"]; ok {
+		if _, ok := v.(bool); !ok {
+			http.Error(w, "is_new_session debe ser booleano", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["is_new_visit"]; ok {
+		if _, ok := v.(bool); !ok {
+			http.Error(w, "is_new_visit debe ser booleano", http.StatusBadRequest)
+			return
+		}
+	}
+	if v, ok := extra["is_unique"]; ok {
+		if _, ok := v.(bool); !ok {
+			http.Error(w, "is_unique debe ser booleano", http.StatusBadRequest)
+			return
+		}
+	}
+
 	siteKey := "site:" + e.SiteID
 
 	// Detectar origen real
@@ -309,6 +331,15 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if v, ok := extra["device"]; ok {
 		eventMap["device"] = v
+	}
+	if v, ok := extra["is_new_session"]; ok {
+		eventMap["is_new_session"] = v
+	}
+	if v, ok := extra["is_new_visit"]; ok {
+		eventMap["is_new_visit"] = v
+	}
+	if v, ok := extra["is_unique"]; ok {
+		eventMap["is_unique"] = v
 	}
 	// Detectar ciudad y país por IP (GeoLite2)
 	userIP := r.Header.Get("X-Forwarded-For")
@@ -381,6 +412,9 @@ func processEvents(eventsRaw []string) *processedStats {
 		weekData:         make(map[string][2]int),
 		monthData:        make(map[string][2]int),
 		pageVisits:       make(map[string]map[string]bool),
+		newVisitorsCount: 0,
+		newSessionsCount: 0,
+		uniqueViewsCount: 0,
 	}
 
 	now := time.Now()
@@ -436,6 +470,16 @@ func processEvents(eventsRaw []string) *processedStats {
 			stats.sessionCount++
 		}
 
+		if isNew, ok := evt["is_new_visit"].(bool); ok && isNew {
+			stats.newVisitorsCount++
+		}
+		if isNew, ok := evt["is_new_session"].(bool); ok && isNew {
+			stats.newSessionsCount++
+		}
+		if isUnique, ok := evt["is_unique"].(bool); ok && isUnique {
+			stats.uniqueViewsCount++
+		}
+
 		// Métricas por tiempo
 		day := t.Format("2006-01-02")
 		stats.dayCount[day]++
@@ -488,22 +532,25 @@ func buildResponse(stats *processedStats) map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"por_modulo":       processMapToSlice(stats.modCount, "modulo", "total"),
-		"por_dia":          processMapToSlice(stats.dayCount, "dia", "total"),
-		"navegadores":      processMapToSlice(stats.browserCount, "navegador", "total"),
-		"referencias":      processMapToSlice(stats.refererCount, "referencia", "total"),
-		"paginas":          processMapToSlice(stats.pageCount, "pagina", "total"),
-		"duracion_media":   duracionMedia,
-		"dispositivos":     processMapToSlice(stats.deviceCount, "dispositivo", "total"),
-		"paises":           processMapToSlice(stats.countryCount, "pais", "total"),
-		"usuarios_activos": stats.activeUsers,
-		"browser_langs":    processMapToSlice(stats.browserLangCount, "lang", "total"),
-		"os":               processMapToSlice(stats.osCount, "os", "total"),
-		"cities":           processMapToSlice(stats.cityCount, "city", "total"),
-		"week_compare":     processComparison(stats.weekData),
-		"month_compare":    processComparison(stats.monthData),
-		"retention":        processRetention(stats.pageVisits),
-		"funnel":           processFunnel(stats.modCount),
+		"por_modulo":           processMapToSlice(stats.modCount, "modulo", "total"),
+		"por_dia":              processMapToSlice(stats.dayCount, "dia", "total"),
+		"navegadores":          processMapToSlice(stats.browserCount, "navegador", "total"),
+		"referencias":          processMapToSlice(stats.refererCount, "referencia", "total"),
+		"paginas":              processMapToSlice(stats.pageCount, "pagina", "total"),
+		"duracion_media":       duracionMedia,
+		"dispositivos":         processMapToSlice(stats.deviceCount, "dispositivo", "total"),
+		"paises":               processMapToSlice(stats.countryCount, "pais", "total"),
+		"usuarios_activos":     stats.activeUsers,
+		"browser_langs":        processMapToSlice(stats.browserLangCount, "lang", "total"),
+		"os":                   processMapToSlice(stats.osCount, "os", "total"),
+		"cities":               processMapToSlice(stats.cityCount, "city", "total"),
+		"week_compare":         processComparison(stats.weekData),
+		"month_compare":        processComparison(stats.monthData),
+		"retention":            processRetention(stats.pageVisits),
+		"funnel":               processFunnel(stats.modCount),
+		"nuevos_visitantes":    stats.newVisitorsCount,
+		"sesiones_totales":     stats.newSessionsCount,
+		"vistas_unicas_pagina": stats.uniqueViewsCount,
 	}
 }
 
