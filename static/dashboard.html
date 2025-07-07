@@ -174,31 +174,32 @@
                      </div>
                   </div>
                   <div class="mt-6">
-                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 bg-neutral-900 text-white p-6 rounded-lg">
-                        <!-- Número de despliegues -->
-                        <div class="text-center">
-                           <div class="text-3xl font-semibold tracking-tight">405</div>
-                           <div class="text-sm text-neutral-400 mt-1">Number of deploys</div>
-                        </div>
-                        <!-- Tiempo promedio -->
-                        <div class="text-center">
-                           <div class="text-3xl font-semibold tracking-tight">
-                              3.65<span class="text-base font-normal text-neutral-400 ml-1">mins</span>
-                           </div>
-                           <div class="text-sm text-neutral-400 mt-1">Average deploy time</div>
-                        </div>
-                        <!-- Número de servidores -->
-                        <div class="text-center">
-                           <div class="text-3xl font-semibold tracking-tight">3</div>
-                           <div class="text-sm text-neutral-400 mt-1">Number of servers</div>
-                        </div>
-                        <!-- Tasa de éxito -->
-                        <div class="text-center">
-                           <div class="text-3xl font-semibold tracking-tight">98.5%</div>
-                           <div class="text-sm text-neutral-400 mt-1">Success rate</div>
-                        </div>
-                     </div>
-                  </div>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 bg-neutral-900 text-white p-6 rounded-lg">
+    <!-- Usuarios activos -->
+    <div class="text-center">
+      <div id="usuariosActivos" class="text-3xl font-semibold tracking-tight">0</div>
+      <div class="text-sm text-neutral-400 mt-1">Usuarios activos</div>
+    </div>
+    <!-- Duración media -->
+    <div class="text-center">
+      <div class="text-3xl font-semibold tracking-tight">
+        <span id="duracionMedia">0</span>
+      </div>
+      <div class="text-sm text-neutral-400 mt-1">Duración media</div>
+    </div>
+    <!-- Nuevos visitantes -->
+    <div class="text-center">
+      <div id="nuevosVisitantes" class="text-3xl font-semibold tracking-tight">0</div>
+      <div class="text-sm text-neutral-400 mt-1">Nuevos visitantes</div>
+    </div>
+    <!-- Vistas únicas -->
+    <div class="text-center">
+      <div id="vistasUnicas" class="text-3xl font-semibold tracking-tight">0</div>
+      <div class="text-sm text-neutral-400 mt-1">Vistas únicas</div>
+    </div>
+  </div>
+</div>
+
                   <div class="chart-grid mt-9 " id="dashboard-content">
                      <!-- Uso por módulo -->
                      <div class="chart-card">
@@ -214,16 +215,7 @@
                         </div>
                         <div class="chart-container" id="visitasChart"></div>
                      </div>
-                     <!-- Usuarios activos -->
-                     <div class="chart-card">
-                        <div class="chart-header">
-                           <h2 class="chart-title">Usuarios activos ahora</h2>
-                        </div>
-                        <div class="flex flex-col items-center justify-center h-full">
-                           <div id="usuariosActivos" class="text-5xl font-bold text-gray-800">0</div>
-                           <div class="text-gray-500 mt-2">En este momento</div>
-                        </div>
-                     </div>
+                     
                      <!-- Dispositivos -->
                      <div class="chart-card">
                         <div class="chart-header">
@@ -245,13 +237,7 @@
                         </div>
                         <div class="chart-container" id="regionesChart"></div>
                      </div>
-                     <!-- Nuevos visitantes -->
-                     <div class="chart-card">
-                        <div class="chart-header">
-                           <h2 class="chart-title">Nuevos visitantes</h2>
-                        </div>
-                        <div class="stat-value" id="nuevosVisitantes">0</div>
-                     </div>
+                     
                      <!-- Nuevas sesiones -->
                      <div class="chart-card">
                         <div class="chart-header">
@@ -259,13 +245,7 @@
                         </div>
                         <div class="stat-value" id="nuevasSesiones">0</div>
                      </div>
-                     <!-- Vistas únicas de página -->
-                     <div class="chart-card">
-                        <div class="chart-header">
-                           <h2 class="chart-title">Vistas únicas</h2>
-                        </div>
-                        <div class="stat-value" id="vistasUnicas">0</div>
-                     </div>
+                     
                      <!-- Navegadores -->
                      <div class="chart-card">
                         <div class="chart-header">
@@ -287,16 +267,7 @@
                         </div>
                         <div class="chart-container" id="paginasChart"></div>
                      </div>
-                     <!-- Duración media de sesión -->
-                     <div class="chart-card">
-                        <div class="chart-header">
-                           <h2 class="chart-title">Duración media de sesión</h2>
-                        </div>
-                        <div class="flex flex-col items-center justify-center h-full">
-                           <div id="duracionMedia" class="text-5xl font-bold text-gray-800">0s</div>
-                           <div class="text-gray-500 mt-2">Promedio</div>
-                        </div>
-                     </div>
+                     
                      <!-- Comparativa semanal -->
                      <div class="chart-card">
                         <div class="chart-header">
@@ -566,6 +537,7 @@
          
          window.initDashboard = function() {
            console.log("initDashboard called - Inicializando dashboard");
+           
          
            // Obtenemos los parámetros de la URL (están después del hash #dashboard?)
            const urlParams = new URLSearchParams(window.location.search);
