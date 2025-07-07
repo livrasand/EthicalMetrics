@@ -37,7 +37,7 @@
         const closeButton = document.createElement("button");
         closeButton.id = "ethicalmetrics-close";
         closeButton.setAttribute("aria-label", "Close banner");
-        closeButton.textContent = "✕";
+        closeButton.textContent = "×";
 
         const textSpan = document.createElement("span");
         textSpan.textContent = text;
