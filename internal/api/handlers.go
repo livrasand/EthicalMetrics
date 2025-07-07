@@ -407,9 +407,12 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	stats := processEvents(eventsRaw)
 
 	// Construir la respuesta final.
+	domain, _ := db.RDB.HGet(db.Ctx, "site:"+siteID, "domain").Result()
 	resp := buildResponse(stats)
+	resp["site_domain"] = domain
 
 	json.NewEncoder(w).Encode(resp)
+
 }
 
 // processEvents itera sobre los eventos sin procesar una vez y los agrega en la estructura processedStats.

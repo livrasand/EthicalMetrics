@@ -116,7 +116,7 @@
                <div class="mx-auto max-w-2xl lg:max-w-7xl">
                   <div class="lg:flex lg:items-center lg:justify-between">
                      <div class="min-w-0 flex-1">
-                        <h2 class="mt-2 text-5xl tracking-tight sm:text-6xl text-pretty">Site name</h2>
+                        <h2 class="mt-2 text-5xl tracking-tight sm:text-6xl text-pretty" id="site-title">Site name</h2>
                         <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
                            <div class="flex flex-wrap items-center justify-between gap-2 sm:gap-4 mb-2 mt-6">
                               <!-- Date Range Button -->
@@ -602,9 +602,14 @@
                console.log("Datos recibidos de la API:", data);
          
                // Actualizar el título del dashboard con el nombre del sitio
-               if (data.site_name) {
-                 document.getElementById('site-title').textContent = data.site_name;
-               }
+               const siteTitleEl = document.getElementById('site-title');
+                if (data.site_name && data.site_name !== "Sitio sin nombre") {
+                siteTitleEl.textContent = data.site_name;
+                } else if (data.site_domain) {
+                siteTitleEl.textContent = data.site_domain.replace(/^https?:\/\//, '');
+                }
+
+
          
                // Procesamos los datos para asegurarnos que son arrays válidos
                const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
