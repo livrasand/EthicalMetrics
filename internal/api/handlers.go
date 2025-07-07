@@ -1,6 +1,6 @@
 package api
 
-// misspell:ignore instruction calculator
+// misspell:ignore instruccion calcular
 
 import (
 	"crypto/rand"
@@ -146,7 +146,7 @@ func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	resp := map[string]interface{}{
 		"site_id":     siteID,
 		"admin_token": adminToken,
-		"instruction": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
+		"instruccion": `<script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=` + siteID + `"></script>`,
 		"site_name":   siteName,
 	}
 	json.NewEncoder(w).Encode(resp)
