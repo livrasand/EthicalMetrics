@@ -1,6 +1,6 @@
 # EthicalMetrics
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/livrasand/EthicalMetrics) [![Render Deploy](https://img.shields.io/badge/render-live-brightgreen?logo=render)](https://ethicalmetrics.onrender.com) [![Go Version](https://img.shields.io/badge/go-1.22+-blue.svg?logo=go)](https://golang.org/dl/) [![Docker](https://img.shields.io/badge/docker-supported-blue?logo=docker)](https://hub.docker.com) [![Go Report Card](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/livrasand/ethicalmetrics) [![codecov](https://codecov.io/gh/livrasand/EthicalMetrics/branch/main/graph/badge.svg)](https://codecov.io/gh/livrasand/EthicalMetrics)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/livrasand/EthicalMetrics) [![Render Deploy](https://img.shields.io/badge/render-live-brightgreen?logo=render)](https://ethicalmetrics.onrender.com) [![Go Report Card](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/livrasand/ethicalmetrics)
 
 **EthicalMetrics** is a next-generation web analytics platform built with one radical goal:  
 **protecting your users' privacy while delivering meaningful insights.**
@@ -270,22 +270,6 @@ We **welcome contributors**, audits, and ideas from the community.
 * 🌱 Open issues for feedback or ideas
 * 🔍 Fork or inspect the code — transparency is key
 * 🛠️ Help us build the most **trustworthy** analytics platform on the web
-
-### Polyrepo
-
-EthicalMetrics is organized into multiple specialized repositories under a decoupled architecture. This allows contributors to contribute in a segmented manner, based on their interests or skills.
-
-#### Backend
-Main repository containing the server logic, API, and database:
-
-→ [`github.com/livrasand/EthicalMetrics`](https://github.com/livrasand/EthicalMetrics)
-
-#### Frontend
-**Modular, decoupled static frontend with dynamic loading from CDN**, based on reusable HTML components and lightweight JavaScript for SPA-like navigation:
-
-→ [`github.com/EthicalMetrics/website`](https://github.com/EthicalMetrics/website)
-
-This frontend is distributed through [jsDelivr](https://www.jsdelivr.com/) for instant loading and real-time integration without external dependencies. You can contribute new components, visual improvements, or interactive features.
 
 ---
 
