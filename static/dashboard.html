@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Dashboard — EthicalMetrics</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/modules/funnel.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <style>
+         canvas {
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+         }
+         html, body {
+         margin: 0;
+         padding: 0;
+         background: #f1f2f1;
+         overflow: hidden;
+         cursor: url("cursor.svg"), auto;
+         scroll-behavior: smooth;
+         color: #1e3a8a; /* Un azul oscuro para mejor contraste */
+         }
+         /* Cursor para enlaces/interactivos (similar al de selección en Figma) */
+         a, button, [role="button"] {
+         cursor: url("pointer.svg"), pointer;
+         /* Cursor para arrastrar (opcional) */
+         .drag-cursor {
+         cursor: url("grab.svg"), grab;
+         }
+         /* Extra estética tipo pixel-glass blur animado */
+         @keyframes subtleFloat {
+         0%   { transform: translateY(0); }
+         50%  { transform: translateY(-2px); }
+         100% { transform: translateY(0); }
+         }
+         .group:hover {
+         animation: subtleFloat 3s ease-in-out infinite;
+         }
+         section {
+         transition: opacity 0.6s ease, transform 0.6s ease;
+         opacity: 0;
+         transform: translateY(20px);
+         }
+         main:not(:hover) section:first-of-type,
+         section:target,
+         section.is-visible {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         main {
+         height: 100vh;
+         width: 100vw;
+         overflow-y: scroll;
+         scrollbar-width: none;       /* Firefox */
+         -ms-overflow-style: none;    /* IE/Edge */
+         }
+         main::-webkit-scrollbar {
+         width: 0px;
+         height: 0px;
+         background: transparent;     /* Chrome/Safari */
+         }
+      </style>
+      <style>
+        /*! tailwindcss v4.1.8 | MIT License | https://tailwindcss.com */ 
+        @layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-font-weight:initial;--tw-tracking:initial}}}@layer theme{:root,:host{--font-sans:InterVariable,system-ui,sans-serif;--font-sans--font-feature-settings:"cv02","cv03","cv04","cv11"}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--font-sans,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--font-sans--font-feature-settings);font-variation-settings:initial;-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-feature-settings:initial;font-variation-settings:initial;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab, red, red)){::placeholder{color:color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.hzq{margin-inline:auto}.hzr{margin-top:.5rem}.hzs{display:flex}.hzt{display:grid}.hzu{max-width:80rem}.hzv{grid-template-columns:repeat(1,minmax(0,1fr))}.hzw{align-items:baseline}.hzx{gap:1px}.hzy{column-gap:.5rem}.hzz{background-color:oklch(21% .034 264.665)}.iaa{background-color:oklab(100% 0 5.96046e-8/.05)}.iab{padding-inline:1rem}.iac{padding-block:1.5rem}.iad{font-size:2.25rem;line-height:var(--tw-leading,calc(2.5/2.25))}.iae{font-size:.875rem;line-height:var(--tw-leading,calc(1.25/.875))}.iaf{font-size:.875rem;line-height:1.5rem}.iag{--tw-font-weight:500;font-weight:500}.iah{--tw-font-weight:600;font-weight:600}.iai{--tw-tracking:-.025em;letter-spacing:-.025em}.iaj{color:oklch(70.7% .022 261.325)}.iak{color:#fff}@media (min-width:40rem){.ial{grid-template-columns:repeat(2,minmax(0,1fr))}.iam{padding-inline:1.5rem}}@media (min-width:64rem){.ian{grid-template-columns:repeat(4,minmax(0,1fr))}.iao{padding-inline:2rem}}}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-tracking{syntax:"*";inherits:false}
+      }
+      </style>
+      <style>
+         .chart-grid {
+         display: grid;
+         gap: 2rem;
+         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+         }
+         .chart-card {
+         background: #fafafa;
+         border: 1px solid #eee;
+         border-radius: 8px;
+         padding: 1.25rem;
+         }
+         .chart-header {
+         margin-bottom: 1rem;
+         }
+         .chart-title {
+         font-size: 1.1rem;
+         font-weight: 500;
+         color: #444;
+         }
+         .chart-container {
+         height: 240px;
+         position: relative;
+         }
+         .stat-value {
+         font-size: 2.5rem;
+         font-weight: bold;
+         text-align: center;
+         color: #222;
+         }
+         .stat-label {
+         text-align: center;
+         color: #666;
+         font-size: 0.9rem;
+         }
+      </style>
+   </head>
+   <body class="flex justify-center">
+      <canvas id="background"></canvas>
+      <main class="absolute h-screen w-full overflow-y-scroll overflow-x-hidden scroll-smooth snap-y snap-mandatory grid min-h-dvh grid-cols-1 grid-rows-[1fr_1px_auto_1px_auto] justify-center [--gutter-width:2.5rem] md:-mx-4 md:grid-cols-[var(--gutter-width)_minmax(0,var(--breakpoint-2xl))_var(--gutter-width)] lg:mx-0">
+         <div class="col-start-1 row-span-full row-start-1 border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
+         <div class="relative  mt-6">
+            <div class="relative px-6 lg:px-8">
+               <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                  <div class="lg:flex lg:items-center lg:justify-between">
+                     <div class="min-w-0 flex-1">
+                        <h2 class="mt-2 text-5xl tracking-tight sm:text-6xl text-pretty">Site name</h2>
+                        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+                           <div class="flex flex-wrap items-center justify-between gap-2 sm:gap-4 mb-2 mt-6">
+                              <!-- Date Range Button -->
+                              <div class="inline-flex items-center">
+                                 <button class="inline-flex items-center border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 hover:border-black">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                       <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                    </svg>
+                                    &nbsp;
+                                    <span>Jun 30 to Jul 6, 2025</span>
+                                 </button>
+                              </div>
+                              <!-- Compared to -->
+                              <span class="hidden sm:inline-block text-sm text-gray-500 select-none">compared to</span>
+                              <!-- Comparison Dropdown (static for now) -->
+                              <div class="relative inline-flex items-center">
+                                 <button class="inline-flex items-center border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 hover:border-black">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                       <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
+                                    </svg>
+                                    &nbsp;
+                                    <span>No comparison</span>
+                                 </button>
+                              </div>
+                              <!-- Granularity Dropdown -->
+                              <div class="relative inline-flex items-center">
+                                 <button class="inline-flex items-center border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 hover:border-black" data-dropdown-toggle="granularityDropdown">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                                    </svg>
+                                    &nbsp;
+                                    <span>Auto</span>
+                                 </button>
+                                 <!-- Dropdown Menu (show/hide via JS) -->
+                                 <ul id="granularityDropdown" class="hidden absolute mt-2 right-0 bg-white border border-gray-200 rounded-md shadow-lg z-10 text-sm text-gray-700 w-36">
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Auto</a></li>
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Hourly</a></li>
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Daily</a></li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mt-5 flex lg:mt-0 lg:ml-4">
+                        <span class="hidden sm:block">
+                           <button type="button" class="inline-flex items-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 hover:text-sky-500">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                              </svg>
+                              &nbsp;
+                              Opciones
+                           </button>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="mt-6">
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 bg-neutral-900 text-white p-6 rounded-lg">
+    
+    <!-- Número de despliegues -->
+    <div class="text-center">
+      <div class="text-3xl font-semibold tracking-tight">405</div>
+      <div class="text-sm text-neutral-400 mt-1">Number of deploys</div>
+    </div>
+
+    <!-- Tiempo promedio -->
+    <div class="text-center">
+      <div class="text-3xl font-semibold tracking-tight">
+        3.65<span class="text-base font-normal text-neutral-400 ml-1">mins</span>
+      </div>
+      <div class="text-sm text-neutral-400 mt-1">Average deploy time</div>
+    </div>
+
+    <!-- Número de servidores -->
+    <div class="text-center">
+      <div class="text-3xl font-semibold tracking-tight">3</div>
+      <div class="text-sm text-neutral-400 mt-1">Number of servers</div>
+    </div>
+
+    <!-- Tasa de éxito -->
+    <div class="text-center">
+      <div class="text-3xl font-semibold tracking-tight">98.5%</div>
+      <div class="text-sm text-neutral-400 mt-1">Success rate</div>
+    </div>
+
+  </div>
+</div>
+
+                  <div class="chart-grid mt-9 " id="dashboard-content">
+                     <!-- Uso por módulo -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Uso por módulo</h2>
+        </div>
+        <div class="chart-container" id="modulosChart"></div>
+      </div>
+      
+      <!-- Visitas por día -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Visitas por día</h2>
+        </div>
+        <div class="chart-container" id="visitasChart"></div>
+      </div>
+      
+      <!-- Usuarios activos -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Usuarios activos ahora</h2>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full">
+          <div id="usuariosActivos" class="text-5xl font-bold text-gray-800">0</div>
+          <div class="text-gray-500 mt-2">En este momento</div>
+        </div>
+      </div>
+      
+      <!-- Dispositivos -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Dispositivos</h2>
+        </div>
+        <div class="chart-container" id="dispositivosChart"></div>
+      </div>
+      
+      <!-- Países -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Países</h2>
+        </div>
+        <div class="chart-container" id="paisesChart"></div>
+      </div>
+
+      <!-- Regiones -->
+<div class="chart-card">
+  <div class="chart-header"><h2 class="chart-title">Regiones</h2></div>
+  <div class="chart-container" id="regionesChart"></div>
+</div>
+
+<!-- Nuevos visitantes -->
+<div class="chart-card">
+  <div class="chart-header"><h2 class="chart-title">Nuevos visitantes</h2></div>
+  <div class="stat-value" id="nuevosVisitantes">0</div>
+</div>
+
+<!-- Nuevas sesiones -->
+<div class="chart-card">
+  <div class="chart-header"><h2 class="chart-title">Nuevas sesiones</h2></div>
+  <div class="stat-value" id="nuevasSesiones">0</div>
+</div>
+
+<!-- Vistas únicas de página -->
+<div class="chart-card">
+  <div class="chart-header"><h2 class="chart-title">Vistas únicas</h2></div>
+  <div class="stat-value" id="vistasUnicas">0</div>
+</div>
+      
+      <!-- Navegadores -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Navegadores</h2>
+        </div>
+        <div class="chart-container" id="navegadoresChart"></div>
+      </div>
+      
+      <!-- Referencias -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Referencias</h2>
+        </div>
+        <div class="chart-container" id="referenciasChart"></div>
+      </div>
+      
+      <!-- Páginas más vistas -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Páginas más vistas</h2>
+        </div>
+        <div class="chart-container" id="paginasChart"></div>
+      </div>
+      
+      <!-- Duración media de sesión -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Duración media de sesión</h2>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full">
+          <div id="duracionMedia" class="text-5xl font-bold text-gray-800">0s</div>
+          <div class="text-gray-500 mt-2">Promedio</div>
+        </div>
+      </div>
+      
+      <!-- Comparativa semanal -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Comparativa semanal</h2>
+        </div>
+        <div class="chart-container" id="weekCompareChart"></div>
+      </div>
+      
+      <!-- Comparativa mensual -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Comparativa mensual</h2>
+        </div>
+        <div class="chart-container" id="monthCompareChart"></div>
+      </div>
+                     <!-- Idiomas del navegador -->
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Idiomas del navegador</h2>
+  </div>
+  <div class="chart-container" id="browserLangChart"></div>
+</div>
+
+<!-- Sistemas operativos -->
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Sistemas operativos</h2>
+  </div>
+  <div class="chart-container" id="osChart"></div>
+</div>
+
+<!-- Ciudades -->
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Ciudades</h2>
+  </div>
+  <div class="chart-container" id="cityChart"></div>
+</div>
+
+<!-- Retención (global/página) -->
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Retención (global/página)</h2>
+  </div>
+  <div class="chart-container" id="retentionChart"></div>
+</div>
+
+<!-- Funnel básico -->
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Funnel básico</h2>
+  </div>
+  <div class="chart-container" id="funnelChart"></div>
+</div>
+
+                  </div>
+               </div>
+            </div>
+            <footer>
+               <div class="relative">
+                  <div class="absolute inset-2"></div>
+                  <div class="px-6 lg:px-8">
+                     <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                        <div class="relative pt-20 pb-16 text-center sm:py-24">
+                           <hgroup>
+                              <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">Get started</h2>
+                              <p class="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">Hazlo diferente. Hazlo bien.</p>
+                              <p class="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.</p>
+                           </hgroup>
+                           <div class="mt-6"><a class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" href="#crear-cuenta">Crear una cuenta</a></div>
+                        </div>
+                        <div class="pb-16">
+                           <div class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
+                              <div aria-hidden="true" class="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+                                 <div class="absolute inset-x-0 top-0 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 top-2 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block"></div>
+                                 <div class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block"></div>
+                              </div>
+                           </div>
+                           <div class="flex justify-between group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
+                              <div aria-hidden="true" class="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+                                 <div class="absolute inset-x-0 top-0 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 top-2 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block"></div>
+                                 <div class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block"></div>
+                              </div>
+                              <div>
+                                 <div class="py-3 group/item relative">
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="absolute size-[15px] fill-black/10 -top-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <div class="text-sm/6 text-gray-950">
+                                       © <!-- -->2025-PRESENT EthicalMetrics OSS
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="flex">
+                                 <div class="flex items-center gap-8 py-3 group/item relative">
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="absolute size-[15px] fill-black/10 -top-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <a target="_blank" aria-label="Visit us on Facebook" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://facebook.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 8.05C16 3.603 12.418 0 8 0S0 3.604 0 8.05c0 4.016 2.926 7.346 6.75 7.95v-5.624H4.718V8.05H6.75V6.276c0-2.017 1.194-3.131 3.022-3.131.875 0 1.79.157 1.79.157v1.98h-1.008c-.994 0-1.304.62-1.304 1.257v1.51h2.219l-.355 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.95z"></path>
+                                       </svg>
+                                    </a>
+                                    <a target="_blank" aria-label="Visit us on X" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://x.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path d="M12.6 0h2.454l-5.36 6.778L16 16h-4.937l-3.867-5.594L2.771 16H.316l5.733-7.25L0 0h5.063l3.495 5.114L12.6 0zm-.86 14.376h1.36L4.323 1.539H2.865l8.875 12.837z"></path>
+                                       </svg>
+                                    </a>
+                                    <a target="_blank" aria-label="Visit us on LinkedIn" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://linkedin.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path d="M14.82 0H1.18A1.169 1.169 0 000 1.154v13.694A1.168 1.168 0 001.18 16h13.64A1.17 1.17 0 0016 14.845V1.15A1.171 1.171 0 0014.82 0zM4.744 13.64H2.369V5.996h2.375v7.644zm-1.18-8.684a1.377 1.377 0 11.52-.106 1.377 1.377 0 01-.527.103l.007.003zm10.075 8.683h-2.375V9.921c0-.885-.015-2.025-1.234-2.025-1.218 0-1.425.966-1.425 1.968v3.775H6.233V5.997H8.51v1.05h.032c.317-.601 1.09-1.235 2.246-1.235 2.405-.005 2.851 1.578 2.851 3.63v4.197z"></path>
+                                       </svg>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </footer>
+         </div>
+         <div class="row-span-full row-start-1 hidden border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:col-start-3 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
+      </main>
+      <script>
+         const canvas = document.getElementById("background");
+         const ctx = canvas.getContext("2d");
+         
+         function resizeCanvas() {
+           canvas.width = window.innerWidth;
+           canvas.height = window.innerHeight;
+           drawBackground();
+         }
+         
+         function drawBackground() {
+           ctx.clearRect(0, 0, canvas.width, canvas.height);
+         
+           const spacing = 16;
+           const pointsBetweenCross = 9;
+           const crossSpacing = spacing * (pointsBetweenCross + 1); // 10 * spacing
+           ctx.fillStyle = "#c8e0fd"; // Color de puntos
+           ctx.strokeStyle = "#c8e0fd";
+           ctx.lineWidth = 1;
+         
+           for (let y = 0; y < canvas.height; y += spacing) {
+             for (let x = 0; x < canvas.width; x += spacing) {
+         
+               // Verifica si la posición actual NO es una cruz
+               const isCrossPosition = (x % crossSpacing === 0) && (y % crossSpacing === 0);
+         
+               if (!isCrossPosition) {
+                 // Dibuja punto más visible (3x3 centrado)
+                 ctx.beginPath();
+                 ctx.arc(x, y, 1, 0, Math.PI * 2); // Radio de 1px
+                 ctx.fill();
+               }
+         
+               // Si sí es una posición de cruz
+               if (isCrossPosition) {
+                 ctx.beginPath();
+                 ctx.moveTo(x - 8, y); // más larga horizontal
+                 ctx.lineTo(x + 8, y);
+                 ctx.moveTo(x, y - 8); // más larga vertical
+                 ctx.lineTo(x, y + 8);
+                 ctx.stroke();
+               }
+             }
+           }
+         }
+         
+         window.addEventListener("resize", resizeCanvas);
+         resizeCanvas();
+      </script>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+          // Selecciona todas las tarjetas que tendrán el efecto
+          const cards = document.querySelectorAll('.group.relative.rounded-2xl');
+         
+          cards.forEach(card => {
+              // Selecciona los elementos dentro de cada tarjeta que recibirán el mask-image
+              const radialMaskTarget1 = card.querySelector('.radial-mask-target-1');
+              const radialMaskTarget2 = card.querySelector('.radial-mask-target-2');
+         
+              if (radialMaskTarget1 && radialMaskTarget2) {
+                  card.addEventListener('mousemove', (e) => {
+                      // Obtiene la posición de la tarjeta relativa a la ventana
+                      const rect = card.getBoundingClientRect();
+         
+                      // Calcula la posición del ratón relativa a la tarjeta
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+         
+                      // Actualiza la propiedad mask-image con las nuevas coordenadas
+                      radialMaskTarget1.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
+                      radialMaskTarget2.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
+                  });
+              }
+          });
+         });
+      </script>
+      <script>
+    // Declaramos el objeto charts al inicio para almacenar todas las instancias de gráficos
+    let charts = {};
+
+    // Configuración global para Highcharts
+    Highcharts.setOptions({
+      accessibility: {
+        enabled: true
+      },
+      chart: {
+        backgroundColor: 'transparent',
+        style: {
+          fontFamily: 'Inter, system-ui, sans-serif'
+        }
+      },
+      title: { 
+        text: null,
+        style: { display: 'none' } 
+      },
+      credits: { enabled: false },
+      legend: {
+        itemStyle: {
+          color: '#4a5568',
+          fontWeight: '500'
+        }
+      },
+      xAxis: {
+        lineColor: '#e2e8f0',
+        labels: {
+          style: {
+            color: '#718096'
+          }
+        }
+      },
+      yAxis: {
+        gridLineColor: '#edf2f7',
+        labels: {
+          style: {
+            color: '#718096'
+          }
+        }
+      },
+      tooltip: {
+        backgroundColor: '#ffffff',
+        borderColor: '#e2e8f0',
+        style: {
+          color: '#1a202c'
+        }
+      }
+    });
+
+    window.initDashboard = function() {
+      console.log("initDashboard called - Inicializando dashboard");
+
+      // Obtenemos los parámetros de la URL (están después del hash #dashboard?)
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Extraemos los parámetros necesarios
+      const site = urlParams.get("site");
+      const token = urlParams.get("token");
+
+      // Validación básica de parámetros
+      if (!site || !token) {
+        const dashboardContent = document.getElementById('dashboard-content');
+        if (dashboardContent) {
+          dashboardContent.innerHTML = `
+            <div class="error-container">
+              <h2>🔒 Acceso denegado</h2>
+              <p>Asegúrate de que la URL incluya los parámetros site y token correctos después de #dashboard.</p>
+              <p>Ejemplo: #dashboard?site=TU_SITIO&token=TU_TOKEN</p>
+              <button onclick="window.location.reload()">Reintentar</button>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // Carga los datos desde tu backend Go
+      fetch(`https://ethicalmetrics.onrender.com/stats?site=${site}&token=${token}`)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`Error ${res.status}: ${res.statusText}`);
+          }
+          return res.json();
+        })
+        .then(data => {
+          console.log("Datos recibidos de la API:", data);
+
+          // Actualizar el título del dashboard con el nombre del sitio
+          if (data.site_name) {
+            document.getElementById('site-title').textContent = data.site_name;
+          }
+
+          // Procesamos los datos para asegurarnos que son arrays válidos
+          const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
+          const porDia = Array.isArray(data.por_dia) ? data.por_dia : [];
+          const navegadores = Array.isArray(data.navegadores) ? data.navegadores : [];
+          const referencias = Array.isArray(data.referencias) ? data.referencias : [];
+          const paginas = Array.isArray(data.paginas) ? data.paginas : [];
+          const duracionMedia = data.duracion_media || 0;
+          const dispositivos = Array.isArray(data.dispositivos) ? data.dispositivos : [];
+          const paises = Array.isArray(data.paises) ? data.paises : [];
+          const usuariosActivos = typeof data.usuarios_activos === "number" ? data.usuarios_activos : 0;
+          const weekCompare = Array.isArray(data.week_compare) ? data.week_compare : [];
+          const monthCompare = Array.isArray(data.month_compare) ? data.month_compare : [];
+
+          // 1. Gráfico de Módulos (Barras)
+          if (document.getElementById("modulosChart")) {
+            if (charts.modulosChart) charts.modulosChart.destroy();
+            charts.modulosChart = Highcharts.chart('modulosChart', {
+              chart: { type: 'column' },
+              xAxis: { categories: porModulo.map(d => d.modulo) },
+              yAxis: { title: { text: 'Visitas' } },
+              series: [{
+                name: 'Módulos',
+                data: porModulo.map(d => d.total),
+                color: '#4c51bf'
+              }]
+            });
+          }
+
+          // 2. Gráfico de Visitas por Día (Línea)
+          if (document.getElementById("visitasChart")) {
+            if (charts.visitasChart) charts.visitasChart.destroy();
+            charts.visitasChart = Highcharts.chart('visitasChart', {
+              chart: { type: 'line' },
+              xAxis: { categories: porDia.map(d => d.dia) },
+              yAxis: { title: { text: 'Visitas' } },
+              series: [{
+                name: 'Visitas',
+                data: porDia.map(d => d.total),
+                color: '#38a169'
+              }]
+            });
+          }
+
+          // 3. Gráfico de Navegadores (Dona)
+          if (document.getElementById("navegadoresChart")) {
+            if (charts.navegadoresChart) charts.navegadoresChart.destroy();
+            charts.navegadoresChart = Highcharts.chart('navegadoresChart', {
+              chart: { type: 'pie' },
+              plotOptions: {
+                pie: {
+                  innerSize: '50%',
+                  dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                  }
+                }
+              },
+              series: [{
+                name: 'Navegadores',
+                data: navegadores.map(d => [d.navegador, d.total]),
+                colors: ['#4299e1', '#e53e3e', '#f6ad55', '#48bb78', '#9f7aea']
+              }]
+            });
+          }
+
+          // 4. Gráfico de Referencias (Tarta)
+          if (document.getElementById("referenciasChart")) {
+            if (charts.referenciasChart) charts.referenciasChart.destroy();
+            charts.referenciasChart = Highcharts.chart('referenciasChart', {
+              chart: { type: 'pie' },
+              series: [{
+                name: 'Referencias',
+                data: referencias.map(d => [d.referencia, d.total]),
+                colors: ['#4299e1', '#e53e3e', '#f6ad55', '#48bb78', '#9f7aea']
+              }]
+            });
+          }
+
+          // 5. Gráfico de Páginas más visitadas (Barras)
+          if (document.getElementById("paginasChart")) {
+            if (charts.paginasChart) charts.paginasChart.destroy();
+            charts.paginasChart = Highcharts.chart('paginasChart', {
+              chart: { type: 'column' },
+              xAxis: { categories: paginas.map(d => d.pagina) },
+              yAxis: { title: { text: 'Vistas' } },
+              series: [{
+                name: 'Vistas',
+                data: paginas.map(d => d.total),
+                color: '#9f7aea'
+              }]
+            });
+          }
+
+          // 6. Duración media de sesión
+          const duracionDiv = document.getElementById("duracionMedia");
+          if (duracionDiv) {
+            const segundos = Math.round(duracionMedia / 1000);
+            duracionDiv.textContent = segundos + 's';
+          }
+
+          // 7. Gráfico de Dispositivos
+          if (document.getElementById("dispositivosChart")) {
+            if (charts.dispositivosChart) charts.dispositivosChart.destroy();
+            charts.dispositivosChart = Highcharts.chart('dispositivosChart', {
+              chart: { type: 'pie' },
+              plotOptions: {
+                pie: {
+                  innerSize: '50%',
+                  dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                  }
+                }
+              },
+              series: [{
+                name: 'Dispositivos',
+                data: dispositivos.map(d => [d.dispositivo, d.total]),
+                colors: ['#4299e1', '#e53e3e', '#f6ad55']
+              }]
+            });
+          }
+
+          // 8. Gráfico de Países
+          if (document.getElementById("paisesChart")) {
+            if (charts.paisesChart) charts.paisesChart.destroy();
+            charts.paisesChart = Highcharts.chart('paisesChart', {
+              chart: { type: 'pie' },
+              series: [{
+                name: 'Países',
+                data: paises.map(d => [d.pais, d.total]),
+                colors: ['#4299e1', '#e53e3e', '#f6ad55', '#48bb78', '#9f7aea']
+              }]
+            });
+          }
+
+          // 9. Usuarios activos
+          const usuariosActivosDiv = document.getElementById("usuariosActivos");
+          if (usuariosActivosDiv) {
+            usuariosActivosDiv.textContent = usuariosActivos;
+          }
+
+          // 13. Comparativa semanal
+          if (Array.isArray(weekCompare) && document.getElementById("weekCompareChart")) {
+            if (charts.weekCompareChart) charts.weekCompareChart.destroy();
+            charts.weekCompareChart = Highcharts.chart('weekCompareChart', {
+              chart: { type: 'line' },
+              xAxis: { categories: weekCompare.map(d => d.label) },
+              yAxis: { title: { text: 'Visitas' } },
+              series: [
+                { 
+                  name: 'Semana actual', 
+                  data: weekCompare.map(d => d.current),
+                  color: '#38a169'
+                },
+                { 
+                  name: 'Semana pasada', 
+                  data: weekCompare.map(d => d.previous),
+                  color: '#e53e3e'
+                }
+              ]
+            });
+          }
+
+          // 14. Comparativa mensual
+          if (Array.isArray(monthCompare) && document.getElementById("monthCompareChart")) {
+            if (charts.monthCompareChart) charts.monthCompareChart.destroy();
+            charts.monthCompareChart = Highcharts.chart('monthCompareChart', {
+              chart: { type: 'line' },
+              xAxis: { categories: monthCompare.map(d => d.label) },
+              yAxis: { title: { text: 'Visitas' } },
+              series: [
+                { 
+                  name: 'Mes actual', 
+                  data: monthCompare.map(d => d.current),
+                  color: '#4c51bf'
+                },
+                { 
+                  name: 'Mes pasado', 
+                  data: monthCompare.map(d => d.previous),
+                  color: '#f6ad55'
+                }
+              ]
+            });
+          }
+
+          // 15. Idiomas del navegador
+if (Array.isArray(data.browser_langs) && document.getElementById("browserLangChart")) {
+  if (charts.browserLangChart) charts.browserLangChart.destroy();
+  charts.browserLangChart = Highcharts.chart('browserLangChart', {
+    chart: { type: 'pie' },
+    series: [{
+      name: 'Idiomas',
+      data: data.browser_langs.map(d => [d.lang, d.total]),
+      colors: ['#3182ce', '#63b3ed', '#b794f4', '#f56565', '#68d391']
+    }]
+  });
+}
+
+// 16. Sistemas operativos
+if (Array.isArray(data.os) && document.getElementById("osChart")) {
+  if (charts.osChart) charts.osChart.destroy();
+  charts.osChart = Highcharts.chart('osChart', {
+    chart: { type: 'pie' },
+    series: [{
+      name: 'Sistemas',
+      data: data.os.map(d => [d.os, d.total]),
+      colors: ['#805ad5', '#ed8936', '#38a169', '#4a5568']
+    }]
+  });
+}
+
+// 17. Ciudades
+if (Array.isArray(data.cities) && document.getElementById("cityChart")) {
+  if (charts.cityChart) charts.cityChart.destroy();
+  charts.cityChart = Highcharts.chart('cityChart', {
+    chart: { type: 'column' },
+    xAxis: { categories: data.cities.map(d => d.city) },
+    yAxis: { title: { text: 'Usuarios' } },
+    series: [{
+      name: 'Ciudades',
+      data: data.cities.map(d => d.total),
+      color: '#4299e1'
+    }]
+  });
+}
+
+// 18. Retención por página
+if (Array.isArray(data.retention) && document.getElementById("retentionChart")) {
+  if (charts.retentionChart) charts.retentionChart.destroy();
+  charts.retentionChart = Highcharts.chart('retentionChart', {
+    chart: { type: 'bar' },
+    xAxis: { categories: data.retention.map(d => d.label) },
+    yAxis: { title: { text: 'Días con visitas' } },
+    series: [{
+      name: 'Retención',
+      data: data.retention.map(d => d.value),
+      color: '#2b6cb0'
+    }]
+  });
+}
+
+// 19. Funnel básico
+if (Array.isArray(data.funnel) && document.getElementById("funnelChart")) {
+  if (charts.funnelChart) charts.funnelChart.destroy();
+  charts.funnelChart = Highcharts.chart('funnelChart', {
+    chart: { type: 'funnel' },
+    title: null,
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.y}',
+          softConnector: true
+        },
+        center: ['40%', '50%'],
+        width: '80%'
+      }
+    },
+    series: [{
+      name: 'Usuarios',
+      data: data.funnel.map(d => [d.step, d.value]),
+      colors: ['#63b3ed', '#68d391', '#f6ad55', '#ed64a6']
+    }]
+  });
+}
+
+// ––––– Paises (ya tenías) –––––
+
+// 20. Regiones
+if (Array.isArray(data.regiones) && document.getElementById("regionesChart")) {
+  if (charts.regionesChart) charts.regionesChart.destroy();
+  charts.regionesChart = Highcharts.chart('regionesChart', {
+    chart: { type: 'pie' },
+    series: [{
+      name: 'Regiones',
+      data: data.regiones.map(d => [d.region, d.total]),
+      colors: ['#805ad5', '#ed8936', '#38a169', '#4a5568']
+    }]
+  });
+}
+
+// ––––– Indicadores numéricos –––––
+if (typeof data.nuevos_visitantes === 'number') {
+  document.getElementById("nuevosVisitantes").textContent = data.nuevos_visitantes;
+}
+if (typeof data.sesiones_totales === 'number') {
+  document.getElementById("nuevasSesiones").textContent = data.sesiones_totales;
+}
+if (typeof data.vistas_unicas_pagina === 'number') {
+  document.getElementById("vistasUnicas").textContent = data.vistas_unicas_pagina;
+}
+
+
+
+        })
+        .catch(error => {
+          console.error("Error al cargar el dashboard:", error);
+          const dashboardContent = document.getElementById('dashboard-content');
+          if (dashboardContent) {
+            dashboardContent.innerHTML = `
+              <div class="error-container">
+                <h2>❌ Error al cargar los datos</h2>
+                <p>${error.message}</p>
+                <button onclick="window.location.reload()">Reintentar</button>
+              </div>
+            `;
+          }
+        });
+    };
+
+    // Inicializar el dashboard cuando la página esté lista
+    document.addEventListener('DOMContentLoaded', function() {
+      initDashboard();
+    });
+  </script>
+   </body>
+</html>

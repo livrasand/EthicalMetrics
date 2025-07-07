@@ -121,6 +121,7 @@ type processedStats struct {
 	newVisitorsCount int
 	newSessionsCount int
 	uniqueViewsCount int
+	regionCount      map[string]int
 }
 
 func InitGeoIP(path string) error {
@@ -128,6 +129,7 @@ func InitGeoIP(path string) error {
 	geoDB, err = geoip2.Open(path)
 	return err
 }
+
 
 func NuevoHandler(w http.ResponseWriter, r *http.Request) {
 	siteID := uuid.NewString()
@@ -342,13 +344,27 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		eventMap["is_unique"] = v
 	}
 	// Detectar ciudad y país por IP (GeoLite2)
-	userIP := r.Header.Get("X-Forwarded-For")
-	if userIP == "" {
-		userIP, _, _ = net.SplitHostPort(r.RemoteAddr)
+	clientIP := func(r *http.Request) string {
+		// 1) X-Forwarded-For puede contener "IP1, IP2, ...", elige la primera
+		if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
+			parts := strings.Split(xff, ",")
+			ip := strings.TrimSpace(parts[0])
+			return ip
+		}
+		// 2) Fallback a RemoteAddr
+		host, _, err := net.SplitHostPort(r.RemoteAddr)
+		if err == nil {
+			return host
+		}
+		return r.RemoteAddr
 	}
+
+	userIP := clientIP(r)
+
 	eventMap["city"] = cityFromIP(userIP)
-	eventMap["country"] = countryFromIP(userIP) // <--- AGREGAR ESTA LÍNEA
-	// La IP del usuario no se guarda, solo la ciudad obtenida.
+	eventMap["country"] = countryFromIP(userIP)
+	eventMap["region"] = regionFromIP(userIP)
+	// La IP del usuario no se guarda, solo los datos obtenidos.
 	eventJSON, _ := json.Marshal(eventMap)
 
 	err = db.RDB.RPush(db.Ctx, "events:"+e.SiteID, eventJSON).Err()
@@ -415,6 +431,7 @@ func processEvents(eventsRaw []string) *processedStats {
 		newVisitorsCount: 0,
 		newSessionsCount: 0,
 		uniqueViewsCount: 0,
+		regionCount: 	make(map[string]int),
 	}
 
 	now := time.Now()
@@ -461,6 +478,9 @@ func processEvents(eventsRaw []string) *processedStats {
 		}
 		if country, ok := evt["country"].(string); ok {
 			stats.countryCount[country]++
+		}
+		if region, ok := evt["region"].(string); ok {
+			stats.regionCount[region]++
 		}
 		if dev, ok := evt["device"].(string); ok {
 			stats.deviceCount[dev]++
@@ -544,6 +564,7 @@ func buildResponse(stats *processedStats) map[string]interface{} {
 		"browser_langs":        processMapToSlice(stats.browserLangCount, "lang", "total"),
 		"os":                   processMapToSlice(stats.osCount, "os", "total"),
 		"cities":               processMapToSlice(stats.cityCount, "city", "total"),
+	    "regiones":             processMapToSlice(stats.regionCount, "region", "total"),
 		"week_compare":         processComparison(stats.weekData),
 		"month_compare":        processComparison(stats.monthData),
 		"retention":            processRetention(stats.pageVisits),
@@ -607,10 +628,12 @@ func processFunnel(modCount map[string]int) []map[string]interface{} {
 func countryFromIP(ipStr string) string {
 	ip := net.ParseIP(ipStr)
 	if ip == nil || geoDB == nil {
+		log.Printf("countryFromIP: IP inválida %q", ipStr)
 		return "Desconocido"
 	}
 	record, err := geoDB.Country(ip)
 	if err != nil || record == nil || record.Country.Names["en"] == "" {
+		log.Printf("countryFromIP: sin datos para %q (err=%v)", ipStr, err)
 		return "Desconocido"
 	}
 	return record.Country.Names["en"]
@@ -619,11 +642,36 @@ func countryFromIP(ipStr string) string {
 func cityFromIP(ipStr string) string {
 	ip := net.ParseIP(ipStr)
 	if ip == nil || geoDB == nil {
+		log.Printf("cityFromIP: IP inválida %q", ipStr)
 		return "Desconocido"
 	}
 	record, err := geoDB.City(ip)
 	if err != nil || record == nil || record.City.Names["es"] == "" {
+		log.Printf("cityFromIP: sin datos para %q (err=%v)", ipStr, err)
 		return "Desconocido"
 	}
 	return record.City.Names["es"]
+}
+
+// regionFromIP devuelve la primera subdivisión (región/estado) en español
+func regionFromIP(ipStr string) string {
+    ip := net.ParseIP(ipStr)
+    if ip == nil || geoDB == nil {
+		log.Printf("regionFromIP: IP inválida %q", ipStr)
+        return "Desconocido"
+    }
+    record, err := geoDB.City(ip)
+    if err != nil || record == nil {
+		log.Printf("regionFromIP: sin datos para %q (err=%v)", ipStr, err)
+        return "Desconocido"
+    }
+    if len(record.Subdivisions) > 0 {
+        // Usa el nombre en español si está disponible
+        if name, ok := record.Subdivisions[0].Names["es"]; ok && name != "" {
+            return name
+        }
+        // Sino en inglés
+        return record.Subdivisions[0].Names["en"]
+    }
+    return "Desconocido"
 }

@@ -1,174 +1,1189 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>EthicalMetrics</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/styles/nuevo.css">
-  <style>
-    :root {
-  --f-cursor-default: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-default.svg'), auto;
-  --f-cursor-pointer: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-pointer.svg'), auto;
-  --f-cursor-grab: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grab.svg'), auto;
-  --f-cursor-grabbed: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grabbed.svg'), auto;
-  --f-cursor-text: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-text.svg'), auto;
-}
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>EthicalMetrics — A Better Google Analytics Alternative</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-:root[data-theme="dark"] {
-  color-scheme: dark; 
-  --f-cursor-default: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-default.svg'), auto;
-  --f-cursor-pointer: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-pointer.svg'), auto;
-  --f-cursor-grab: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grab.svg'), auto;
-  --f-cursor-grabbed: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-grabbed.svg'), auto;
-  --f-cursor-text: url('https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/images/svg/cursor-text.svg'), auto;
-}
+      <!-- Standard SEO Links -->
+      <link rel="canonical" href="https://ethicalmetrics.onrender.com" />
 
+      <meta name="description" content="EthicalMetrics es la alternativa ética a Google Analytics. Obtén los datos que necesitas sin seguir a tus usuarios. Métricas precisas, cero rastreos invasivos y cumple con GDPR. Por fin, analítica web sin culpa." />
 
-  @media (hover: hover) and (pointer: fine) {
-    body {
-      cursor: var(--f-cursor-default);
-    }
-  }
-  a, button {
-    cursor: var(--f-cursor-pointer);
-  }
-  input[type="text"], textarea, .selectable, [contenteditable="true"] {
-    cursor: var(--f-cursor-text);
-  }
-  code, p {
-    cursor: var(--f-cursor-text);
-  }
-  .draggable, [draggable="true"] {
-    cursor: var(--f-cursor-move);
-  }
-  .crosshair-cursor {
-    cursor: var(--f-cursor-crosshair);
-  }
-  .wait-cursor {
-    cursor: var(--f-cursor-wait);
-  }
-  .help-cursor {
-    cursor: var(--f-cursor-help);
-  }
-  .not-allowed-cursor, [aria-disabled="true"], [disabled] {
-    cursor: var(--f-cursor-not-allowed);
-  }
-  </style>
-  <script>
-    function setCursor(type, selector = 'body') {
-      const cursors = {
-        default: 'var(--f-cursor-default)',
-        pointer: 'var(--f-cursor-pointer)',
-        text: 'var(--f-cursor-text)',
-        move: 'var(--f-cursor-move)',
-        crosshair: 'var(--f-cursor-crosshair)',
-        wait: 'var(--f-cursor-wait)',
-        help: 'var(--f-cursor-help)',
-        'not-allowed': 'var(--f-cursor-not-allowed)'
-      };
-      const value = cursors[type] || cursors.default;
-      document.querySelectorAll(selector).forEach(el => {
-        el.style.cursor = value;
-      });
-    }
-  </script>
-  <style>
-        .price-container {
-position: absolute;
-      background-color: #141414;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      justify-content: space-between;
-      align-content: space-between;
-      padding: 1.5rem 1.688rem;
-      z-index: 10;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      row-gap: 0.5rem;
-    }
+      <!-- OpenGraph (Facebook/LinkedIn) -->
+      <meta property="og:title" content="Google Analytics Alternative sin Tracking Invasivo | EthicalMetrics" />
+      <meta property="og:description" content="EthicalMetrics: Obtén los datos que necesitas sin seguir a tus usuarios. Métricas precisas y 100% éticas. Cumple con GDPR fácilmente." />
+      <meta property="og:url" content="https://ethicalmetrics.onrender.com" />
+      <meta property="og:type" content="website" />
 
-.plan-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  backdrop-filter: blur(8px);
-}
+      <!-- Twitter Card -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Google Analytics Alternative sin Tracking Invasivo | EthicalMetrics" />
+      <meta name="twitter:description" content="La alternativa ética a Google Analytics: métricas precisas sin rastreo invasivo. Cumple con GDPR sin esfuerzo." />
 
-.plan-card h2 {
-  margin-bottom: 0.5rem;
-}
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <link rel="stylesheet" href="prism.css">
+      <style>
+         canvas {
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+         }
+         html, body {
+         margin: 0;
+         padding: 0;
+         background: #f1f2f1;
+         overflow: hidden;
+         cursor: url("cursor.svg"), auto;
+         scroll-behavior: smooth;
+         color: #1e3a8a; /* Un azul oscuro para mejor contraste */
+         }
+         /* Cursor para enlaces/interactivos (similar al de selección en Figma) */
+         a, button, [role="button"] {
+         cursor: url("pointer.svg"), pointer;
+         /* Cursor para arrastrar (opcional) */
+         } .drag-cursor {
+         cursor: url("grab.svg"), grab;
+         }
+         /* Extra estética tipo pixel-glass blur animado */
+         @keyframes subtleFloat {
+         0%   { transform: translateY(0); }
+         50%  { transform: translateY(-2px); }
+         100% { transform: translateY(0); }
+         }
+         .group:hover {
+         animation: subtleFloat 3s ease-in-out infinite;
+         }
+         section {
+         transition: opacity 0.6s ease, transform 0.6s ease;
+         opacity: 0;
+         transform: translateY(20px);
+         }
+         main:not(:hover) section:first-of-type,
+         section:target,
+         section.is-visible {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         main {
+         height: 100vh;
+         width: 100vw;
+         overflow-y: scroll;
+         scrollbar-width: none;       /* Firefox */
+         -ms-overflow-style: none;    /* IE/Edge */
+         }
+         main::-webkit-scrollbar {
+         width: 0px;
+         height: 0px;
+         background: transparent;     /* Chrome/Safari */
+         }
+      </style>
+   </head>
+   <body class="flex justify-center">
+      <canvas id="background"></canvas>
+      <main class="absolute h-screen w-full overflow-y-scroll overflow-x-hidden scroll-smooth snap-y snap-mandatory grid min-h-dvh grid-cols-1 grid-rows-[1fr_1px_auto_1px_auto] justify-center [--gutter-width:2.5rem] md:-mx-4 md:grid-cols-[var(--gutter-width)_minmax(0,var(--breakpoint-2xl))_var(--gutter-width)] lg:mx-0">
+         <div class="col-start-1 row-span-full row-start-1 border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
+         <div class="relative">
+            <div class="relative px-6 lg:px-8">
+               <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                  <header class="pt-0 sm:pt-2" data-headlessui-state="" id="crear-cuenta">
+                     <div class="">
+                        <div class="relative flex justify-between group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
+                           <div class="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+                              <div class="absolute inset-x-0 top-0 border-t border-black/5"></div>
+                              <div class="absolute inset-x-0 top-2 border-t border-black/5"></div>
+                              <div class="absolute inset-x-0 bottom-0 border-b border-black/5 group-last/row:block"></div>
+                              <div class="absolute inset-x-0 bottom-2 border-b border-black/5 group-last/row:block"></div>
+                           </div>
+                           <div class="relative flex gap-6">
+                              <div class="relative items-center py-3 lg:flex">
+                                 <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+  <!-- Botón 1 -->
+  <a
+    class="flex items-center gap-1 rounded-full bg-sky-950/35 px-3 py-0.5 text-sm/6 font-medium text-white hover:bg-sky-950/30 transition-colors duration-200"
+    href="/blog/radiant-raises-100m-series-a-from-tailwind-ventures"
+  >
+    EthicalMetrics x HeyFollow.me
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      class="size-3 sm:size-4"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+  </a>
 
-.plan-card .plan-price {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0 0;
-  color: var(--text-highlight, #59FFA4);
-}
+  <!-- Botón 2 - GitHub -->
+  <a
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-1.5 rounded-full p-1.5 border border-black dark:border-white/[.35] hover:bg-gray-100 dark:hover:bg-gray-700 text-black dark:text-white no-underline transition-colors duration-200"
+    aria-label="Visit EthicalMetrics on GitHub"
+    href="https://github.com/livrasand/EthicalMetrics"
+    id="github-stars-button"
+  >
+    <!-- Ícono de GitHub -->
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 98 96"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-4 h-4 sm:w-5 sm:h-5 fill-current"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+      ></path>
+    </svg>
 
-.plan-price .plan-period {
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-secondary, #aaa);
-}
-
-.plan-features {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0 2rem 0;
-}
-
-.plan-features li {
-  margin: 0.5rem 0;
-  padding-left: 1.2rem;
-  position: relative;
-  color: var(--text-secondary, #ccc);
-}
-
-.plan-features li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #3CBF8E;
-  font-weight: bold;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #3CBF8E, #1EFE9D);
-  color: #0b0b0b;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: linear-gradient(135deg, #2db67c, #1ccf8e);
-}
-
-.highlight {
-  border: 2px solid #3CBF8E;
-  background: rgba(60, 191, 142, 0.05);
-}
-
-    </style>
-    <style>
-    .chart-title {
-      color: #fff;
-    }
-  </style>
-</head>
-<body>
-  <div id="header"></div>
-  <main id="main"></main>
-  <div id="footer"></div>
-  
-  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/main.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/global-design.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/nuevo.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/nav-toggle.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/EthicalMetrics/website@latest/scripts/footer-logic.js" defer></script> 
-</body>
+    <!-- Contenedor de estrellas (dinámico) -->
+    <div class="flex items-center gap-1" id="github-stars-count">
+      <span class="text-xs sm:text-sm leading-none font-medium" id="github-stars-count-value">Cargando...</span>
+      <img
+        class="dark:invert w-3 h-3 sm:w-4 sm:h-4"
+        src="https://assets.gumroad.com/assets/icons/solid-star-ae9395f76968c94940ad3171be53dc6dd6d8d5f2e528d991a22222e22ded0e98.svg"
+        alt="stars"
+      >
+    </div>
+  </a>
+</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </header>
+                  <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
+                     <h1 class="font-display text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-9xl/[0.8]">Conoce EthicalMetrics</h1>
+                     <p class="mt-8 max-w-lg text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8">Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.</p>
+                     <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" id="btnCrear" onclick="crearCuenta()">Crear una cuenta gratis&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg></a><a class="relative inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-white/15 shadow-md ring-1 ring-[#D15052]/15 after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d] text-base font-medium whitespace-nowrap text-gray-950 data-disabled:bg-white/15 data-disabled:opacity-40 data-hover:bg-white/20" data-headlessui-state="" href="">Ver demo&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg></a></div>
+                     <div class="text-base mt-10">
+                        <p class="text-slate-500/80 dark:text-slate-400">
+                           Contribute or fork on 
+                           <a 
+                              href="https://github.com/livrasand/EthicalMetrics/" 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              class="text-slate-500/80 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-500 transition-colors inline-flex items-center gap-1 ml-1"
+                              >
+                              <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                              </svg>
+                              GitHub
+                           </a>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+               <div class="mx-auto max-w-2xl sm:text-center">
+                  <h2 class="text-3xl font-medium tracking-tight text-gray-900">Métricas útiles. Sin rastrear a nadie.</h2>
+                  <p class="mt-2 text-lg text-gray-600">EthicalMetrics te da claridad sobre tu producto sin comprometer la privacidad de nadie. Sin cookies. Sin IDs. Sin historiales. Solo datos relevantes, tratados con respeto.</p>
+               </div>
+               <ul role="list" class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 text-sm sm:mt-20 sm:grid-cols-2 md:gap-y-10 lg:max-w-none lg:grid-cols-2">
+                  <li class="group relative rounded-2xl border border-gray-200 p-8 bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-emerald-300/10 dark:group-hover:ring-emerald-400">
+                     <div class="pointer-events-none">
+                        <div class="absolute inset-0 rounded-2xl mask-[linear-gradient(white,transparent)] transition duration-300 group-hover:opacity-50">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5">
+                              <defs>
+                                 <pattern id="pattern-1" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-1)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                        <div class="absolute inset-0 rounded-2xl bg-linear-to-r from-[#D7EDEA] to-[#F4FBDF] opacity-0 transition duration-300 group-hover:opacity-100 dark:from-[#202D2E] dark:to-[#303428] pointer-events-none radial-mask-target-1" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);"></div>
+                        <div class="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100 pointer-events-none radial-mask-target-2" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 dark:fill-white/2.5 dark:stroke-white/10">
+                              <defs>
+                                 <pattern id="pattern-2" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-2)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                     </div>
+                     <div class="absolute inset-0 rounded-2xl ring-1 ring-zinc-900/7.5 ring-inset group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20"></div>
+                     <svg viewBox="0 0 32 32" aria-hidden="true" class="relative h-8 w-8">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z" fill="#737373"></path>
+                        <path d="M12 25l8-8m0 0h-6m6 0v6" stroke="#171717" stroke-width="2" stroke-linecap="round"></path>
+                        <circle cx="16" cy="16" r="16" fill="#A3A3A3" fill-opacity="0.2"></circle>
+                     </svg>
+                     <h3 class="mt-6 font-semibold text-gray-900">Libertad para tus Usuarios</h3>
+                     <p class="mt-2 text-gray-700">Diles adiós a las cookies, al rastreo invasivo y a la recolección de datos personales. Tus visitantes navegan con la tranquilidad de que su privacidad está garantizada. Tú, mientras tanto, obtienes las perspectivas que te impulsan.</p>
+                  </li>
+                  <li class="group relative rounded-2xl border border-gray-200 p-8 bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-emerald-300/10 dark:group-hover:ring-emerald-400">
+                     <div class="pointer-events-none">
+                        <div class="absolute inset-0 rounded-2xl mask-[linear-gradient(white,transparent)] transition duration-300 group-hover:opacity-50">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5">
+                              <defs>
+                                 <pattern id="pattern-card2-1" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card2-1)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                        <div class="absolute inset-0 rounded-2xl bg-linear-to-r from-[#D7EDEA] to-[#F4FBDF] opacity-0 transition duration-300 group-hover:opacity-100 dark:from-[#202D2E] dark:to-[#303428] pointer-events-none radial-mask-target-1" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);"></div>
+                        <div class="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100 pointer-events-none radial-mask-target-2" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 dark:fill-white/2.5 dark:stroke-white/10">
+                              <defs>
+                                 <pattern id="pattern-card2-2" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card2-2)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                     </div>
+                     <div class="absolute inset-0 rounded-2xl ring-1 ring-zinc-900/7.5 ring-inset group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20"></div>
+                     <svg viewBox="0 0 32 32" aria-hidden="true" class="relative h-8 w-8">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z" fill="#737373"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 13a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H10a1 1 0 01-1-1v-2zm0 6a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H10a1 1 0 01-1-1v-2zm1 5a1 1 0 00-1 1v2a1 1 0 001 1h12a1 1 0 001-1v-2a1 1 0 00-1-1H10z" fill="url(#:S2:-gradient)"></path>
+                        <rect x="9" y="6" width="14" height="4" rx="1" fill="#171717"></rect>
+                        <circle cx="16" cy="16" r="16" fill="#A3A3A3" fill-opacity="0.2"></circle>
+                        <defs>
+                           <linearGradient id=":S2:-gradient" x1="16" y1="12" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+                              <stop stop-color="#737373"></stop>
+                              <stop offset="1" stop-color="#737373" stop-opacity="0"></stop>
+                           </linearGradient>
+                        </defs>
+                     </svg>
+                     <h3 class="mt-6 font-semibold text-gray-900">Tus datos, tu fortaleza</h3>
+                     <p class="mt-2 text-gray-700">Tus datos son tuyos, punto. Al ser un servicio que puedes auto-hospedar, tienes el control absoluto sobre tu información. Sin intermediarios, sin sorpresas.</p>
+                  </li>
+                  <li class="group relative rounded-2xl border border-gray-200 p-8 bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-emerald-300/10 dark:group-hover:ring-emerald-400">
+                     <div class="pointer-events-none">
+                        <div class="absolute inset-0 rounded-2xl mask-[linear-gradient(white,transparent)] transition duration-300 group-hover:opacity-50">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5">
+                              <defs>
+                                 <pattern id="pattern-card3-1" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card3-1)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                        <div class="absolute inset-0 rounded-2xl bg-linear-to-r from-[#D7EDEA] to-[#F4FBDF] opacity-0 transition duration-300 group-hover:opacity-100 dark:from-[#202D2E] dark:to-[#303428] pointer-events-none radial-mask-target-1" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);"></div>
+                        <div class="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100 pointer-events-none radial-mask-target-2" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 dark:fill-white/2.5 dark:stroke-white/10">
+                              <defs>
+                                 <pattern id="pattern-card3-2" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card3-2)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                     </div>
+                     <div class="absolute inset-0 rounded-2xl ring-1 ring-zinc-900/7.5 ring-inset group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20"></div>
+                     <svg viewBox="0 0 32 32" aria-hidden="true" class="relative h-8 w-8">
+                        <circle cx="16" cy="16" r="16" fill="#A3A3A3" fill-opacity="0.2"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4a4 4 0 014-4h14a4 4 0 014 4v10h-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9a2 2 0 00-2 2v24a2 2 0 002 2h5v2H9a4 4 0 01-4-4V4z" fill="#737373"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24 32a8 8 0 100-16 8 8 0 000 16zm1-8.414V19h-2v5.414l4 4L28.414 27 25 23.586z" fill="#171717"></path>
+                     </svg>
+                     <h3 class="mt-6 font-semibold text-gray-900">Comienza en minutos</h3>
+                     <p class="mt-2 text-gray-700">Agrega una línea de código y listo. Tarda menos de un segundo en comenzar a enviar datos. Configurar EthicalMetrics es increíblemente simple, dejándote libre para enfocarte en lo que realmente importa: crear. Cada sitio que añades tiene su propio espacio privado para ver sus resultados.</p>
+                  </li>
+                  <li class="group relative rounded-2xl border border-gray-200 p-8 bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-emerald-300/10 dark:group-hover:ring-emerald-400">
+                     <div class="pointer-events-none">
+                        <div class="absolute inset-0 rounded-2xl mask-[linear-gradient(white,transparent)] transition duration-300 group-hover:opacity-50">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5">
+                              <defs>
+                                 <pattern id="pattern-card4-1" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card4-1)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                        <div class="absolute inset-0 rounded-2xl bg-linear-to-r from-[#D7EDEA] to-[#F4FBDF] opacity-0 transition duration-300 group-hover:opacity-80 dark:from-[#202D2E] dark:to-[#303428] pointer-events-none radial-mask-target-1" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);"></div>
+                        <div class="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100 pointer-events-none radial-mask-target-2" style="mask-image: radial-gradient(180px at 0px 0px, white, transparent);">
+                           <svg aria-hidden="true" class="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 dark:fill-white/2.5 dark:stroke-white/10">
+                              <defs>
+                                 <pattern id="pattern-card4-2" width="72" height="56" patternUnits="userSpaceOnUse" x="50%" y="16">
+                                    <path d="M.5 56V.5H72" fill="none"></path>
+                                 </pattern>
+                              </defs>
+                              <rect width="100%" height="100%" stroke-width="0" fill="url(#pattern-card4-2)"></rect>
+                              <svg x="50%" y="16" class="overflow-visible">
+                                 <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+                                 <rect stroke-width="0" width="73" height="57" x="72" y="168"></rect>
+                              </svg>
+                           </svg>
+                        </div>
+                     </div>
+                     <div class="absolute inset-0 rounded-2xl ring-1 ring-zinc-900/7.5 ring-inset group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20"></div>
+                     <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" class="relative h-8 w-8">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z" fill="#737373"></path>
+                        <circle cx="11" cy="14" r="2" fill="#171717"></circle>
+                        <circle cx="11" cy="20" r="2" fill="#171717"></circle>
+                        <circle cx="11" cy="26" r="2" fill="#171717"></circle>
+                        <path d="M16 14h6M16 20h6M16 26h6" stroke="#737373" stroke-width="2" stroke-linecap="square"></path>
+                        <circle cx="16" cy="16" r="16" fill="#A3A3A3" fill-opacity="0.2"></circle>
+                     </svg>
+                     <h3 class="mt-6 font-semibold text-gray-900">Claridad sin compromisos</h3>
+                     <p class="mt-2 text-gray-700">Observa cómo se comportan tus módulos, dónde brilla el rendimiento y qué eventos son clave. Te damos métricas para entender tu producto, no para espiar a las personas.</p>
+                  </li>
+               </ul>
+            </div>
+            <div class="relative max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+               <article>
+                  <header class="mb-9 space-y-1">
+                     <p class="font-display text-sm font-medium text-sky-500">Introduction</p>
+                     <h1 class="font-display text-3xl tracking-tight text-slate-900 dark:text-white">Getting started</h1>
+                  </header>
+                  <div class="prose max-w-none prose-slate dark:text-slate-400 dark:prose-invert prose-headings:scroll-mt-28 prose-headings:font-display prose-headings:font-normal lg:prose-headings:scroll-mt-34 prose-lead:text-slate-500 dark:prose-lead:text-slate-400 prose-a:font-semibold dark:prose-a:text-sky-400 dark:[--tw-prose-background:var(--color-slate-900)] prose-a:no-underline prose-a:shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,var(--color-sky-300))] prose-a:hover:[--tw-prose-underline-size:6px] dark:prose-a:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,var(--color-sky-800))] dark:prose-a:hover:[--tw-prose-underline-size:6px] prose-pre:rounded-xl prose-pre:bg-slate-900 prose-pre:shadow-lg dark:prose-pre:bg-slate-800/60 dark:prose-pre:shadow-none dark:prose-pre:ring-1 dark:prose-pre:ring-slate-300/10 dark:prose-hr:border-slate-800">
+                     <p class="lead">Learn how to get EthicalMetrics set up in your website in under thirty minutes or it's free. </p>
+                     <div class="not-prose my-12 grid grid-cols-3 gap-6 sm:grid-cols-3">
+                        <div class="group relative rounded-xl border border-slate-200 dark:border-slate-800">
+                           <div class="absolute -inset-px rounded-xl border-2 border-transparent opacity-0 [background:linear-gradient(var(--quick-links-hover-bg,var(--color-sky-50)),var(--quick-links-hover-bg,var(--color-sky-50)))_padding-box,linear-gradient(to_top,var(--color-indigo-400),var(--color-cyan-400),var(--color-sky-500))_border-box] group-hover:opacity-100 dark:[--quick-links-hover-bg:var(--color-slate-800)]"></div>
+                           <div class="relative overflow-hidden rounded-xl p-6">
+                              <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 [--icon-foreground:var(--color-slate-900)] [--icon-background:var(--color-white)]">
+                                 <defs>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S1:-gradient" gradientTransform="matrix(0 21 -21 0 12 3)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S1:-gradient-dark" gradientTransform="matrix(0 21 -21 0 16 7)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                 </defs>
+                                 <g class="dark:hidden">
+                                    <circle cx="12" cy="12" r="12" fill="url(#:S1:-gradient)"></circle>
+                                    <path d="m8 8 9 21 2-10 10-2L8 8Z" fill-opacity="0.5" class="fill-(--icon-background) stroke-(--icon-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                 </g>
+                                 <g class="hidden dark:inline">
+                                    <path d="m4 4 10.286 24 2.285-11.429L28 14.286 4 4Z" fill="url(#:S1:-gradient-dark)" stroke="url(#:S1:-gradient-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                 </g>
+                              </svg>
+                              <h2 class="mt-4 font-display text-base text-slate-900 dark:text-white"><a><span class="absolute -inset-px rounded-xl"></span>Registra tu sitio</a></h2>
+                              <p class="mt-1 text-sm text-slate-700 dark:text-slate-400">Obtén tus credenciales únicas en un instante. Sin correo, sin contraseñas, sin tarjeta.</p>
+                           </div>
+                        </div>
+                        <div class="group relative rounded-xl border border-slate-200 dark:border-slate-800">
+                           <div class="absolute -inset-px rounded-xl border-2 border-transparent opacity-0 [background:linear-gradient(var(--quick-links-hover-bg,var(--color-sky-50)),var(--quick-links-hover-bg,var(--color-sky-50)))_padding-box,linear-gradient(to_top,var(--color-indigo-400),var(--color-cyan-400),var(--color-sky-500))_border-box] group-hover:opacity-100 dark:[--quick-links-hover-bg:var(--color-slate-800)]"></div>
+                           <div class="relative overflow-hidden rounded-xl p-6">
+                              <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 [--icon-foreground:var(--color-slate-900)] [--icon-background:var(--color-white)]">
+                                 <defs>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient" gradientTransform="matrix(0 21 -21 0 20 11)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient-dark-1" gradientTransform="matrix(0 22.75 -22.75 0 16 6.25)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient-dark-2" gradientTransform="matrix(0 14 -14 0 16 10)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                 </defs>
+                                 <g class="dark:hidden">
+                                    <circle cx="20" cy="20" r="12" fill="url(#:S3:-gradient)"></circle>
+                                    <g fill-opacity="0.5" class="fill-(--icon-background) stroke-(--icon-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                       <path d="M3 9v14l12 6V15L3 9Z"></path>
+                                       <path d="M27 9v14l-12 6V15l12-6Z"></path>
+                                    </g>
+                                    <path d="M11 4h8v2l6 3-10 6L5 9l6-3V4Z" fill-opacity="0.5" class="fill-(--icon-background)"></path>
+                                    <g class="stroke-(--icon-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                       <path d="M20 5.5 27 9l-12 6L3 9l7-3.5"></path>
+                                       <path d="M20 5c0 1.105-2.239 2-5 2s-5-.895-5-2m10 0c0-1.105-2.239-2-5-2s-5 .895-5 2m10 0v3c0 1.105-2.239 2-5 2s-5-.895-5-2V5"></path>
+                                    </g>
+                                 </g>
+                                 <g class="hidden dark:inline" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.676 3.38a3.887 3.887 0 0 0-3.352 0l-9 4.288C3.907 8.342 3 9.806 3 11.416v9.168c0 1.61.907 3.073 2.324 3.748l9 4.288a3.887 3.887 0 0 0 3.352 0l9-4.288C28.093 23.657 29 22.194 29 20.584v-9.168c0-1.61-.907-3.074-2.324-3.748l-9-4.288Z" stroke="url(#:S3:-gradient-dark-1)"></path>
+                                    <path d="M16.406 8.087a.989.989 0 0 0-.812 0l-7 3.598A1.012 1.012 0 0 0 8 12.61v6.78c0 .4.233.762.594.925l7 3.598a.989.989 0 0 0 .812 0l7-3.598c.361-.163.594-.525.594-.925v-6.78c0-.4-.233-.762-.594-.925l-7-3.598Z" fill="url(#:S3:-gradient-dark-2)" stroke="url(#:S3:-gradient-dark-2)"></path>
+                                 </g>
+                              </svg>
+                              <h2 class="mt-4 font-display text-base text-slate-900 dark:text-white"><a><span class="absolute -inset-px rounded-xl"></span>Instalación en 5 segundos</a></h2>
+                              <p class="mt-1 text-sm text-slate-700 dark:text-slate-400">Añade un pequeño script a tu sitio web. Solo copia una línea. Así de simple.</p>
+                           </div>
+                        </div>
+                        <div class="group relative rounded-xl border border-slate-200 dark:border-slate-800">
+                           <div class="absolute -inset-px rounded-xl border-2 border-transparent opacity-0 [background:linear-gradient(var(--quick-links-hover-bg,var(--color-sky-50)),var(--quick-links-hover-bg,var(--color-sky-50)))_padding-box,linear-gradient(to_top,var(--color-indigo-400),var(--color-cyan-400),var(--color-sky-500))_border-box] group-hover:opacity-100 dark:[--quick-links-hover-bg:var(--color-slate-800)]"></div>
+                           <div class="relative overflow-hidden rounded-xl p-6">
+                              <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 [--icon-foreground:var(--color-slate-900)] [--icon-background:var(--color-white)]">
+                                 <defs>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient" gradientTransform="matrix(0 21 -21 0 20 11)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient-dark-1" gradientTransform="matrix(0 22.75 -22.75 0 16 6.25)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id=":S3:-gradient-dark-2" gradientTransform="matrix(0 14 -14 0 16 10)">
+                                       <stop stop-color="#0EA5E9"></stop>
+                                       <stop stop-color="#22D3EE" offset=".527"></stop>
+                                       <stop stop-color="#818CF8" offset="1"></stop>
+                                    </radialGradient>
+                                 </defs>
+                                 <g class="dark:hidden">
+                                    <circle cx="20" cy="20" r="12" fill="url(#:S3:-gradient)"></circle>
+                                    <g fill-opacity="0.5" class="fill-(--icon-background) stroke-(--icon-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                       <path d="M3 9v14l12 6V15L3 9Z"></path>
+                                       <path d="M27 9v14l-12 6V15l12-6Z"></path>
+                                    </g>
+                                    <path d="M11 4h8v2l6 3-10 6L5 9l6-3V4Z" fill-opacity="0.5" class="fill-(--icon-background)"></path>
+                                    <g class="stroke-(--icon-foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                       <path d="M20 5.5 27 9l-12 6L3 9l7-3.5"></path>
+                                       <path d="M20 5c0 1.105-2.239 2-5 2s-5-.895-5-2m10 0c0-1.105-2.239-2-5-2s-5 .895-5 2m10 0v3c0 1.105-2.239 2-5 2s-5-.895-5-2V5"></path>
+                                    </g>
+                                 </g>
+                                 <g class="hidden dark:inline" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.676 3.38a3.887 3.887 0 0 0-3.352 0l-9 4.288C3.907 8.342 3 9.806 3 11.416v9.168c0 1.61.907 3.073 2.324 3.748l9 4.288a3.887 3.887 0 0 0 3.352 0l9-4.288C28.093 23.657 29 22.194 29 20.584v-9.168c0-1.61-.907-3.074-2.324-3.748l-9-4.288Z" stroke="url(#:S3:-gradient-dark-1)"></path>
+                                    <path d="M16.406 8.087a.989.989 0 0 0-.812 0l-7 3.598A1.012 1.012 0 0 0 8 12.61v6.78c0 .4.233.762.594.925l7 3.598a.989.989 0 0 0 .812 0l7-3.598c.361-.163.594-.525.594-.925v-6.78c0-.4-.233-.762-.594-.925l-7-3.598Z" fill="url(#:S3:-gradient-dark-2)" stroke="url(#:S3:-gradient-dark-2)"></path>
+                                 </g>
+                              </svg>
+                              <h2 class="mt-4 font-display text-base text-slate-900 dark:text-white"><a><span class="absolute -inset-px rounded-xl"></span>Visualiza</a></h2>
+                              <p class="mt-1 text-sm text-slate-700 dark:text-slate-400"> Accede a tu panel personal para ver tus insights. Listo. No más rastreo invasivo.</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </article>
+            </div>
+            <div class="relative rounded-2xl bg-[#0A101F]/80 ring-1 ring-white/10 backdrop-blur-sm m-8 mt-0">
+               <div class="absolute -top-px right-11 left-20 h-px bg-linear-to-r from-sky-300/0 via-sky-300/70 to-sky-300/0"></div>
+               <div class="absolute right-20 -bottom-px left-11 h-px bg-linear-to-r from-blue-400/0 via-blue-400 to-blue-400/0"></div>
+               <div class="pt-4 pl-4">
+                  <svg aria-hidden="true" viewBox="0 0 42 10" fill="none" class="h-2.5 w-auto stroke-slate-500/30">
+                     <circle cx="5" cy="5" r="4.5"></circle>
+                     <circle cx="21" cy="5" r="4.5"></circle>
+                     <circle cx="37" cy="5" r="4.5"></circle>
+                  </svg>
+                  <div class="mt-4 flex space-x-2 text-xs">
+                     <div class="flex h-6 rounded-full bg-linear-to-r from-sky-400/30 via-sky-400 to-sky-400/30 p-px font-medium text-sky-300">
+                        <div class="flex items-center rounded-full px-2.5 bg-slate-800">index.html</div>
+                     </div>
+                  </div>
+                  <div class="mt-6 flex items-start px-1 text-sm">
+                     <div aria-hidden="true" class="border-r border-slate-300/5 pr-4 font-mono text-slate-600 select-none">01<br>02<br>03<br>04<br>05<br>06<br>07<br>07<br>08<br>09<br>10<br>11<br>12<br>13<br></div>
+                     <pre class="prism-code language-javascript flex overflow-x-auto pb-6">
+                        <code class="language-javascript">
+&lt;&excl;-- Basic tracking --&gt;
+&lt;script src&equals;&quot;https&colon;&sol;&sol;ethicalmetrics&period;onrender&period;com&sol;ethicalmetrics&period;js&quest;id&equals;YOUR&lowbar;SITE&lowbar;ID&quot;&gt;&lt;&sol;script&gt;
+&NewLine;&lt;&excl;-- Module tracking --&gt;
+&lt;body data-modulo&equals;&quot;home&quot;&gt;
+  &period;&period;&period;
+  &lt;script src&equals;&quot;https&colon;&sol;&sol;ethicalmetrics&period;onrender&period;com&sol;ethicalmetrics&period;js&quest;id&equals;YOUR&lowbar;SITE&lowbar;ID&quot;&gt;
+&lt;&sol;script&gt;
+&lt;&sol;body&gt;
+      </code></pre>
+                  </div>
+               </div>
+            </div>
+            <div class="mt-16 px-6 lg:px-8" id="precios">
+               <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                  <h1 class="text-4xl font-medium tracking-tighter text-pretty text-gray-950 data-dark:text-white sm:text-6xl">Precios diseñados para crecer contigo</h1>
+               </div>
+            </div>
+            <div class="relative py-24">
+               <div class="absolute inset-x-2 top-48 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-sky-950/35"></div>
+               <div class="relative px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                     <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                        <div class="-m-2 grid grid-cols-1 rounded-4xl shadow-[inset_0_0_2px_1px_#ffffff4d] ring-1 ring-black/5 max-lg:mx-auto max-lg:w-full max-lg:max-w-md">
+                           <div class="grid grid-cols-1 rounded-4xl p-2 shadow-md shadow-black/5">
+                              <div class="rounded-3xl bg-white p-10 pb-9 shadow-2xl ring-1 ring-black/5">
+                                 <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">Hobby SaaS</h2>
+                                 <p class="mt-2 text-sm/6 text-gray-950/75">Devs indie, side-projects</p>
+                                 <div class="mt-8 flex items-center gap-4">
+                                    <div class="text-5xl font-medium text-gray-950">Gratis</div>
+                                 </div>
+                                 <div class="mt-8">
+                                    <h3 class="text-sm/6 font-medium text-gray-950">Incluye:</h3>
+                                    <ul class="mt-3 space-y-3">
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          1 sitio web
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Análisis básico en tiempo real
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Panel de métricas esenciales
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Visualización de tráfico y eventos
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Módulos ilimitados
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Eventos ilimitados (limitados solo por tu RAM)
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Hasta 25 GB de tráfico mensual en la nube compartida
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          5 MB RAM total mensual
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          6 month data retention
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Soporte comunitario
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Despliegue compartido (cloud)
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="mt-8"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" href="#crear-cuenta">Crear una cuenta</a></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="-m-2 grid grid-cols-1 rounded-4xl shadow-[inset_0_0_2px_1px_#ffffff4d] ring-1 ring-black/5 max-lg:mx-auto max-lg:w-full max-lg:max-w-md">
+                           <div class="grid grid-cols-1 rounded-4xl p-2 shadow-md shadow-black/5">
+                              <div class="rounded-3xl bg-white p-10 pb-9 shadow-2xl ring-1 ring-black/5">
+                                 <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">Professional SaaS</h2>
+                                 <p class="mt-2 text-sm/6 text-gray-950/75">Producción, startups</p>
+                                 <div class="mt-8 flex items-center gap-4">
+                                    <div class="text-5xl font-medium text-gray-950">$1</div>
+                                    <div class="text-sm/5 text-gray-950/75">
+                                       <p>USD</p>
+                                       <p>per month</p>
+                                    </div>
+                                 </div>
+                                 <div class="mt-8">
+                                    <h3 class="text-sm/6 font-medium text-gray-950">Todo en el plan Free, más:</h3>
+                                    <ul class="mt-3 space-y-3">
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Análisis avanzado en tiempo real
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Panel de métricas completas y personalizables
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Visualización completa de tráfico, eventos y conversiones personalizadas
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          50 MB RAM total mensual
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Unlimited data retention
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Soporte garantizado en menos de 24h
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Canales: Email, Chat
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Precios On-Demand por RAM
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Data export
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Data import
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="mt-8"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-medium cursor-not-allowed opacity-70" data-headlessui-state="" href="#">Próximamente disponible</a></div>
+                                 <p class="mt-6 rounded-xl bg-sky-950/25 p-6 text-sm/7 text-gray-700 sm:rounded-2xl">
+<svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 inline-block h-7 w-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
+</svg><strong class="font-semibold text-black">Disponible también en versión auto-hospedada</strong> - Para mayor privacidad y control, puedes instalar EthicalMetrics en tus propios servidores.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="-m-2 grid grid-cols-1 rounded-4xl shadow-[inset_0_0_2px_1px_#ffffff4d] ring-1 ring-black/5 max-lg:mx-auto max-lg:w-full max-lg:max-w-md">
+                           <div class="grid grid-cols-1 rounded-4xl p-2 shadow-md shadow-black/5">
+                              <div class="rounded-3xl bg-white p-10 pb-9 shadow-2xl ring-1 ring-black/5">
+                                 <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">OSS SaaS</h2>
+                                 <p class="mt-2 text-sm/6 text-gray-950/75">Proyectos FOSS</p>
+                                 <div class="mt-8 flex items-center gap-4">
+                                    <div class="text-5xl font-medium text-gray-950">Gratis</div>
+                                 </div>
+                                 <div class="mt-8">
+                                    <h3 class="text-sm/6 font-medium text-gray-950">Igual que Pro, con requisitos:</h3>
+                                    <ul class="mt-3 space-y-3">
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Todas las funciones del plan Professional sin costo para proyectos de código abierto que cumplan nuestros criterios.
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          Soporte técnico dedicado para la integración y resolución de problemas (no incluye el soporte garantizado en menos de 24h).
+                                       </li>
+                                       <li data-disabled="true" class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          <span class="sr-only">Not included:</span>Precios On-Demand por RAM
+                                       </li>
+                                    </ul>
+                                    <h3 class="text-sm/6 font-medium text-gray-950 mt-6">Requisitos:</h3>
+                                    <ul class="mt-2 space-y-6">
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          <div>
+                                             <h4 class="font-medium text-gray-950 dark:text-white">Proyecto de Código Abierto Activo</h4>
+                                             <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                                Debe ser mantenido activamente con commits y lanzamientos regulares.
+                                             </p>
+                                          </div>
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          <div>
+                                             <h4 class="font-medium text-gray-950 dark:text-white">Licencia Aprobada por OSI</h4>
+                                             <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                                Debe usar una licencia de código abierto aprobada sin restricciones comerciales.
+                                             </p>
+                                          </div>
+                                       </li>
+                                       <li class="flex items-start gap-4 text-sm/6 text-gray-950/75 data-disabled:text-gray-950/25">
+                                          <span class="inline-flex h-6 items-center">
+                                             <svg viewBox="0 0 15 15" aria-hidden="true" class="size-3.75 shrink-0 fill-gray-950/25">
+                                                <path clip-rule="evenodd" d="M8 0H7v7H0v1h7v7h1V8h7V7H8V0z"></path>
+                                             </svg>
+                                          </span>
+                                          <div>
+                                             <h4 class="font-medium text-gray-950 dark:text-white">Consideración Promocional</h4>
+                                             <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                                Debe mostrar "Analytics by EthicalMetrics" con un enlace en el README del proyecto y en el sitio web.
+                                             </p>
+                                          </div>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="mt-8"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-medium cursor-not-allowed opacity-70" data-headlessui-state="" href="#">Próximamente disponible</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <section id="faqs" aria-labelledby="faqs-title" class="border-t border-gray-200 py-20 sm:py-32">
+               <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl lg:mx-0">
+                     <h2 id="faqs-title" class="text-3xl font-medium tracking-tight text-gray-900">Frequently asked questions</h2>
+                  </div>
+                  <ul role="list" class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+                     <li>
+                        <ul role="list" class="space-y-10">
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Qué es EthicalMetrics y en qué se diferencia de Google Analytics?</h3>
+                              <p class="mt-4 text-sm text-gray-700">EthicalMetrics es una plataforma de analíticas web auto-hospedada que prioriza la privacidad del usuario. A diferencia de Google Analytics, no recopila datos personales, no usa cookies, no almacena direcciones IP y no realiza fingerprinting de dispositivos.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Cómo funciona el sistema sin cookies ni identificadores persistentes?</h3>
+                              <p class="mt-4 text-sm text-gray-700">EthicalMetrics implementa "verdadero anonimato" donde cada evento es autónomo y no se puede rastrear a lo largo del tiempo. No asigna visitor_id ni asocia eventos de sesión entre sí, garantizando que las analíticas funcionen sin saber quién eres.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Qué métricas puedo obtener con EthicalMetrics?</h3>
+                              <p class="mt-4 text-sm text-gray-700">El sistema rastrea visitas, uso de módulos, tiempos de carga, páginas más visitadas, duración promedio de sesión, eventos personalizados, tasa de rebote, dispositivos, navegadores, idiomas y ubicación geográfica (sin almacenar IPs).</p>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <ul role="list" class="space-y-10">
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Cómo implemento EthicalMetrics en mi sitio web?</h3>
+                              <p class="mt-4 text-sm text-gray-700">Primero registras tu sitio en https://ethicalmetrics.onrender.com para obtener tu site_id y admin_token. Luego añades el script de seguimiento a tu HTML y opcionalmente defines módulos personalizados.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Respeta EthicalMetrics la configuración "Do Not Track" del navegador?</h3>
+                              <p class="mt-4 text-sm text-gray-700">Sí, EthicalMetrics respeta automáticamente la configuración DNT (Do Not Track) del usuario y desactiva todo el seguimiento cuando está habilitada. Esto garantiza el respeto total por el consentimiento implícito del usuario.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Qué tecnologías usa EthicalMetrics en su arquitectura?</h3>
+                              <p class="mt-4 text-sm text-gray-700">El sistema está construido con Go para el servidor HTTP, Redis para almacenamiento, JavaScript vanilla para el cliente, autenticación basada en tokens UUID, y se puede desplegar con Docker en plataformas como Render.</p>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <ul role="list" class="space-y-10">
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Puedo personalizar el banner de consentimiento?</h3>
+                              <p class="mt-4 text-sm text-gray-700">Sí, puedes personalizar fácilmente el banner de consentimiento añadiendo atributos data-* al script tag, incluyendo colores de fondo, texto del banner, colores de botones y mensajes personalizados.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Cómo accedo a mis estadísticas y dashboard?</h3>
+                              <p class="mt-4 text-sm text-gray-700">Accedes a tu dashboard privado usando la URL con tu site_id y admin_token: https://ethicalmetrics.onrender.com/dashboard.html?site=YOUR_SITE_ID&token=YOUR_ADMIN_TOKEN. Cada sitio tiene su propio dashboard seguro con acceso basado en tokens.</p>
+                           </li>
+                           <li>
+                              <h3 class="text-lg/6 font-semibold text-gray-900">¿Está EthicalMetrics listo para producción o es experimental?</h3>
+                              <p class="mt-4 text-sm text-gray-700">EthicalMetrics está en desarrollo activo y se describe como "experimental y evolutivo". El proyecto busca contribuidores y auditorías de la comunidad, con muchas funcionalidades avanzadas aún en desarrollo según el roadmap.</p>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+            </section>
+            <footer>
+               <div class="relative">
+                  <div class="absolute inset-2"></div>
+                  <div class="px-6 lg:px-8">
+                     <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                        <div class="relative pt-20 pb-16 text-center sm:py-24">
+                           <hgroup>
+                              <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">Get started</h2>
+                              <p class="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">Hazlo diferente. Hazlo bien.</p>
+                              <p class="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.</p>
+                           </hgroup>
+                           <div class="mt-6"><a class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" href="#crear-cuenta">Crear una cuenta</a></div>
+                        </div>
+                        <div class="pb-16">
+                           <div class="group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
+                              <div aria-hidden="true" class="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+                                 <div class="absolute inset-x-0 top-0 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 top-2 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block"></div>
+                                 <div class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block"></div>
+                              </div>
+                           </div>
+                           <div class="flex justify-between group/row relative isolate pt-[calc(--spacing(2)+1px)] last:pb-[calc(--spacing(2)+1px)]">
+                              <div aria-hidden="true" class="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2">
+                                 <div class="absolute inset-x-0 top-0 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 top-2 border-t border-black/5"></div>
+                                 <div class="absolute inset-x-0 bottom-0 hidden border-b border-black/5 group-last/row:block"></div>
+                                 <div class="absolute inset-x-0 bottom-2 hidden border-b border-black/5 group-last/row:block"></div>
+                              </div>
+                              <div>
+                                 <div class="py-3 group/item relative">
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="absolute size-[15px] fill-black/10 -top-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <div class="text-sm/6 text-gray-950">
+                                       © <!-- -->2025-PRESENT EthicalMetrics OSS
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="flex">
+                                 <div class="flex items-center gap-8 py-3 group/item relative">
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="absolute size-[15px] fill-black/10 -top-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-first/item:group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -left-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <svg viewBox="0 0 15 15" aria-hidden="true" class="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2">
+                                       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
+                                    </svg>
+                                    <a target="_blank" aria-label="Visit us on Facebook" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://facebook.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 8.05C16 3.603 12.418 0 8 0S0 3.604 0 8.05c0 4.016 2.926 7.346 6.75 7.95v-5.624H4.718V8.05H6.75V6.276c0-2.017 1.194-3.131 3.022-3.131.875 0 1.79.157 1.79.157v1.98h-1.008c-.994 0-1.304.62-1.304 1.257v1.51h2.219l-.355 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.95z"></path>
+                                       </svg>
+                                    </a>
+                                    <a target="_blank" aria-label="Visit us on X" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://x.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path d="M12.6 0h2.454l-5.36 6.778L16 16h-4.937l-3.867-5.594L2.771 16H.316l5.733-7.25L0 0h5.063l3.495 5.114L12.6 0zm-.86 14.376h1.36L4.323 1.539H2.865l8.875 12.837z"></path>
+                                       </svg>
+                                    </a>
+                                    <a target="_blank" aria-label="Visit us on LinkedIn" class="text-gray-950 data-hover:text-gray-950/75" data-headlessui-state="" href="https://linkedin.com">
+                                       <svg viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                          <path d="M14.82 0H1.18A1.169 1.169 0 000 1.154v13.694A1.168 1.168 0 001.18 16h13.64A1.17 1.17 0 0016 14.845V1.15A1.171 1.171 0 0014.82 0zM4.744 13.64H2.369V5.996h2.375v7.644zm-1.18-8.684a1.377 1.377 0 11.52-.106 1.377 1.377 0 01-.527.103l.007.003zm10.075 8.683h-2.375V9.921c0-.885-.015-2.025-1.234-2.025-1.218 0-1.425.966-1.425 1.968v3.775H6.233V5.997H8.51v1.05h.032c.317-.601 1.09-1.235 2.246-1.235 2.405-.005 2.851 1.578 2.851 3.63v4.197z"></path>
+                                       </svg>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </footer>
+         </div>
+         <div class="row-span-full row-start-1 hidden border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:col-start-3 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
+      </main>
+      <script>
+         const canvas = document.getElementById("background");
+         const ctx = canvas.getContext("2d");
+         
+         function resizeCanvas() {
+           canvas.width = window.innerWidth;
+           canvas.height = window.innerHeight;
+           drawBackground();
+         }
+         
+         function drawBackground() {
+           ctx.clearRect(0, 0, canvas.width, canvas.height);
+         
+           const spacing = 16;
+           const pointsBetweenCross = 9;
+           const crossSpacing = spacing * (pointsBetweenCross + 1); // 10 * spacing
+           ctx.fillStyle = "#c8e0fd"; // Color de puntos
+           ctx.strokeStyle = "#c8e0fd";
+           ctx.lineWidth = 1;
+         
+           for (let y = 0; y < canvas.height; y += spacing) {
+             for (let x = 0; x < canvas.width; x += spacing) {
+         
+               // Verifica si la posición actual NO es una cruz
+               const isCrossPosition = (x % crossSpacing === 0) && (y % crossSpacing === 0);
+         
+               if (!isCrossPosition) {
+                 // Dibuja punto más visible (3x3 centrado)
+                 ctx.beginPath();
+                 ctx.arc(x, y, 1, 0, Math.PI * 2); // Radio de 1px
+                 ctx.fill();
+               }
+         
+               // Si sí es una posición de cruz
+               if (isCrossPosition) {
+                 ctx.beginPath();
+                 ctx.moveTo(x - 8, y); // más larga horizontal
+                 ctx.lineTo(x + 8, y);
+                 ctx.moveTo(x, y - 8); // más larga vertical
+                 ctx.lineTo(x, y + 8);
+                 ctx.stroke();
+               }
+             }
+           }
+         }
+         
+         window.addEventListener("resize", resizeCanvas);
+         resizeCanvas();
+      </script>
+      <script>
+         // Configuración
+         const GITHUB_REPO = "livrasand/EthicalMetrics";
+         const CACHE_KEY = `github_stars_${btoa(GITHUB_REPO)}`;
+         const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+         
+         // Formatear número (ej: 1500 → "1.5K")
+         const formatStars = (count) => {
+           return count >= 1000 ? (count / 1000).toFixed(1) + 'K' : count.toString();
+         };
+         
+         // Obtener datos de GitHub o del cache
+         const fetchStars = async () => {
+           const cachedData = localStorage.getItem(CACHE_KEY);
+           const now = new Date().getTime();
+         
+           // Usar cache si es válido
+           if (cachedData) {
+             const { timestamp, stars } = JSON.parse(cachedData);
+             if (now - timestamp < CACHE_DURATION) {
+               return stars;
+             }
+           }
+         
+           // Fetch a la API de GitHub
+           try {
+             const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`);
+             if (!response.ok) throw new Error("API error");
+             const data = await response.json();
+             const stars = data.stargazers_count;
+         
+             // Guardar en cache
+             localStorage.setItem(CACHE_KEY, JSON.stringify({
+               timestamp: now,
+               stars: stars
+             }));
+         
+             return stars;
+           } catch (error) {
+             console.error("Error fetching GitHub stars:", error);
+             return cachedData ? JSON.parse(cachedData).stars : null; // Fallback a cache antiguo
+           }
+         };
+         
+         // Actualizar UI
+         const updateUI = (stars) => {
+           const starsElement = document.getElementById('github-stars-count-value');
+           if (stars !== null) {
+             starsElement.textContent = formatStars(stars);
+           } else {
+             starsElement.textContent = "Error";
+           }
+         };
+         
+         // Iniciar
+         (async () => {
+           const stars = await fetchStars();
+           updateUI(stars);
+         })();
+         
+         // Opcional: Efecto hover (alternar entre estrellas y texto "GitHub")
+         const button = document.getElementById('github-stars-button');
+         const starsCount = document.getElementById('github-stars-count');
+         const starsArrow = document.getElementById('github-stars-arrow');
+         
+         if (button && starsCount && starsArrow) {
+           button.addEventListener('mouseenter', () => {
+             starsCount.classList.add('hidden');
+             starsArrow.classList.remove('hidden');
+           });
+           button.addEventListener('mouseleave', () => {
+             starsCount.classList.remove('hidden');
+             starsArrow.classList.add('hidden');
+           });
+         }
+      </script>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+          // Selecciona todas las tarjetas que tendrán el efecto
+          const cards = document.querySelectorAll('.group.relative.rounded-2xl');
+         
+          cards.forEach(card => {
+              // Selecciona los elementos dentro de cada tarjeta que recibirán el mask-image
+              const radialMaskTarget1 = card.querySelector('.radial-mask-target-1');
+              const radialMaskTarget2 = card.querySelector('.radial-mask-target-2');
+         
+              if (radialMaskTarget1 && radialMaskTarget2) {
+                  card.addEventListener('mousemove', (e) => {
+                      // Obtiene la posición de la tarjeta relativa a la ventana
+                      const rect = card.getBoundingClientRect();
+         
+                      // Calcula la posición del ratón relativa a la tarjeta
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+         
+                      // Actualiza la propiedad mask-image con las nuevas coordenadas
+                      radialMaskTarget1.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
+                      radialMaskTarget2.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
+                  });
+              }
+          });
+         });
+      </script>
+      <script src="prism.js"></script>
+      <!-- Modal -->
+      <div id="modalResultado" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+         <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-sm text-gray-700 dark:text-gray-300 w-full max-w-lg mx-4 shadow-xl space-y-4">
+            <div>
+               <span class="font-medium text-gray-900 dark:text-gray-100">ID de sitio:</span><br>
+               <code id="site" class="block bg-gray-100 dark:bg-gray-900 rounded px-2 py-1 text-xs text-gray-800 dark:text-gray-100 font-mono"></code>
+            </div>
+            <div>
+               <span class="font-medium text-gray-900 dark:text-gray-100">Token de admin:</span><br>
+               <code id="token" class="block bg-gray-100 dark:bg-gray-900 rounded px-2 py-1 text-xs text-gray-800 dark:text-gray-100 font-mono"></code>
+            </div>
+            <div>
+               <span class="font-medium text-gray-900 dark:text-gray-100">Script para tu web:</span><br>
+               <code id="script" class="block bg-gray-100 dark:bg-gray-900 rounded px-2 py-2 text-xs text-gray-800 dark:text-gray-100 font-mono overflow-x-auto break-words whitespace-pre-wrap max-w-full"></code>
+            </div>
+            <div class="pt-2">
+               <a id="linkDashboard" href="#" target="_blank" class="inline-flex items-center text-sky-600 dark:text-sky-400 font-medium hover:underline">
+                  Ir a mi Dashboard
+                  <svg class="ml-1 w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
+                     <path d="M9 3L8.285 3.6965L12.075 7.5H2V8.5H12.075L8.285 12.2865L9 13L14 8L9 3Z" />
+                  </svg>
+               </a>
+            </div>
+            <div class="pt-4 text-right">
+               <button onclick="cerrarModal()" class="px-4 py-1 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+               Cerrar
+               </button>
+            </div>
+         </div>
+      </div>
+      <script>
+         async function crearCuenta() {
+           const res = await fetch("/nuevo");
+           const data = await res.json();
+         
+           document.getElementById("site").textContent = data.site_id;
+           document.getElementById("token").textContent = data.admin_token;
+           document.getElementById("script").textContent = data.instruccion;
+           document.getElementById("linkDashboard").href = `dashboard.html?site=${data.site_id}&token=${data.admin_token}`;
+         
+           // Mostrar el modal quitando la clase "hidden" y agregando "flex"
+           const modal = document.getElementById("modalResultado");
+           modal.classList.remove("hidden");
+           modal.classList.add("flex");
+         }
+         
+         function cerrarModal() {
+           const modal = document.getElementById("modalResultado");
+           modal.classList.remove("flex");
+           modal.classList.add("hidden");
+         }
+         
+         // Inicialización de eventos para el formulario de crear cuenta
+         window.initNuevo = function () {
+           const btn = document.getElementById("btnCrearCuenta");
+           if (btn) {
+             btn.onclick = crearCuenta;
+           }
+         };
+      </script>
+   </body>
 </html>
