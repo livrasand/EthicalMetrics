@@ -80,7 +80,7 @@
          }
       </style>
    </head>
-   <body class="flex justify-center">
+   <body class="flex justify-center" data-modulo="home">
       <canvas id="background"></canvas>
       <main class="absolute h-screen w-full overflow-y-scroll overflow-x-hidden scroll-smooth snap-y snap-mandatory grid min-h-dvh grid-cols-1 grid-rows-[1fr_1px_auto_1px_auto] justify-center [--gutter-width:2.5rem] md:-mx-4 md:grid-cols-[var(--gutter-width)_minmax(0,var(--breakpoint-2xl))_var(--gutter-width)] lg:mx-0">
          <div class="col-start-1 row-span-full row-start-1 border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
@@ -99,26 +99,6 @@
                            <div class="relative flex gap-6">
                               <div class="relative items-center py-3 lg:flex">
                                  <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-  <!-- Botón 1 -->
-  <a
-    class="flex items-center gap-1 rounded-full bg-sky-950/35 px-3 py-0.5 text-sm/6 font-medium text-white hover:bg-sky-950/30 transition-colors duration-200"
-    href="/blog/radiant-raises-100m-series-a-from-tailwind-ventures"
-  >
-    EthicalMetrics x HeyFollow.me
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      aria-hidden="true"
-      class="size-3 sm:size-4"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
-        clip-rule="evenodd"
-      ></path>
-    </svg>
-  </a>
 
   <!-- Botón 2 - GitHub -->
   <a
@@ -163,7 +143,7 @@
                   <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
                      <h1 class="font-display text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-9xl/[0.8]">Conoce EthicalMetrics</h1>
                      <p class="mt-8 max-w-lg text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8">Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.</p>
-                     <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" id="btnCrear" onclick="crearCuenta()">Crear una cuenta gratis&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg></a><a class="relative inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-white/15 shadow-md ring-1 ring-[#D15052]/15 after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d] text-base font-medium whitespace-nowrap text-gray-950 data-disabled:bg-white/15 data-disabled:opacity-40 data-hover:bg-white/20" data-headlessui-state="" href="">Ver demo&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg></a></div>
+                     <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row"><a class="inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" id="btnCrear" onclick="crearCuenta()">Crear una cuenta gratis&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg></a><a class="relative inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-white/15 shadow-md ring-1 ring-[#D15052]/15 after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d] text-base font-medium whitespace-nowrap text-gray-950 data-disabled:bg-white/15 data-disabled:opacity-40 data-hover:bg-white/20" data-headlessui-state="" href="https://ethicalmetrics.onrender.com/dashboard.html?site=f3f61f60-fd44-4776-adac-da0d2883471e&token=l7kOE8sakfFDjMRxUWSQXqUi" target="_blank">Ver demo&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg></a></div>
                      <div class="text-base mt-10">
                         <p class="text-slate-500/80 dark:text-slate-400">
                            Contribute or fork on 
@@ -1185,5 +1165,6 @@
            }
          };
       </script>
+      <script src="https://ethicalmetrics.onrender.com/ethicalmetrics.js?id=f3f61f60-fd44-4776-adac-da0d2883471e"></script>
    </body>
 </html>
