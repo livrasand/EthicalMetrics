@@ -9,7 +9,7 @@ jobs:
   vote-ranking:
     runs-on: ubuntu-latest
     steps:
-      - uses: livrasand/gh-issue-vote-ranking@v1.0.0
+      - uses: livrasand/gh-issue-vote-ranking@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ranking_issue_number: "1" 
