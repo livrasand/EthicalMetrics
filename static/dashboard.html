@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta charset="UTF-8">
-      <title>Dashboard — EthicalMetrics</title>
+      <title data-i18n-key="dashboard-title">Dashboard — EthicalMetrics</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <script src="https://code.highcharts.com/highcharts.js"></script>
       <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -130,7 +130,7 @@
                                  </button>
                               </div>
                               <!-- Compared to -->
-                              <span class="hidden sm:inline-block text-sm text-gray-500 select-none">compared to</span>
+                              <span class="hidden sm:inline-block text-sm text-gray-500 select-none" data-i18n-key="compared-to">compared to</span>
                               <!-- Comparison Dropdown (static for now) -->
                               <div class="relative inline-flex items-center">
                                  <button class="inline-flex items-center border border-gray-300 rounded-md px-3 py-1.5 text-sm text-gray-700 hover:border-black">
@@ -138,7 +138,7 @@
                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
                                     </svg>
                                     &nbsp;
-                                    <span>No comparison</span>
+                                    <span data-i18n-key="no-comparison">No comparison</span>
                                  </button>
                               </div>
                               <!-- Granularity Dropdown -->
@@ -148,13 +148,13 @@
                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                                     </svg>
                                     &nbsp;
-                                    <span>Auto</span>
+                                    <span data-i18n-key="auto">Auto</span>
                                  </button>
                                  <!-- Dropdown Menu (show/hide via JS) -->
                                  <ul id="granularityDropdown" class="hidden absolute mt-2 right-0 bg-white border border-gray-200 rounded-md shadow-lg z-10 text-sm text-gray-700 w-36">
-                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Auto</a></li>
-                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Hourly</a></li>
-                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Daily</a></li>
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100" data-i18n-key="auto">Auto</a></li>
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100" data-i18n-key="hourly">Hourly</a></li>
+                                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100" data-i18n-key="daily">Daily</a></li>
                                  </ul>
                               </div>
                            </div>
@@ -162,7 +162,7 @@
                      </div>
                      <div class="mt-5 flex lg:mt-0 lg:ml-4">
                         <span class="hidden sm:block">
-                           <button type="button" class="inline-flex items-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 hover:text-sky-500">
+                           <button type="button" class="inline-flex items-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 hover:text-sky-500" data-i18n-key="options">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -178,24 +178,24 @@
     <!-- Usuarios activos -->
     <div class="text-center">
       <div id="usuariosActivos" class="text-3xl font-semibold tracking-tight">0</div>
-      <div class="text-sm text-neutral-400 mt-1">Usuarios activos</div>
+      <div class="text-sm text-neutral-400 mt-1" data-i18n-key="users-active">Usuarios activos</div>
     </div>
     <!-- Duración media -->
     <div class="text-center">
       <div class="text-3xl font-semibold tracking-tight">
         <span id="duracionMedia">0</span>
       </div>
-      <div class="text-sm text-neutral-400 mt-1">Duración media</div>
+      <div class="text-sm text-neutral-400 mt-1" data-i18n-key="duration-average">Duración media</div>
     </div>
     <!-- Nuevos visitantes -->
     <div class="text-center">
       <div id="nuevosVisitantes" class="text-3xl font-semibold tracking-tight">0</div>
-      <div class="text-sm text-neutral-400 mt-1">Nuevos visitantes</div>
+      <div class="text-sm text-neutral-400 mt-1" data-i18n-key="new-visitors"">Nuevos visitantes</div>
     </div>
     <!-- Vistas únicas -->
     <div class="text-center">
       <div id="vistasUnicas" class="text-3xl font-semibold tracking-tight">0</div>
-      <div class="text-sm text-neutral-400 mt-1">Vistas únicas</div>
+      <div class="text-sm text-neutral-400 mt-1" data-i18n-key="unique-views">Vistas únicas</div>
     </div>
   </div>
 </div>
@@ -204,14 +204,14 @@
                      <!-- Uso por módulo -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Uso por módulo</h2>
+                           <h2 class="chart-title" data-i18n-key="module-usage">Uso por módulo</h2>
                         </div>
                         <div class="chart-container" id="modulosChart"></div>
                      </div>
                      <!-- Visitas por día -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Visitas por día</h2>
+                           <h2 class="chart-title" data-i18n-key="daily-visits">Visitas por día</h2>
                         </div>
                         <div class="chart-container" id="visitasChart"></div>
                      </div>
@@ -219,21 +219,21 @@
                      <!-- Dispositivos -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Dispositivos</h2>
+                           <h2 class="chart-title" data-i18n-key="devices">Dispositivos</h2>
                         </div>
                         <div class="chart-container" id="dispositivosChart"></div>
                      </div>
                      <!-- Países -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Países</h2>
+                           <h2 class="chart-title" data-i18n-key="countries">Países</h2>
                         </div>
                         <div class="chart-container" id="paisesChart"></div>
                      </div>
                      <!-- Regiones -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Regiones</h2>
+                           <h2 class="chart-title" data-i18n-key="regions">Regiones</h2>
                         </div>
                         <div class="chart-container" id="regionesChart"></div>
                      </div>
@@ -241,7 +241,7 @@
                      <!-- Nuevas sesiones -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Nuevas sesiones</h2>
+                           <h2 class="chart-title" data-i18n-key="new-sessions">Nuevas sesiones</h2>
                         </div>
                         <div class="stat-value" id="nuevasSesiones">0</div>
                      </div>
@@ -249,21 +249,21 @@
                      <!-- Navegadores -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Navegadores</h2>
+                           <h2 class="chart-title" data-i18n-key="browsers">Navegadores</h2>
                         </div>
                         <div class="chart-container" id="navegadoresChart"></div>
                      </div>
                      <!-- Referencias -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Referencias</h2>
+                           <h2 class="chart-title" data-i18n-key="references">Referencias</h2>
                         </div>
                         <div class="chart-container" id="referenciasChart"></div>
                      </div>
                      <!-- Páginas más vistas -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Páginas más vistas</h2>
+                           <h2 class="chart-title" data-i18n-key="most-viewed-pages">Páginas más vistas</h2>
                         </div>
                         <div class="chart-container" id="paginasChart"></div>
                      </div>
@@ -271,49 +271,49 @@
                      <!-- Comparativa semanal -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Comparativa semanal</h2>
+                           <h2 class="chart-title" data-i18n-key="weekly-compare">Comparativa semanal</h2>
                         </div>
                         <div class="chart-container" id="weekCompareChart"></div>
                      </div>
                      <!-- Comparativa mensual -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Comparativa mensual</h2>
+                           <h2 class="chart-title" data-i18n-key="monthly-compare">Comparativa mensual</h2>
                         </div>
                         <div class="chart-container" id="monthCompareChart"></div>
                      </div>
                      <!-- Idiomas del navegador -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Idiomas del navegador</h2>
+                           <h2 class="chart-title" data-i18n-key="browser-languages">Idiomas del navegador</h2>
                         </div>
                         <div class="chart-container" id="browserLangChart"></div>
                      </div>
                      <!-- Sistemas operativos -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Sistemas operativos</h2>
+                           <h2 class="chart-title" data-i18n-key="os">Sistemas operativos</h2>
                         </div>
                         <div class="chart-container" id="osChart"></div>
                      </div>
                      <!-- Ciudades -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Ciudades</h2>
+                           <h2 class="chart-title" data-i18n-key="cities">Ciudades</h2>
                         </div>
                         <div class="chart-container" id="cityChart"></div>
                      </div>
                      <!-- Retención (global/página) -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Retención (global/página)</h2>
+                           <h2 class="chart-title" data-i18n-key="retention">Retención (global/página)</h2>
                         </div>
                         <div class="chart-container" id="retentionChart"></div>
                      </div>
                      <!-- Funnel básico -->
                      <div class="chart-card">
                         <div class="chart-header">
-                           <h2 class="chart-title">Funnel básico</h2>
+                           <h2 class="chart-title" data-i18n-key="funnel">Funnel básico</h2>
                         </div>
                         <div class="chart-container" id="funnelChart"></div>
                      </div>
@@ -328,8 +328,8 @@
                         <div class="relative pt-20 pb-16 text-center sm:py-24">
                            <hgroup>
                               <h2 class="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400">Get started</h2>
-                              <p class="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">Hazlo diferente. Hazlo bien.</p>
-                              <p class="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.</p>
+                              <p class="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl" data-i18n-key="title">Hazlo diferente. Hazlo bien.</p>
+                              <p class="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500" data-i18n-key="description">Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.</p>
                            </hgroup>
                            <div class="mt-6"><a class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-[calc(--spacing(2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md text-base font-medium whitespace-nowrap text-white data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800" data-headlessui-state="" href="#crear-cuenta">Crear una cuenta</a></div>
                         </div>
@@ -409,6 +409,36 @@
          <div class="row-span-full row-start-1 hidden border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/10 md:col-start-3 md:block dark:[--pattern-fg:var(--color-white)]/10"></div>
       </main>
       <script>
+        async function setLanguage(lang) {
+            const response = await fetch(`/locales/${lang}.json`)
+                .catch(() => fetch('/locales/es.json')); 
+
+            const translations = await response.json();
+
+            document.querySelectorAll('[data-i18n-key]').forEach(element => {
+                const key = element.getAttribute('data-i18n-key');
+                if (translations[key]) {
+                    if (element.tagName === 'META') {
+                        element.setAttribute('content', translations[key]);
+                    } else {
+                        element.innerHTML = translations[key];
+                    }
+                }
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userLang = navigator.language.split('-')[0];
+            const supportedLangs = ['es']; 
+
+            const langToLoad = supportedLangs.includes(userLang) ? userLang : 'es';
+
+            setLanguage(langToLoad);
+        });
+      </script>
+      <script>
          const canvas = document.getElementById("background");
          const ctx = canvas.getContext("2d");
          
@@ -423,30 +453,27 @@
          
            const spacing = 16;
            const pointsBetweenCross = 9;
-           const crossSpacing = spacing * (pointsBetweenCross + 1); // 10 * spacing
-           ctx.fillStyle = "#c8e0fd"; // Color de puntos
+           const crossSpacing = spacing * (pointsBetweenCross + 1); 
+           ctx.fillStyle = "#c8e0fd"; 
            ctx.strokeStyle = "#c8e0fd";
            ctx.lineWidth = 1;
          
            for (let y = 0; y < canvas.height; y += spacing) {
              for (let x = 0; x < canvas.width; x += spacing) {
          
-               // Verifica si la posición actual NO es una cruz
                const isCrossPosition = (x % crossSpacing === 0) && (y % crossSpacing === 0);
          
                if (!isCrossPosition) {
-                 // Dibuja punto más visible (3x3 centrado)
                  ctx.beginPath();
-                 ctx.arc(x, y, 1, 0, Math.PI * 2); // Radio de 1px
+                 ctx.arc(x, y, 1, 0, Math.PI * 2); 
                  ctx.fill();
                }
          
-               // Si sí es una posición de cruz
                if (isCrossPosition) {
                  ctx.beginPath();
-                 ctx.moveTo(x - 8, y); // más larga horizontal
+                 ctx.moveTo(x - 8, y); 
                  ctx.lineTo(x + 8, y);
-                 ctx.moveTo(x, y - 8); // más larga vertical
+                 ctx.moveTo(x, y - 8); 
                  ctx.lineTo(x, y + 8);
                  ctx.stroke();
                }
@@ -459,24 +486,19 @@
       </script>
       <script>
          document.addEventListener('DOMContentLoaded', () => {
-          // Selecciona todas las tarjetas que tendrán el efecto
           const cards = document.querySelectorAll('.group.relative.rounded-2xl');
          
           cards.forEach(card => {
-              // Selecciona los elementos dentro de cada tarjeta que recibirán el mask-image
               const radialMaskTarget1 = card.querySelector('.radial-mask-target-1');
               const radialMaskTarget2 = card.querySelector('.radial-mask-target-2');
          
               if (radialMaskTarget1 && radialMaskTarget2) {
                   card.addEventListener('mousemove', (e) => {
-                      // Obtiene la posición de la tarjeta relativa a la ventana
                       const rect = card.getBoundingClientRect();
          
-                      // Calcula la posición del ratón relativa a la tarjeta
                       const x = e.clientX - rect.left;
                       const y = e.clientY - rect.top;
          
-                      // Actualiza la propiedad mask-image con las nuevas coordenadas
                       radialMaskTarget1.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
                       radialMaskTarget2.style.maskImage = `radial-gradient(180px at ${x}px ${y}px, white, transparent)`;
                   });
@@ -485,10 +507,8 @@
          });
       </script>
       <script>
-         // Declaramos el objeto charts al inicio para almacenar todas las instancias de gráficos
          let charts = {};
          
-         // Configuración global para Highcharts
          Highcharts.setOptions({
            accessibility: {
              enabled: true
@@ -538,15 +558,11 @@
          window.initDashboard = function() {
            console.log("initDashboard called - Inicializando dashboard");
            
-         
-           // Obtenemos los parámetros de la URL (están después del hash #dashboard?)
            const urlParams = new URLSearchParams(window.location.search);
            
-           // Extraemos los parámetros necesarios
            const site = urlParams.get("site");
            const token = urlParams.get("token");
          
-           // Validación básica de parámetros
            if (!site || !token) {
              const dashboardContent = document.getElementById('dashboard-content');
              if (dashboardContent) {
@@ -562,7 +578,6 @@
              return;
            }
          
-           // Carga los datos desde tu backend Go
            fetch(`https://ethicalmetrics.onrender.com/stats?site=${site}&token=${token}`)
              .then(res => {
                if (!res.ok) {
@@ -573,7 +588,6 @@
              .then(data => {
                console.log("Datos recibidos de la API:", data);
          
-               // Actualizar el título del dashboard con el nombre del sitio
                const siteTitleEl = document.getElementById('site-title');
                 if (data.site_name && data.site_name !== "Sitio sin nombre") {
                 siteTitleEl.textContent = data.site_name;
@@ -582,8 +596,6 @@
                 }
 
 
-         
-               // Procesamos los datos para asegurarnos que son arrays válidos
                const porModulo = Array.isArray(data.por_modulo) ? data.por_modulo : [];
                const porDia = Array.isArray(data.por_dia) ? data.por_dia : [];
                const navegadores = Array.isArray(data.navegadores) ? data.navegadores : [];
@@ -596,7 +608,6 @@
                const weekCompare = Array.isArray(data.week_compare) ? data.week_compare : [];
                const monthCompare = Array.isArray(data.month_compare) ? data.month_compare : [];
          
-               // 1. Gráfico de Módulos (Barras)
                if (document.getElementById("modulosChart")) {
                  if (charts.modulosChart) charts.modulosChart.destroy();
                  charts.modulosChart = Highcharts.chart('modulosChart', {
@@ -611,7 +622,6 @@
                  });
                }
          
-               // 2. Gráfico de Visitas por Día (Línea)
                if (document.getElementById("visitasChart")) {
                  if (charts.visitasChart) charts.visitasChart.destroy();
                  charts.visitasChart = Highcharts.chart('visitasChart', {
@@ -626,7 +636,6 @@
                  });
                }
          
-               // 3. Gráfico de Navegadores (Dona)
                if (document.getElementById("navegadoresChart")) {
                  if (charts.navegadoresChart) charts.navegadoresChart.destroy();
                  charts.navegadoresChart = Highcharts.chart('navegadoresChart', {
@@ -648,7 +657,6 @@
                  });
                }
          
-               // 4. Gráfico de Referencias (Tarta)
                if (document.getElementById("referenciasChart")) {
                  if (charts.referenciasChart) charts.referenciasChart.destroy();
                  charts.referenciasChart = Highcharts.chart('referenciasChart', {
@@ -661,7 +669,6 @@
                  });
                }
          
-               // 5. Gráfico de Páginas más visitadas (Barras)
                if (document.getElementById("paginasChart")) {
                  if (charts.paginasChart) charts.paginasChart.destroy();
                  charts.paginasChart = Highcharts.chart('paginasChart', {
@@ -676,14 +683,12 @@
                  });
                }
          
-               // 6. Duración media de sesión
                const duracionDiv = document.getElementById("duracionMedia");
                if (duracionDiv) {
                  const segundos = Math.round(duracionMedia / 1000);
                  duracionDiv.textContent = segundos + 's';
                }
          
-               // 7. Gráfico de Dispositivos
                if (document.getElementById("dispositivosChart")) {
                  if (charts.dispositivosChart) charts.dispositivosChart.destroy();
                  charts.dispositivosChart = Highcharts.chart('dispositivosChart', {
@@ -705,7 +710,6 @@
                  });
                }
          
-               // 8. Gráfico de Países
                if (document.getElementById("paisesChart")) {
                  if (charts.paisesChart) charts.paisesChart.destroy();
                  charts.paisesChart = Highcharts.chart('paisesChart', {
@@ -718,13 +722,11 @@
                  });
                }
          
-               // 9. Usuarios activos
                const usuariosActivosDiv = document.getElementById("usuariosActivos");
                if (usuariosActivosDiv) {
                  usuariosActivosDiv.textContent = usuariosActivos;
                }
          
-               // 13. Comparativa semanal
                if (Array.isArray(weekCompare) && document.getElementById("weekCompareChart")) {
                  if (charts.weekCompareChart) charts.weekCompareChart.destroy();
                  charts.weekCompareChart = Highcharts.chart('weekCompareChart', {
@@ -746,7 +748,6 @@
                  });
                }
          
-               // 14. Comparativa mensual
                if (Array.isArray(monthCompare) && document.getElementById("monthCompareChart")) {
                  if (charts.monthCompareChart) charts.monthCompareChart.destroy();
                  charts.monthCompareChart = Highcharts.chart('monthCompareChart', {
@@ -768,7 +769,6 @@
                  });
                }
          
-               // 15. Idiomas del navegador
          if (Array.isArray(data.browser_langs) && document.getElementById("browserLangChart")) {
          if (charts.browserLangChart) charts.browserLangChart.destroy();
          charts.browserLangChart = Highcharts.chart('browserLangChart', {
@@ -781,7 +781,6 @@
          });
          }
          
-         // 16. Sistemas operativos
          if (Array.isArray(data.os) && document.getElementById("osChart")) {
          if (charts.osChart) charts.osChart.destroy();
          charts.osChart = Highcharts.chart('osChart', {
@@ -794,7 +793,6 @@
          });
          }
          
-         // 17. Ciudades
          if (Array.isArray(data.cities) && document.getElementById("cityChart")) {
          if (charts.cityChart) charts.cityChart.destroy();
          charts.cityChart = Highcharts.chart('cityChart', {
@@ -809,7 +807,6 @@
          });
          }
          
-         // 18. Retención por página
          if (Array.isArray(data.retention) && document.getElementById("retentionChart")) {
          if (charts.retentionChart) charts.retentionChart.destroy();
          charts.retentionChart = Highcharts.chart('retentionChart', {
@@ -824,7 +821,6 @@
          });
          }
          
-         // 19. Funnel básico
          if (Array.isArray(data.funnel) && document.getElementById("funnelChart")) {
          if (charts.funnelChart) charts.funnelChart.destroy();
          charts.funnelChart = Highcharts.chart('funnelChart', {
@@ -849,9 +845,6 @@
          });
          }
          
-         // ––––– Paises (ya tenías) –––––
-         
-         // 20. Regiones
          if (Array.isArray(data.regiones) && document.getElementById("regionesChart")) {
          if (charts.regionesChart) charts.regionesChart.destroy();
          charts.regionesChart = Highcharts.chart('regionesChart', {
@@ -864,7 +857,6 @@
          });
          }
          
-         // ––––– Indicadores numéricos –––––
          if (typeof data.nuevos_visitantes === 'number') {
          document.getElementById("nuevosVisitantes").textContent = data.nuevos_visitantes;
          }
@@ -893,7 +885,6 @@
              });
          };
          
-         // Inicializar el dashboard cuando la página esté lista
          document.addEventListener('DOMContentLoaded', function() {
            initDashboard();
          });

@@ -70,10 +70,6 @@ func main() {
 	http.HandleFunc("/stats", withCORS(api.StatsHandler))
 	http.Handle("/track", api.RateLimitMiddleware(http.HandlerFunc(api.TrackHandler)))
 	http.Handle("/", http.FileServer(http.Dir("./static")))
-	http.HandleFunc("/dashboard", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./static/dashboard.html")
-	})
-
 
 	port := os.Getenv("PORT")
 	if port == "" {
