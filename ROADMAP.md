@@ -2,13 +2,13 @@
 
 🛡️ **Ethical by design. Anonymous by default. Metrics with ethics. Do EthicalMetrics!**
 
-> * [x] implemented
-> * [ ] not implemented 
-> * [~] partially implemented 
+> * [x] implementado
+> * \[\~] parcialmente implementado
+> * [ ] no implementado
 
 ---
 
-## 1. Basic metrics 
+## 1. Basic metrics
 
 * [x] Visits and views per page
 * [x] Referrers
@@ -21,9 +21,9 @@
 * [x] Browser languages
 * [x] Location (city, region, country) with MaxMind GeoLite2 (no IP address storage)
 * [x] UTM tracking (`utm_source`, `utm_medium`, `utm_campaign`, etc.)
-* [~] Time-based comparisons (week vs. week, month vs. month) *(requiere interfaz más desarrollada)*
-* [~] Retention (no persistent IDs) *(solo global y por página, sin identificación individual)*
-* [~] Basic funnels (event progression or pages) *(requiere agrupación visual/secuencial)*
+* \[\~] Time-based comparisons (week vs. week, month vs. month) *(requiere interfaz más desarrollada)*
+* \[\~] Retention (no persistent IDs) *(solo global y por página, sin identificación individual)*
+* \[\~] Basic funnels (event progression or pages) *(requiere agrupación visual/secuencial)*
 
 ---
 
@@ -58,18 +58,18 @@
 
 ## 4. User Experience (UX/UI)
 
-- [ ] SPA (Single Page App)
-- [~] Responsive interface with light/dark mode
-- [x] Default overview view with key metrics
-- [~] Real-time dashboard
-- [ ] Custom panels (drag & drop)
-- [ ] Intuitive custom segments/filters
-- [~] Multi-site dashboard
-- [ ] Visual user flow (anonymous flow)
-- [ ] Page transitions
-- [ ] Page overlay (site data)
-- [ ] Chart annotations
-- [ ] Alerts Customizable
+* [ ] SPA (Single Page App)
+* \[\~] Responsive interface with light/dark mode *(estructura base, falta selector/interacción)*
+* [x] Default overview view with key metrics
+* \[\~] Real-time dashboard *(datos en Redis, sin interfaz en vivo)*
+* [ ] Custom panels (drag & drop)
+* [ ] Intuitive custom segments/filters
+* \[\~] Multi-site dashboard *(hay soporte por `site_id`, falta UI centralizada)*
+* [ ] Visual user flow (anonymous flow)
+* [ ] Page transitions
+* [ ] Page overlay (site data)
+* [ ] Chart annotations
+* [ ] Alerts customizable
 
 ---
 
@@ -87,7 +87,7 @@
 
 ## 6. Backend and Infrastructure
 
-* [x] Optimized database *(Redis funcional, puede mejorar en índices y separación lógica)*
+* [x] Optimized database *(Redis funcional)*
 * [ ] Asynchronous loading (WebSocket or polling)
 * [ ] Efficient processing (stream/batch)
 * [ ] Secure data import/export
@@ -107,6 +107,7 @@
 * [ ] Modular plugin/extension system
 * [ ] Public administration/tracking API
 * [x] Official SDKs:
+
   * [x] JavaScript *(implementado básico, falta modularización y documentación)*
   * [ ] PHP
   * [ ] Python
@@ -132,7 +133,7 @@
 * [ ] Referrer and geodata anonymization
 * [ ] ARCO panel: access, rectification, cancellation, opposition
 * [ ] Data deletion under the right to be forgotten
-* [ ] Cookie control (if the user opts in) (use them)
+* [ ] Cookie control (if the user opts in)
 * [ ] User ID replaced with ephemeral pseudonyms
 
 ---
@@ -153,5 +154,3 @@
 ---
 
 > *EthicalMetrics doesn't track people, it tracks context.*
-
----
