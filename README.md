@@ -1,6 +1,6 @@
 # EthicalMetrics
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/livrasand/EthicalMetrics) [![Render Deploy](https://img.shields.io/badge/render-live-brightgreen?logo=render)](https://ethicalmetrics.onrender.com) [![Go Report Card](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/livrasand/ethicalmetrics)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/livrasand/EthicalMetrics) [![Render Deploy](https://img.shields.io/badge/render-live-brightgreen?logo=render)](https://ethicalmetrics.onrender.com) [![Go Report Card](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/livrasand/ethicalmetrics) [![Crowdin](https://badges.crowdin.net/ethicalmetrics/localized.svg)](https://crowdin.com/project/ethicalmetrics)
 
 **EthicalMetrics** is a next-generation web analytics platform built with one radical goal:  
 **protecting your users' privacy while delivering meaningful insights.**
@@ -280,6 +280,13 @@ Want to collaborate, contribute, or ask something?
 
 → [Open an issue](https://github.com/livrasand/EthicalMetrics/issues)
 → [Submit a pull request](https://github.com/livrasand/EthicalMetrics/pulls)
+
+This repository is integrated with [Crowdin](https://crowdin.com/) to facilitate localization of the es.json file into multiple languages.
+
+**Want to add a new language?**
+
+Create an [issue here](https://github.com/livrasand/EthicalMetrics/issues/new?assignees=&labels=localization&template=feature-request.yml&title=Add+translation+for+%5Bid%5D) using the template, and we'll take care of activating it in Crowdin.
+
 
 ---
 
