@@ -1,154 +1,154 @@
 {
-  "title": "EthicalMetrics — Una Mejor Alternativa a Google Analytics",
+  "title": "EthicalMetrics — 一个更好的Google Analytics替代方案",
   "header": {
-    "create_account": "Crear una cuenta",
-    "github_loading": "Cargando..."
+    "create_account": "创建一个帐户",
+    "github_loading": "加载中..."
   },
   "hero": {
-    "title": "Conoce EthicalMetrics",
-    "subtitle": "Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.",
-    "cta_create": "Crear una cuenta gratis",
-    "cta_demo": "Ver demo",
-    "github_text": "Contribuye o haz fork en"
+    "title": "了解EthicalMetrics",
+    "subtitle": "真实隐私。真实指标。尊重你的代码、团队和用户的网络分析。",
+    "cta_create": "免费创建帐户",
+    "cta_demo": "查看演示",
+    "github_text": "贡献或者在GitHub上启动"
   },
   "features": {
-    "title": "Métricas útiles. Sin rastrear a nadie.",
-    "subtitle": "EthicalMetrics te da claridad sobre tu producto sin comprometer la privacidad de nadie. Sin cookies. Sin IDs. Sin historiales. Solo datos relevantes, tratados con respeto.",
+    "title": "实用指标。不跟踪任何人。",
+    "subtitle": "EthicalMetrics为您提供关于您的产品的清晰信息，而不损害任何人的隐私。没有cookie。没有ID。没有历史记录。只有相关数据，受到尊重。",
     "card1": {
-      "title": "Libertad para tus Usuarios",
-      "description": "Diles adiós a las cookies, al rastreo invasivo y a la recolección de datos personales. Tus visitantes navegan con la tranquilidad de que su privacidad está garantizada. Tú, mientras tanto, obtienes las perspectivas que te impulsan."
+      "title": "为您的用户自由",
+      "description": "告别cookie，侵入性跟踪和个人数据收集。您的访客可放心浏览，因为他们的隐私受到保障。同时，您将获得推动您前进的见解。"
     },
     "card2": {
-      "title": "Tus datos, tu fortaleza",
-      "description": "Tus datos son tuyos, punto. Al ser un servicio que puedes auto-hospedar, tienes el control absoluto sobre tu información. Sin intermediarios, sin sorpresas."
+      "title": "您的数据，您的力量",
+      "description": "您的数据就是您的，没有别的。作为一个自助托管服务，您对自己的信息拥有绝对控制权。没有中间人，没有令人惊讶的事情。"
     },
     "card3": {
-      "title": "Comienza en minutos",
-      "description": "Agrega una línea de código y listo. Tarda menos de un segundo en comenzar a enviar datos. Configurar EthicalMetrics es increíblemente simple, dejándote libre para enfocarte en lo que realmente importa: crear. Cada sitio que añades tiene su propio espacio privado para ver sus resultados."
+      "title": "几分钟上手",
+      "description": "添加一行代码就可以。不到一秒钟就可以开始发送数据。设置EthicalMetrics非常简单，让您可以专注于真正重要的事情：创造。"
     },
     "card4": {
-      "title": "Claridad sin compromisos",
-      "description": "Observa cómo se comportan tus módulos, dónde brilla el rendimiento y qué eventos son clave. Te damos métricas para entender tu producto, no para espiar a las personas."
+      "title": "没有妥协的清晰度",
+      "description": "了解您的模块的表现，性能优越的地方以及关键事件是什么。我们提供指标来理解您的产品，而不是追踪人员。"
     }
   },
   "getting_started": {
-    "subtitle": "Introducción",
-    "title": "Comenzar",
-    "description": "Aprende a configurar EthicalMetrics en tu sitio web en menos de treinta minutos o es gratis.",
+    "subtitle": "介绍",
+    "title": "开始",
+    "description": "学习如何在30分钟内或免费为您的网站设置EthicalMetrics。",
     "step1": {
-      "title": "Registra tu sitio",
-      "description": "Obtén tus credenciales únicas en un instante. Sin correo, sin contraseñas, sin tarjeta."
+      "title": "注册您的站点",
+      "description": "立即获取您的独特凭据。不需要电子邮件、密码或卡。"
     },
     "step2": {
-      "title": "Instalación en 5 segundos",
-      "description": "Añade un pequeño script a tu sitio web. Solo copia una línea. Así de simple."
+      "title": "5秒完成安装",
+      "description": "将一个小脚本添加到您的网站上。只需复制一行。就是这么简单。"
     },
     "step3": {
-      "title": "Visualiza",
-      "description": "Accede a tu panel personal para ver tus insights. Listo. No más rastreo invasivo."
+      "title": "可视化",
+      "description": "访问您的个人面板查看您的见解。完成。不再有侵入性的跟踪。"
     }
   },
   "pricing": {
-    "title": "Precios diseñados para crecer contigo",
+    "title": "为您量身定制的价格",
     "free": {
-      "title": "Hobby SaaS",
-      "subtitle": "Devs indie, side-projects",
-      "price": "Gratis",
-      "cta": "Crear una cuenta"
+      "title": "业余SaaS",
+      "subtitle": "独立开发人员，项目外",
+      "price": "免费",
+      "cta": "创建一个帐户"
     },
     "pro": {
-      "title": "Professional SaaS",
-      "subtitle": "Producción, startups",
-      "currency": "USD",
-      "period": "por mes",
-      "cta": "Próximamente disponible"
+      "title": "专业SaaS",
+      "subtitle": "生产，创业公司",
+      "currency": "美元",
+      "period": "每个月",
+      "cta": "即将推出"
     },
     "oss": {
       "title": "OSS SaaS",
-      "subtitle": "Proyectos FOSS",
-      "price": "Gratis",
-      "cta": "Próximamente disponible"
+      "subtitle": "FOSS项目",
+      "price": "免费",
+      "cta": "即将推出"
     }
   },
   "faqs": {
-    "title": "Preguntas frecuentes",
+    "title": "常见问题",
     "q1": {
-      "question": "¿Qué es EthicalMetrics y en qué se diferencia de Google Analytics?",
-      "answer": "EthicalMetrics es una plataforma de analíticas web auto-hospedada que prioriza la privacidad del usuario. A diferencia de Google Analytics, no recopila datos personales, no usa cookies, no almacena direcciones IP y no realiza fingerprinting de dispositivos."
+      "question": "EthicalMetrics是一个自助式网络分析平台，注重用户隐私。与Google Analytics不同，它不会收集个人数据，不使用cookie，不存储IP地址，也不对设备进行指纹识别。",
+      "answer": "EthicalMetrics实现了“真正的匿名”概念，其中每个事件都是自主的，无法随时间追踪。它不会分配visitor_id，也不会关联会话事件，从而保证了在不知道您是谁的情况下运行分析。"
     },
     "q2": {
-      "question": "¿Cómo garantiza EthicalMetrics la privacidad de los usuarios?",
-      "answer": "EthicalMetrics implementa 'verdadero anonimato' donde cada evento es autónomo y no se puede rastrear a lo largo del tiempo. No asigna visitor_id ni asocia eventos de sesión entre sí, garantizando que las analíticas funcionen sin saber quién eres."
+      "question": "EthicalMetrics如何保障用户隐私？",
+      "answer": "EthicalMetrics实现了“真正的匿名”概念，其中每个事件都是自主的，无法随时间追踪。它不会分配visitor_id，也不会关联会话事件，从而保证了在不知道您是谁的情况下运行分析。"
     },
     "q3": {
-      "question": "¿Qué métricas puedo obtener con EthicalMetrics?",
-      "answer": "El sistema rastrea visitas, uso de módulos, tiempos de carga, páginas más visitadas, duración promedio de sesión, eventos personalizados, tasa de rebote, dispositivos, navegadores, idiomas y ubicación geográfica (sin almacenar IPs)."
+      "question": "EthicalMetrics可以提供哪些指标？",
+      "answer": "系统跟踪访问、模块使用、加载时间、访问量最多的页面、平均会话持续时间、自定义事件、跳出率、设备、浏览器、语言和地理位置（不存储IP地址）。"
     },
     "q4": {
-      "question": "¿Cómo implemento EthicalMetrics en mi sitio web?",
-      "answer": "Primero registras tu sitio en https://ethicalmetrics.onrender.com para obtener tu site_id y admin_token. Luego añades el script de seguimiento a tu HTML y opcionalmente defines módulos personalizados."
+      "question": "如何在我的网站上实施EthicalMetrics？",
+      "answer": "首先在https://ethicalmetrics.onrender.com注册您的网站以获取您的site_id和admin_token。然后将跟踪脚本添加到您的HTML中，并可选择定义自定义模块。"
     },
     "q5": {
-      "question": "¿Respeta EthicalMetrics la configuración 'Do Not Track' del navegador?",
-      "answer": "Sí, EthicalMetrics respeta automáticamente la configuración DNT (Do Not Track) del usuario y desactiva todo el seguimiento cuando está habilitada. Esto garantiza el respeto total por el consentimiento implícito del usuario."
+      "question": "EthicalMetrics是否尊重浏览器的“不要跟踪”设置？",
+      "answer": "是的，EthicalMetrics会自动尊重用户的DNT（不要跟踪）设置，并在启用时停用所有跟踪。这确保了对用户的隐含同意的完全尊重。"
     },
     "q6": {
-      "question": "¿Qué tecnologías usa EthicalMetrics en su arquitectura?",
-      "answer": "El sistema está construido con Go para el servidor HTTP, Redis para almacenamiento, JavaScript vanilla para el cliente, autenticación basada en tokens UUID, y se puede desplegar con Docker en plataformas como Render."
+      "question": "EthicalMetrics在其架构中使用了哪些技术？",
+      "answer": "该系统使用Go构建HTTP服务器，Redis用于存储，Vanilla JavaScript用于客户端，基于UUID令牌的身份验证，并可以在Render等平台上使用Docker部署。"
     },
     "q7": {
-      "question": "¿Puedo personalizar el banner de consentimiento?",
-      "answer": "Sí, puedes personalizar fácilmente el banner de consentimiento añadiendo atributos data-* al script tag, incluyendo colores de fondo, texto del banner, colores de botones y mensajes personalizados."
+      "question": "我可以自定义同意横幅吗？",
+      "answer": "是的，您可以通过向脚本标签添加data-*属性来轻松自定义同意横幅，包括背景颜色、横幅文本、按钮颜色和自定义消息。"
     },
     "q8": {
-      "question": "¿Cómo accedo a mis estadísticas y dashboard?",
-      "answer": "Accedes a tu dashboard privado usando la URL con tu site_id y admin_token: https://ethicalmetrics.onrender.com/dashboard"
+      "question": "如何访问我的统计数据和仪表板？",
+      "answer": "使用带有您的site_id和admin_token的URL访问您的私人仪表板：https://ethicalmetrics.onrender.com/dashboard"
     },
     "q9": {
-      "question": "¿Está EthicalMetrics listo para producción o es experimental?",
-      "answer": "EthicalMetrics está en desarrollo activo y se describe como 'experimental y evolutivo'. El proyecto busca contribuidores y auditorías de la comunidad, con muchas funcionalidades avanzadas aún en desarrollo según el roadmap."
+      "question": "EthicalMetrics准备就绪，还是实验性的？",
+      "answer": "EthicalMetrics正在积极开发中，并被描述为“实验性和演进性”。该项目寻求社区的贡献者和审计，许多高级功能仍在根据路线图开发中。"
     }
   },
   "footer": {
-    "subtitle": "Comienza ahora",
-    "title": "Hazlo diferente. Hazlo bien.",
-    "description": "Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.",
-    "cta": "Crear una cuenta"
+    "subtitle": "现在开始",
+    "title": "以不同方式。做正确。",
+    "description": "数千个网站已实现无间谍测量。加入促进更加道德网络的运动。",
+    "cta": "创建一个帐户"
   },
   "modal": {
-    "site_id": "ID de sitio:",
-    "admin_token": "Token de acceso:",
-    "script_label": "Script para tu web:",
-    "go_to_dashboard": "Ir a mi Dashboard",
-    "close": "Cerrar"
+    "site_id": "站点ID：",
+    "admin_token": "访问令牌：",
+    "script_label": "您的网站脚本：",
+    "go_to_dashboard": "转到我的仪表板",
+    "close": "关闭"
   },
   "dashboard": {
-    "title": "Dashboard — EthicalMetrics",
-    "compared_to": "comparado con",
-    "no_comparison": "Sin comparación",
-    "auto": "Automático",
-    "hourly": "Por hora",
-    "daily": "Diariamente",
-    "options": "Opciones",
-    "users_active": "Usuarios activos",
-    "duration_average": "Duración media",
-    "new-visitors": "Nuevos visitantes",
-    "unique-views": "Vistas únicas",
-    "module-usage": "Uso por módulo",
-    "daily-visits": "Visitas por día",
-    "devices": "Dispositivos",
-    "countries": "Países",
-    "regions": "Regiones",
-    "new-sessions": "Nuevas sesiones",
-    "browsers": "Navegadores",
-    "references": "Referencias",
-    "most-viewed-pages": "Páginas más vistas",
-    "weekly-compare": "Comparativa semanal",
-    "monthly-compare": "Comparativa mensual",
-    "browser-languages": "Idiomas del navegador",
-    "os": "Sistemas operativos",
-    "cities": "Ciudades",
-    "retention": "Retención (global/página)",
-    "funnel": "Funnel básico"
+    "title": "仪表板 — EthicalMetrics",
+    "compared_to": "与之相比",
+    "no_comparison": "无可比拟",
+    "auto": "自动",
+    "hourly": "按小时",
+    "daily": "每日",
+    "options": "选项",
+    "users_active": "活跃用户",
+    "duration_average": "平均持续时间",
+    "new-visitors": "新访客",
+    "unique-views": "独立访问量",
+    "module-usage": "模块使用",
+    "daily-visits": "每日访问量",
+    "devices": "设备",
+    "countries": "国家",
+    "regions": "地区",
+    "new-sessions": "新会话",
+    "browsers": "浏览器",
+    "references": "引荐",
+    "most-viewed-pages": "最受欢迎的页面",
+    "weekly-compare": "每周比较",
+    "monthly-compare": "每月比较",
+    "browser-languages": "浏览器语言",
+    "os": "操作系统",
+    "cities": "城市",
+    "retention": "保留（全球/页面）",
+    "funnel": "基本漏斗"
   }
 }
