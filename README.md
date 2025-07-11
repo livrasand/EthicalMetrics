@@ -9,6 +9,10 @@ No cookies. No fingerprinting. No personal data. No compromises.
 
 > **Perfect for privacy-first projects, sensitive applications, decentralized platforms, or any product that truly values user trust.**
 
+> [!IMPORTANT]
+> EthicalMetrics is in a pre-alpha state, and only suitable for use by developers
+>
+
 ---
 
 ## Why EthicalMetrics?
@@ -210,6 +214,38 @@ flowchart TD
     class Response_Data response
 ```
 
+# Algorithms
+
+**Average session duration:**
+
+```math
+\bar{D} = \frac{1}{N} \sum _{i=1}^{N} d_i \quad \text{(where } d_i > 0\text{)}
+```
+
+---
+
+**Weekly comparison:**
+
+```math
+W_{\text{current}}[d] = \sum _{e \in E_{\text{current}}} \mathbb{I}(\text{day}(e) = d)
+```
+
+---
+
+**Retention per page:**
+
+```math
+R_p = \left| \{ \text{date}(e) \mid e \in E_p \} \right|
+```
+
+---
+
+**Token Generation**
+
+```math
+\text{Token} = \bigoplus _{i=1}^{24} \text{charset}[\lfloor 62 \cdot U(0,1) \rfloor]
+```
+
 ---
 
 ## Getting Started
@@ -281,12 +317,12 @@ Want to collaborate, contribute, or ask something?
 → [Open an issue](https://github.com/livrasand/EthicalMetrics/issues)
 → [Submit a pull request](https://github.com/livrasand/EthicalMetrics/pulls)
 
-This repository is integrated with [Crowdin](https://crowdin.com/) to facilitate localization of the es.json file into multiple languages.
-
+Some of these translations are done by AI, which may not be of the highest quality. To help, proofread these translations on [Crowdin](https://crowdin.com/).
 **Want to add a new language?**
 
 Create an [issue here](https://github.com/livrasand/EthicalMetrics/issues/new?assignees=&labels=localization&template=feature-request.yml&title=Add+translation+for+%5Bid%5D) using the template, and we'll take care of activating it in Crowdin.
 
+[Not sure how to use Crowdin?](https://support.crowdin.com/crowdin-intro/)
 
 ---
 
