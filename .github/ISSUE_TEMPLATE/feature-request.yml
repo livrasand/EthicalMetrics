@@ -1,0 +1,30 @@
+name: Request New Language
+description: Request a new language to be enabled for site localization
+title: "Add translation for [language-code]"
+labels: [localization]
+body:
+  - type: input
+    id: locale
+    attributes:
+      label: Language code
+      description: Example: `nl-NL` for Dutch (Netherlands)
+      placeholder: es-ES, fr-FR, zh-CN...
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why do you want this language?
+      description: Tell us why this language is important for your audience.
+      placeholder: For example, potential users in a specific country, accessibility, etc.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: translator
+    attributes:
+      label: Can you help with the translation?
+      options:
+        - label: Yes, I’d like to contribute with translation
+        - label: No, but I’d like the language to be available
