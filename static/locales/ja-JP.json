@@ -1,154 +1,154 @@
 {
-  "title": "EthicalMetrics — Una Mejor Alternativa a Google Analytics",
+  "title": "EthicalMetrics — Google Analytics\nc841 のより良い代替",
   "header": {
-    "create_account": "Crear una cuenta",
-    "github_loading": "Cargando..."
+    "create_account": "アカウントを作成",
+    "github_loading": "読み込み中..."
   },
   "hero": {
-    "title": "Conoce EthicalMetrics",
-    "subtitle": "Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.",
-    "cta_create": "Crear una cuenta gratis",
-    "cta_demo": "Ver demo",
-    "github_text": "Contribuye o haz fork en"
+    "title": "EthicalMetrics をご覧ください",
+    "subtitle": "リアルプライバシー。リアルメトリクス。コード、チーム、ユーザーを尊重するウェブ分析。",
+    "cta_create": "無料でアカウントを作成",
+    "cta_demo": "デモを見る",
+    "github_text": "貢献するか、フォークする"
   },
   "features": {
-    "title": "Métricas útiles. Sin rastrear a nadie.",
-    "subtitle": "EthicalMetrics te da claridad sobre tu producto sin comprometer la privacidad de nadie. Sin cookies. Sin IDs. Sin historiales. Solo datos relevantes, tratados con respeto.",
+    "title": "有用なメトリクス。誰も追跡しない。",
+    "subtitle": "EthicalMetrics は、誰のプライバシーも侵害せず、クッキー、ID、履歴なし。尊重して扱われる関連データのみ。",
     "card1": {
-      "title": "Libertad para tus Usuarios",
-      "description": "Diles adiós a las cookies, al rastreo invasivo y a la recolección de datos personales. Tus visitantes navegan con la tranquilidad de que su privacidad está garantizada. Tú, mientras tanto, obtienes las perspectivas que te impulsan."
+      "title": "ユーザーの自由",
+      "description": "クッキー、侵略的なトラッキング、個人データ収集にさよなら。訪問者はプライバシーが保証されて安心して閲覧。自分の視点を得る。"
     },
     "card2": {
-      "title": "Tus datos, tu fortaleza",
-      "description": "Tus datos son tuyos, punto. Al ser un servicio que puedes auto-hospedar, tienes el control absoluto sobre tu información. Sin intermediarios, sin sorpresas."
+      "title": "あなたのデータ、あなたの強さ",
+      "description": "あなたのデータはあなたのもの。自己ホスティングサービスなので、情報に完全なコントロール。仲介業者なし、驚きなし。"
     },
     "card3": {
-      "title": "Comienza en minutos",
-      "description": "Agrega una línea de código y listo. Tarda menos de un segundo en comenzar a enviar datos. Configurar EthicalMetrics es increíblemente simple, dejándote libre para enfocarte en lo que realmente importa: crear. Cada sitio que añades tiene su propio espacio privado para ver sus resultados."
+      "title": "数分で開始",
+      "description": "コードを追加して完了。データの送信が1秒未満で始まります。EthicalMetrics の設定は非常にシンプルで、真に重要なことに集中できます。"
     },
     "card4": {
-      "title": "Claridad sin compromisos",
-      "description": "Observa cómo se comportan tus módulos, dónde brilla el rendimiento y qué eventos son clave. Te damos métricas para entender tu producto, no para espiar a las personas."
+      "title": "条件なしの明確さ",
+      "description": "モジュールの動作、パフォーマンスの向上箇所、主要イベントを見てください。製品を理解するためのメトリクスを提供します。"
     }
   },
   "getting_started": {
-    "subtitle": "Introducción",
-    "title": "Comenzar",
-    "description": "Aprende a configurar EthicalMetrics en tu sitio web en menos de treinta minutos o es gratis.",
+    "subtitle": "導入",
+    "title": "開始",
+    "description": "サイトに EthicalMetrics を設定する方法を30分以下で学び、または無料で学びましょう。",
     "step1": {
-      "title": "Registra tu sitio",
-      "description": "Obtén tus credenciales únicas en un instante. Sin correo, sin contraseñas, sin tarjeta."
+      "title": "サイト登録",
+      "description": "瞬時にユニークな資格情報を取得します。メール、パスワード、カードなし。"
     },
     "step2": {
-      "title": "Instalación en 5 segundos",
-      "description": "Añade un pequeño script a tu sitio web. Solo copia una línea. Así de simple."
+      "title": "5秒でインストール",
+      "description": "サイトに小さなスクリプトを追加します。1行だけコピーしてください。"
     },
     "step3": {
-      "title": "Visualiza",
-      "description": "Accede a tu panel personal para ver tus insights. Listo. No más rastreo invasivo."
+      "title": "表示",
+      "description": "個人用パネルにアクセスしてインサイトを確認してください。完了。侵略的なトラッキングがありません。"
     }
   },
   "pricing": {
-    "title": "Precios diseñados para crecer contigo",
+    "title": "あなたの成長に合わせた価格設定",
     "free": {
-      "title": "Hobby SaaS",
-      "subtitle": "Devs indie, side-projects",
-      "price": "Gratis",
-      "cta": "Crear una cuenta"
+      "title": "趣味の SaaS",
+      "subtitle": "デベロッパー、サイドプロジェクト",
+      "price": "無料",
+      "cta": "アカウントを作成"
     },
     "pro": {
-      "title": "Professional SaaS",
-      "subtitle": "Producción, startups",
-      "currency": "USD",
-      "period": "por mes",
-      "cta": "Próximamente disponible"
+      "title": "プロフェッショナル SaaS",
+      "subtitle": "プロダクション、スタートアップ",
+      "currency": "米ドル",
+      "period": "月額",
+      "cta": "近日公開"
     },
     "oss": {
       "title": "OSS SaaS",
-      "subtitle": "Proyectos FOSS",
-      "price": "Gratis",
-      "cta": "Próximamente disponible"
+      "subtitle": "FOSSプロジェクト",
+      "price": "無料",
+      "cta": "近日公開"
     }
   },
   "faqs": {
-    "title": "Preguntas frecuentes",
+    "title": "よくある質問",
     "q1": {
-      "question": "¿Qué es EthicalMetrics y en qué se diferencia de Google Analytics?",
-      "answer": "EthicalMetrics es una plataforma de analíticas web auto-hospedada que prioriza la privacidad del usuario. A diferencia de Google Analytics, no recopila datos personales, no usa cookies, no almacena direcciones IP y no realiza fingerprinting de dispositivos."
+      "question": "EthicalMetrics と Google Analytics の違いは何ですか？",
+      "answer": "EthicalMetrics は、ユーザーのプライバシーを優先する自己ホスティングウェブ分析プラットフォームです。 Google Analytics とは異なり、個人データを収集せず、クッキーを使用せず、IPアドレスを保存せず、デバイスの fingerprinting を行いません。"
     },
     "q2": {
-      "question": "¿Cómo garantiza EthicalMetrics la privacidad de los usuarios?",
-      "answer": "EthicalMetrics implementa 'verdadero anonimato' donde cada evento es autónomo y no se puede rastrear a lo largo del tiempo. No asigna visitor_id ni asocia eventos de sesión entre sí, garantizando que las analíticas funcionen sin saber quién eres."
+      "question": "EthicalMetrics はユーザーのプライバシーをどのように保証しますか？",
+      "answer": "EthicalMetrics は、各イベントが自律しており、時間の経過で追跡できない '真の匿名性' を実装しています。 visitor_id を割り当てず、セッションイベントを関連付けないため、誰が利用しているかを知らずに分析を行います。"
     },
     "q3": {
-      "question": "¿Qué métricas puedo obtener con EthicalMetrics?",
-      "answer": "El sistema rastrea visitas, uso de módulos, tiempos de carga, páginas más visitadas, duración promedio de sesión, eventos personalizados, tasa de rebote, dispositivos, navegadores, idiomas y ubicación geográfica (sin almacenar IPs)."
+      "question": "EthicalMetrics でどのようなメトリクスを取得できますか？",
+      "answer": "訪問、モジュールの使用、読み込み時間、最も多く訪れるページ、平均セッション時間、カスタムイベント、直帰率、デバイス、ブラウザ、言語、地理的位置を追跡（IP を保存せず）。"
     },
     "q4": {
-      "question": "¿Cómo implemento EthicalMetrics en mi sitio web?",
-      "answer": "Primero registras tu sitio en https://ethicalmetrics.onrender.com para obtener tu site_id y admin_token. Luego añades el script de seguimiento a tu HTML y opcionalmente defines módulos personalizados."
+      "question": "EthicalMetricsをウェブサイトに実装する方法は？",
+      "answer": "https://ethicalmetrics.onrender.com でサイトを登録し、site_idとadmin_tokenを取得します。次に、追跡スクリプトをHTMLに追加し、任意でカスタムモジュールを定義します。"
     },
     "q5": {
-      "question": "¿Respeta EthicalMetrics la configuración 'Do Not Track' del navegador?",
-      "answer": "Sí, EthicalMetrics respeta automáticamente la configuración DNT (Do Not Track) del usuario y desactiva todo el seguimiento cuando está habilitada. Esto garantiza el respeto total por el consentimiento implícito del usuario."
+      "question": "EthicalMetricsはブラウザの 'Do Not Track' 設定を尊重していますか？",
+      "answer": "はい、EthicalMetricsはユーザーのDNT（Do Not Track）設定を自動的に尊重し、有効になっているときにすべての追跡を無効にします。これにより、ユーザーの暗黙的な同意が完全に尊重されます。"
     },
     "q6": {
-      "question": "¿Qué tecnologías usa EthicalMetrics en su arquitectura?",
-      "answer": "El sistema está construido con Go para el servidor HTTP, Redis para almacenamiento, JavaScript vanilla para el cliente, autenticación basada en tokens UUID, y se puede desplegar con Docker en plataformas como Render."
+      "question": "EthicalMetricsはどのような技術をアーキテクチャに使用していますか？",
+      "answer": "システムは、HTTPサーバーにGo、ストレージにRedis、クライアントにJavaScript vanilla、UUIDトークンベースの認証、およびRenderなどのプラットフォームでDockerを使用して展開できます。"
     },
     "q7": {
-      "question": "¿Puedo personalizar el banner de consentimiento?",
-      "answer": "Sí, puedes personalizar fácilmente el banner de consentimiento añadiendo atributos data-* al script tag, incluyendo colores de fondo, texto del banner, colores de botones y mensajes personalizados."
+      "question": "同意のバナーをカスタマイズすることはできますか？",
+      "answer": "はい、data-*属性をスクリプトタグに追加してバナーを簡単にカスタマイズできます。背景色、バナーテキスト、ボタン色、およびカスタムメッセージを含めることができます。"
     },
     "q8": {
-      "question": "¿Cómo accedo a mis estadísticas y dashboard?",
-      "answer": "Accedes a tu dashboard privado usando la URL con tu site_id y admin_token: https://ethicalmetrics.onrender.com/dashboard"
+      "question": "統計情報やダッシュボードにアクセスする方法は？",
+      "answer": "site_idとadmin_tokenを使用して、URL https://ethicalmetrics.onrender.com/dashboard でプライベートダッシュボードにアクセスします。"
     },
     "q9": {
-      "question": "¿Está EthicalMetrics listo para producción o es experimental?",
-      "answer": "EthicalMetrics está en desarrollo activo y se describe como 'experimental y evolutivo'. El proyecto busca contribuidores y auditorías de la comunidad, con muchas funcionalidades avanzadas aún en desarrollo según el roadmap."
+      "question": "EthicalMetricsはプロダクションに適していますか、それとも実験的ですか？",
+      "answer": "EthicalMetricsは積極的な開発中であり、「実験的で進化的」と表現されています。プロジェクトはコミュニティからの貢献者と監査を求め、ロードマップに従ってまだ多くの高度な機能が開発中です。"
     }
   },
   "footer": {
-    "subtitle": "Comienza ahora",
-    "title": "Hazlo diferente. Hazlo bien.",
-    "description": "Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.",
-    "cta": "Crear una cuenta"
+    "subtitle": "今すぐ開始",
+    "title": "異なるやり方。正しいやり方。",
+    "description": "スパイせずに測定しているサイトが数千あります。より倫理的なウェブに参加しましょう。",
+    "cta": "アカウントを作成"
   },
   "modal": {
-    "site_id": "ID de sitio:",
-    "admin_token": "Token de acceso:",
-    "script_label": "Script para tu web:",
-    "go_to_dashboard": "Ir a mi Dashboard",
-    "close": "Cerrar"
+    "site_id": "サイトID：",
+    "admin_token": "アクセストークン：",
+    "script_label": "Webサイト用スクリプト：",
+    "go_to_dashboard": "ダッシュボードへ移動",
+    "close": "閉じる"
   },
   "dashboard": {
-    "title": "Dashboard — EthicalMetrics",
-    "compared_to": "comparado con",
-    "no_comparison": "Sin comparación",
-    "auto": "Automático",
-    "hourly": "Por hora",
-    "daily": "Diariamente",
-    "options": "Opciones",
-    "users_active": "Usuarios activos",
-    "duration_average": "Duración media",
-    "new-visitors": "Nuevos visitantes",
-    "unique-views": "Vistas únicas",
-    "module-usage": "Uso por módulo",
-    "daily-visits": "Visitas por día",
-    "devices": "Dispositivos",
-    "countries": "Países",
-    "regions": "Regiones",
-    "new-sessions": "Nuevas sesiones",
-    "browsers": "Navegadores",
-    "references": "Referencias",
-    "most-viewed-pages": "Páginas más vistas",
-    "weekly-compare": "Comparativa semanal",
-    "monthly-compare": "Comparativa mensual",
-    "browser-languages": "Idiomas del navegador",
-    "os": "Sistemas operativos",
-    "cities": "Ciudades",
-    "retention": "Retención (global/página)",
-    "funnel": "Funnel básico"
+    "title": "ダッシュボード — EthicalMetrics",
+    "compared_to": "比較",
+    "no_comparison": "比較なし",
+    "auto": "自動",
+    "hourly": "毎時",
+    "daily": "毎日",
+    "options": "オプション",
+    "users_active": "アクティブユーザー",
+    "duration_average": "平均利用時間",
+    "new-visitors": "新規訪問者",
+    "unique-views": "固有ビュー",
+    "module-usage": "モジュールごとの使用状況",
+    "daily-visits": "日別訪問数",
+    "devices": "デバイス",
+    "countries": "国",
+    "regions": "地域",
+    "new-sessions": "新しいセッション",
+    "browsers": "ブラウザ",
+    "references": "リファラ",
+    "most-viewed-pages": "最も閲覧されたページ",
+    "weekly-compare": "週間比較",
+    "monthly-compare": "月間比較",
+    "browser-languages": "ブラウザ言語",
+    "os": "オペレーティングシステム",
+    "cities": "都市",
+    "retention": "リテンション（全体/ページ別）",
+    "funnel": "基本ファネル"
   }
 }

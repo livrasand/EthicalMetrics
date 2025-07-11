@@ -1,154 +1,154 @@
 {
-  "title": "EthicalMetrics — Una Mejor Alternativa a Google Analytics",
+  "title": "عنوان عقلانيات — بدائل أفضل لجوجل أناليتكس",
   "header": {
-    "create_account": "Crear una cuenta",
-    "github_loading": "Cargando..."
+    "create_account": "إنشاء حساب",
+    "github_loading": "جارِ التحميل..."
   },
   "hero": {
-    "title": "Conoce EthicalMetrics",
-    "subtitle": "Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.",
-    "cta_create": "Crear una cuenta gratis",
-    "cta_demo": "Ver demo",
-    "github_text": "Contribuye o haz fork en"
+    "title": "اكتشف عنوان عقلانيات",
+    "subtitle": "خصوصية حقيقية. مقاييس حقيقية. تحليلات الويب التي تحترم كودك، فريقك ومستخدميك.",
+    "cta_create": "إنشاء حساب مجاني",
+    "cta_demo": "عرض العرض التجريبي",
+    "github_text": "ساهم أو قم بإنشاء فرع في"
   },
   "features": {
-    "title": "Métricas útiles. Sin rastrear a nadie.",
-    "subtitle": "EthicalMetrics te da claridad sobre tu producto sin comprometer la privacidad de nadie. Sin cookies. Sin IDs. Sin historiales. Solo datos relevantes, tratados con respeto.",
+    "title": "مقاييس مفيدة. بدون تتبع لأي شخص.",
+    "subtitle": "توفر عنوان عقلانيات لك وضوحًا حول منتجك دون المساس بخصوصية أي شخص. بدون ملفات تعريف، بدون معرفات، بدون سجلات. بيانات مهمة فقط، مُعاملة بالاحترام.",
     "card1": {
-      "title": "Libertad para tus Usuarios",
-      "description": "Diles adiós a las cookies, al rastreo invasivo y a la recolección de datos personales. Tus visitantes navegan con la tranquilidad de que su privacidad está garantizada. Tú, mientras tanto, obtienes las perspectivas que te impulsan."
+      "title": "حرية لمستخدميك",
+      "description": "اشتمل على ملفات تعريف الارتباط، وتتبع التطفل وجمع البيانات الشخصية. يتصف زوارك بالطمأنينة عند التصفح، على أمل أن يحصلوا على الرؤى التي تلهمك."
     },
     "card2": {
-      "title": "Tus datos, tu fortaleza",
-      "description": "Tus datos son tuyos, punto. Al ser un servicio que puedes auto-hospedar, tienes el control absoluto sobre tu información. Sin intermediarios, sin sorpresas."
+      "title": "بياناتك، قوتك",
+      "description": "بياناتك هي لك، بلا شك. كونها خدمة يمكنك استضافتها بنفسك، تتحكم بشكل كامل في معلوماتك. بدون وسطاء، بدون مفاجآت."
     },
     "card3": {
-      "title": "Comienza en minutos",
-      "description": "Agrega una línea de código y listo. Tarda menos de un segundo en comenzar a enviar datos. Configurar EthicalMetrics es increíblemente simple, dejándote libre para enfocarte en lo que realmente importa: crear. Cada sitio que añades tiene su propio espacio privado para ver sus resultados."
+      "title": "ابدأ في دقائق",
+      "description": "أضف سطرًا من الرمز واستعد. يستغرق أقل من ثانية لبدء إرسال البيانات. تكوين عنوان عقلانيات بسيط بشكل لا يصدق، مما يتيح لك التركيز على ما يهم حقًا: الإبداع. لديك مساحة خاصة لكل موقع تضيفه لعرض نتائجه."
     },
     "card4": {
-      "title": "Claridad sin compromisos",
-      "description": "Observa cómo se comportan tus módulos, dónde brilla el rendimiento y qué eventos son clave. Te damos métricas para entender tu producto, no para espiar a las personas."
+      "title": "وضوح بدون تنازلات",
+      "description": "شاهد كيف تتصرف وحداتك، حيث يبرز الأداء وماهية الأحداث الحيوية. نحن نقدم لك المقاييس لفهم منتجك، وليس للتجسس على الأشخاص."
     }
   },
   "getting_started": {
-    "subtitle": "Introducción",
-    "title": "Comenzar",
-    "description": "Aprende a configurar EthicalMetrics en tu sitio web en menos de treinta minutos o es gratis.",
+    "subtitle": "مقدمة",
+    "title": "البدء",
+    "description": "تعرف على كيفية تكوين عنوان عقلانيات على موقعك على الويب في أقل من ثلاثين دقيقة أو استرجاع أموالك.",
     "step1": {
-      "title": "Registra tu sitio",
-      "description": "Obtén tus credenciales únicas en un instante. Sin correo, sin contraseñas, sin tarjeta."
+      "title": "سجل موقعك",
+      "description": "احصل على بيانات الاعتماد الفريدة الخاصة بك على الفور. بدون بريد، بدون كلمات مرور، بدون بطاقة."
     },
     "step2": {
-      "title": "Instalación en 5 segundos",
-      "description": "Añade un pequeño script a tu sitio web. Solo copia una línea. Así de simple."
+      "title": "التثبيت في 5 ثوان",
+      "description": "أضف نصًا صغيرًا إلى موقع الويب الخاص بك. انسخ فقط سطرًا واحدًا. بسيطة بهذا الشكل."
     },
     "step3": {
-      "title": "Visualiza",
-      "description": "Accede a tu panel personal para ver tus insights. Listo. No más rastreo invasivo."
+      "title": "عرض",
+      "description": "استمر في لوحتك الشخصية لرؤية افكارك. جاهز. لا مزيد من التتبع التجسسي."
     }
   },
   "pricing": {
-    "title": "Precios diseñados para crecer contigo",
+    "title": "تصميم الأسعار للنمو معك",
     "free": {
-      "title": "Hobby SaaS",
-      "subtitle": "Devs indie, side-projects",
-      "price": "Gratis",
-      "cta": "Crear una cuenta"
+      "title": "خدمة التنمية الصغيرة ومشاريع الجانب",
+      "subtitle": "مجاني",
+      "price": "خدمة في الشهر",
+      "cta": "إنشاء حساب"
     },
     "pro": {
-      "title": "Professional SaaS",
-      "subtitle": "Producción, startups",
-      "currency": "USD",
-      "period": "por mes",
-      "cta": "Próximamente disponible"
+      "title": "خدمة المحترفين",
+      "subtitle": "الإنتاج، والشركات الناشئة",
+      "currency": "دولار أمريكي",
+      "period": "شهريًا",
+      "cta": "قريبًا"
     },
     "oss": {
-      "title": "OSS SaaS",
-      "subtitle": "Proyectos FOSS",
-      "price": "Gratis",
-      "cta": "Próximamente disponible"
+      "title": "خدمة البرمجيات ذات المصدر المفتوح",
+      "subtitle": "مشاريع فوس",
+      "price": "مجاني",
+      "cta": "قريبًا"
     }
   },
   "faqs": {
-    "title": "Preguntas frecuentes",
+    "title": "الأسئلة الشائعة",
     "q1": {
-      "question": "¿Qué es EthicalMetrics y en qué se diferencia de Google Analytics?",
-      "answer": "EthicalMetrics es una plataforma de analíticas web auto-hospedada que prioriza la privacidad del usuario. A diferencia de Google Analytics, no recopila datos personales, no usa cookies, no almacena direcciones IP y no realiza fingerprinting de dispositivos."
+      "question": "ما هو عنوان عقلانيات وكيف يختلف عن جوجل أناليتكس؟",
+      "answer": "عنوان عقلانيات هو منصة تحليلات الويب تمكنك من استضافتها بنفسك تُولي اهتمامًا خاصًا بخصوصية المستخدم. على عكس جوجل أناليتكس، لا تجمع بيانات شخصية، ولا تستخدم ملفات تعريف، ولا تخزن عناوين IP أو تنفذ التعرُّف على الأجهزة."
     },
     "q2": {
-      "question": "¿Cómo garantiza EthicalMetrics la privacidad de los usuarios?",
-      "answer": "EthicalMetrics implementa 'verdadero anonimato' donde cada evento es autónomo y no se puede rastrear a lo largo del tiempo. No asigna visitor_id ni asocia eventos de sesión entre sí, garantizando que las analíticas funcionen sin saber quién eres."
+      "question": "كيف يضمن عنوان عقلانيات خصوصية المستخدمين؟",
+      "answer": "ينفذ عنوان عقلانيات 'التعرف الحقيقي' حيث يكون كل حدث مستقلًا ولا يمكن تتبُّعه عبر الزمن. لا يُخصص مُعرِّف الزائر ولا يرتبط أحداث الجلسة ببعضها، مما يضمن عملية التحليل بدون معرفة هوية الشخص."
     },
     "q3": {
-      "question": "¿Qué métricas puedo obtener con EthicalMetrics?",
-      "answer": "El sistema rastrea visitas, uso de módulos, tiempos de carga, páginas más visitadas, duración promedio de sesión, eventos personalizados, tasa de rebote, dispositivos, navegadores, idiomas y ubicación geográfica (sin almacenar IPs)."
+      "question": "ما هي المقاييس التي يمكنني الحصول عليها باستخدام عنوان عقلانيات؟",
+      "answer": "يتتبع النظام الزيارات، استخدام الوحدات، أوقات التحميل، الصفحات الأكثر زيارة، مدة الجلسة المتوسطة، الأحداث المخصصة، معدل الارتداد، الأجهزة، المتصفحات، اللغات والموقع الجغرافي (دون تخزين عناوين IP)."
     },
     "q4": {
-      "question": "¿Cómo implemento EthicalMetrics en mi sitio web?",
-      "answer": "Primero registras tu sitio en https://ethicalmetrics.onrender.com para obtener tu site_id y admin_token. Luego añades el script de seguimiento a tu HTML y opcionalmente defines módulos personalizados."
+      "question": "كيف يمكنني تنفيذ EthicalMetrics على موقعي على الويب؟",
+      "answer": "سجل موقعك أولاً على https://ethicalmetrics.onrender.com للحصول على site_id و admin_token الخاصين بك. ثم أضف النص البرمجي للتتبع إلى تخطيط HTML الخاص بك وقم بتعريف الوحدات التخصيصية اختياريًا."
     },
     "q5": {
-      "question": "¿Respeta EthicalMetrics la configuración 'Do Not Track' del navegador?",
-      "answer": "Sí, EthicalMetrics respeta automáticamente la configuración DNT (Do Not Track) del usuario y desactiva todo el seguimiento cuando está habilitada. Esto garantiza el respeto total por el consentimiento implícito del usuario."
+      "question": "هل تحترم EthicalMetrics إعداد 'Do Not Track' في المتصفح؟",
+      "answer": "نعم، يحترم EthicalMetrics تلقائيًا إعدادات DNT (Do Not Track) للمستخدم ويعطل كل التتبع عند تفعيلها. يضمن هذا احترامًا كاملاً للموافقة الضمنية للمستخدم."
     },
     "q6": {
-      "question": "¿Qué tecnologías usa EthicalMetrics en su arquitectura?",
-      "answer": "El sistema está construido con Go para el servidor HTTP, Redis para almacenamiento, JavaScript vanilla para el cliente, autenticación basada en tokens UUID, y se puede desplegar con Docker en plataformas como Render."
+      "question": "ما هي التقنيات التي يستخدمها EthicalMetrics في هندستها؟",
+      "answer": "تم بناء النظام باستخدام Go لخادم HTTP، Redis للتخزين، JavaScript الأساسي للعميل، مصادقة تعتمد على رموز UUID، ويمكن نشره مع Docker على منصات مثل Render."
     },
     "q7": {
-      "question": "¿Puedo personalizar el banner de consentimiento?",
-      "answer": "Sí, puedes personalizar fácilmente el banner de consentimiento añadiendo atributos data-* al script tag, incluyendo colores de fondo, texto del banner, colores de botones y mensajes personalizados."
+      "question": "هل يمكنني تخصيص شعار الموافقة؟",
+      "answer": "نعم، يمكنك بسهولة تخصيص شعار الموافقة عن طريق إضافة سمات data-* إلى علامة النصي، بما في ذلك ألوان الخلفية، نص الشعار، ألوان الأزرار ورسائل مخصصة."
     },
     "q8": {
-      "question": "¿Cómo accedo a mis estadísticas y dashboard?",
-      "answer": "Accedes a tu dashboard privado usando la URL con tu site_id y admin_token: https://ethicalmetrics.onrender.com/dashboard"
+      "question": "كيف يمكنني الوصول إلى إحصائياتي ولوحة البيانات؟",
+      "answer": "يمكنك الوصول إلى لوحة التحكم الخاصة بك باستخدام عنوان URL الخاص بك مع site_id و admin_token: https://ethicalmetrics.onrender.com/dashboard"
     },
     "q9": {
-      "question": "¿Está EthicalMetrics listo para producción o es experimental?",
-      "answer": "EthicalMetrics está en desarrollo activo y se describe como 'experimental y evolutivo'. El proyecto busca contribuidores y auditorías de la comunidad, con muchas funcionalidades avanzadas aún en desarrollo según el roadmap."
+      "question": "هل EthicalMetrics جاهزة للإنتاج أم أنها تجريبية؟",
+      "answer": "تعتبر EthicalMetrics قيد التطوير النشط وتوصف بأنها 'تجريبية وتطورية'. يسعى المشروع إلى المساهمين والتدقيقات من المجتمع، مع العديد من الميزات المتقدمة لا تزال قيد التطوير وفقًا لخريطة الطريق."
     }
   },
   "footer": {
-    "subtitle": "Comienza ahora",
-    "title": "Hazlo diferente. Hazlo bien.",
-    "description": "Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.",
-    "cta": "Crear una cuenta"
+    "subtitle": "ابدأ الآن",
+    "title": "افعل شيئًا مختلفًا. افعله بشكل صحيح.",
+    "description": "آلاف المواقع تقوم بالقياس بدون تجسس. انضم إلى الحركة من أجل ويب أكثر أخلاقية.",
+    "cta": "أنشئ حساب"
   },
   "modal": {
-    "site_id": "ID de sitio:",
-    "admin_token": "Token de acceso:",
-    "script_label": "Script para tu web:",
-    "go_to_dashboard": "Ir a mi Dashboard",
-    "close": "Cerrar"
+    "site_id": "معرف الموقع:",
+    "admin_token": "رمز الوصول:",
+    "script_label": "نص النصي لموقع الويب الخاص بك:",
+    "go_to_dashboard": "انتقل إلى لوحة التحكم الخاصة بي",
+    "close": "إغلاق"
   },
   "dashboard": {
-    "title": "Dashboard — EthicalMetrics",
-    "compared_to": "comparado con",
-    "no_comparison": "Sin comparación",
-    "auto": "Automático",
-    "hourly": "Por hora",
-    "daily": "Diariamente",
-    "options": "Opciones",
-    "users_active": "Usuarios activos",
-    "duration_average": "Duración media",
-    "new-visitors": "Nuevos visitantes",
-    "unique-views": "Vistas únicas",
-    "module-usage": "Uso por módulo",
-    "daily-visits": "Visitas por día",
-    "devices": "Dispositivos",
-    "countries": "Países",
-    "regions": "Regiones",
-    "new-sessions": "Nuevas sesiones",
-    "browsers": "Navegadores",
-    "references": "Referencias",
-    "most-viewed-pages": "Páginas más vistas",
-    "weekly-compare": "Comparativa semanal",
-    "monthly-compare": "Comparativa mensual",
-    "browser-languages": "Idiomas del navegador",
-    "os": "Sistemas operativos",
-    "cities": "Ciudades",
-    "retention": "Retención (global/página)",
-    "funnel": "Funnel básico"
+    "title": "لوحة التحكم — EthicalMetrics",
+    "compared_to": "مقارنة مع",
+    "no_comparison": "بدون مقارنة",
+    "auto": "تلقائي",
+    "hourly": "بالساعة",
+    "daily": "يوميًا",
+    "options": "خيارات",
+    "users_active": "المستخدمون النشطون",
+    "duration_average": "المدة المتوسطة",
+    "new-visitors": "زوار جدد",
+    "unique-views": "زيارات فريدة",
+    "module-usage": "استخدام حسب الوحدة",
+    "daily-visits": "زيارات يومية",
+    "devices": "أجهزة",
+    "countries": "بلدان",
+    "regions": "مناطق",
+    "new-sessions": "جلسات جديدة",
+    "browsers": "متصفحون",
+    "references": "مراجعات",
+    "most-viewed-pages": "الصفحات الأكثر مشاهدة",
+    "weekly-compare": "المقارنة الأسبوعية",
+    "monthly-compare": "المقارنة الشهرية",
+    "browser-languages": "لغات المتصفح",
+    "os": "أنظمة التشغيل",
+    "cities": "مدن",
+    "retention": "الاحتفاظ (عمومًا/صفحة)",
+    "funnel": "قناة أساسية"
   }
 }

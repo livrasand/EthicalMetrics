@@ -1,154 +1,154 @@
 {
-  "title": "EthicalMetrics — Una Mejor Alternativa a Google Analytics",
+  "title": "EthicalMetrics \\\"Uma melhor alternativa ao Google Analytics\\\"",
   "header": {
-    "create_account": "Crear una cuenta",
-    "github_loading": "Cargando..."
+    "create_account": "Criar uma conta",
+    "github_loading": "Carregando..."
   },
   "hero": {
-    "title": "Conoce EthicalMetrics",
-    "subtitle": "Privacidad real. Métricas reales. La analítica web que respeta tu código, tu equipo y a tus usuarios.",
-    "cta_create": "Crear una cuenta gratis",
-    "cta_demo": "Ver demo",
-    "github_text": "Contribuye o haz fork en"
+    "title": "Conheça EthicalMetrics",
+    "subtitle": "Privacidade real. Métricas reais. A análise da web que respeita seu código, sua equipe e seus usuários.",
+    "cta_create": "Criar uma conta gratuita",
+    "cta_demo": "Ver demonstração",
+    "github_text": "Contribua ou faça fork em"
   },
   "features": {
-    "title": "Métricas útiles. Sin rastrear a nadie.",
-    "subtitle": "EthicalMetrics te da claridad sobre tu producto sin comprometer la privacidad de nadie. Sin cookies. Sin IDs. Sin historiales. Solo datos relevantes, tratados con respeto.",
+    "title": "Métricas úteis. Sem rastrear ninguém.",
+    "subtitle": "O EthicalMetrics oferece clareza sobre seu produto sem comprometer a privacidade de ninguém. Sem cookies. Sem IDs. Sem históricos. Apenas dados relevantes, tratados com respeito.",
     "card1": {
-      "title": "Libertad para tus Usuarios",
-      "description": "Diles adiós a las cookies, al rastreo invasivo y a la recolección de datos personales. Tus visitantes navegan con la tranquilidad de que su privacidad está garantizada. Tú, mientras tanto, obtienes las perspectivas que te impulsan."
+      "title": "Liberdade para seus usuários",
+      "description": "Diga adeus aos cookies, ao rastreamento invasivo e à coleta de dados pessoais. Seus visitantes navegam com a tranquilidade de que sua privacidade está garantida. Enquanto isso, você obtém as perspectivas que o impulsionam."
     },
     "card2": {
-      "title": "Tus datos, tu fortaleza",
-      "description": "Tus datos son tuyos, punto. Al ser un servicio que puedes auto-hospedar, tienes el control absoluto sobre tu información. Sin intermediarios, sin sorpresas."
+      "title": "Seus dados, sua fortaleza",
+      "description": "Seus dados são seus, ponto. Sendo um serviço que você pode hospedar, você tem controle total sobre suas informações. Sem intermediários, sem surpresas."
     },
     "card3": {
-      "title": "Comienza en minutos",
-      "description": "Agrega una línea de código y listo. Tarda menos de un segundo en comenzar a enviar datos. Configurar EthicalMetrics es increíblemente simple, dejándote libre para enfocarte en lo que realmente importa: crear. Cada sitio que añades tiene su propio espacio privado para ver sus resultados."
+      "title": "Comece em minutos",
+      "description": "Adicione uma linha de código e pronto. Leva menos de um segundo para começar a enviar dados. Configurar o EthicalMetrics é incrivelmente simples, deixando você livre para se concentrar no que realmente importa: criar. Cada site que você adiciona tem seu próprio espaço privado para ver seus resultados."
     },
     "card4": {
-      "title": "Claridad sin compromisos",
-      "description": "Observa cómo se comportan tus módulos, dónde brilla el rendimiento y qué eventos son clave. Te damos métricas para entender tu producto, no para espiar a las personas."
+      "title": "Clareza sem compromissos",
+      "description": "Veja como seus módulos se comportam, onde o desempenho brilha e quais eventos são essenciais. Nós fornecemos métricas para entender seu produto, não para espionar pessoas."
     }
   },
   "getting_started": {
-    "subtitle": "Introducción",
-    "title": "Comenzar",
-    "description": "Aprende a configurar EthicalMetrics en tu sitio web en menos de treinta minutos o es gratis.",
+    "subtitle": "Introdução",
+    "title": "Comece",
+    "description": "Aprenda a configurar o EthicalMetrics em seu site em menos de trinta minutos ou é de graça.",
     "step1": {
-      "title": "Registra tu sitio",
-      "description": "Obtén tus credenciales únicas en un instante. Sin correo, sin contraseñas, sin tarjeta."
+      "title": "Registre seu site",
+      "description": "Obtenha suas credenciais exclusivas instantaneamente. Sem email, sem senhas, sem cartão."
     },
     "step2": {
-      "title": "Instalación en 5 segundos",
-      "description": "Añade un pequeño script a tu sitio web. Solo copia una línea. Así de simple."
+      "title": "Instalação em 5 segundos",
+      "description": "Adicione um pequeno script ao seu site. Basta copiar uma linha. Simples assim."
     },
     "step3": {
-      "title": "Visualiza",
-      "description": "Accede a tu panel personal para ver tus insights. Listo. No más rastreo invasivo."
+      "title": "Visualize",
+      "description": "Acesse seu painel pessoal para ver suas informações. Pronto. Nada de rastreamento invasivo."
     }
   },
   "pricing": {
-    "title": "Precios diseñados para crecer contigo",
+    "title": "Preços com foco para crescer com você",
     "free": {
       "title": "Hobby SaaS",
-      "subtitle": "Devs indie, side-projects",
-      "price": "Gratis",
-      "cta": "Crear una cuenta"
+      "subtitle": "Desenvolvedores independentes, projetos pessoais",
+      "price": "Grátis",
+      "cta": "Criar uma conta"
     },
     "pro": {
       "title": "Professional SaaS",
-      "subtitle": "Producción, startups",
+      "subtitle": "Produção, startups",
       "currency": "USD",
-      "period": "por mes",
-      "cta": "Próximamente disponible"
+      "period": "por mês",
+      "cta": "Disponível em breve"
     },
     "oss": {
       "title": "OSS SaaS",
-      "subtitle": "Proyectos FOSS",
-      "price": "Gratis",
-      "cta": "Próximamente disponible"
+      "subtitle": "Projetos FOSS",
+      "price": "Grátis",
+      "cta": "Disponível em breve"
     }
   },
   "faqs": {
-    "title": "Preguntas frecuentes",
+    "title": "Perguntas frequentes",
     "q1": {
-      "question": "¿Qué es EthicalMetrics y en qué se diferencia de Google Analytics?",
-      "answer": "EthicalMetrics es una plataforma de analíticas web auto-hospedada que prioriza la privacidad del usuario. A diferencia de Google Analytics, no recopila datos personales, no usa cookies, no almacena direcciones IP y no realiza fingerprinting de dispositivos."
+      "question": "O que é o EthicalMetrics e como ele se difere do Google Analytics?",
+      "answer": "O EthicalMetrics é uma plataforma de análise da web auto-hospedada que prioriza a privacidade do usuário. Ao contrário do Google Analytics, não coleta dados pessoais, não utiliza cookies, não armazena endereços IP e não realiza fingerprinting de dispositivos."
     },
     "q2": {
-      "question": "¿Cómo garantiza EthicalMetrics la privacidad de los usuarios?",
-      "answer": "EthicalMetrics implementa 'verdadero anonimato' donde cada evento es autónomo y no se puede rastrear a lo largo del tiempo. No asigna visitor_id ni asocia eventos de sesión entre sí, garantizando que las analíticas funcionen sin saber quién eres."
+      "question": "Como o EthicalMetrics garante a privacidade dos usuários?",
+      "answer": "O EthicalMetrics implementa 'verdadeiro anonimato' onde cada evento é autônomo e não pode ser rastreado ao longo do tempo. Não atribui visitor_id nem associa eventos de sessão entre si, garantindo que as análises funcionem sem saber quem você é."
     },
     "q3": {
-      "question": "¿Qué métricas puedo obtener con EthicalMetrics?",
-      "answer": "El sistema rastrea visitas, uso de módulos, tiempos de carga, páginas más visitadas, duración promedio de sesión, eventos personalizados, tasa de rebote, dispositivos, navegadores, idiomas y ubicación geográfica (sin almacenar IPs)."
+      "question": "Que métricas posso obter com o EthicalMetrics?",
+      "answer": "O sistema rastreia visitas, uso de módulos, tempos de carregamento, páginas mais visitadas, duração média da sessão, eventos personalizados, taxa de rejeição, dispositivos, navegadores, idiomas e localização geográfica (sem armazenar IPs)."
     },
     "q4": {
-      "question": "¿Cómo implemento EthicalMetrics en mi sitio web?",
-      "answer": "Primero registras tu sitio en https://ethicalmetrics.onrender.com para obtener tu site_id y admin_token. Luego añades el script de seguimiento a tu HTML y opcionalmente defines módulos personalizados."
+      "question": "Como eu implemento EthicalMetrics no meu site?",
+      "answer": "Primeiro você registra seu site em https://ethicalmetrics.onrender.com para obter seu site_id e admin_token. Em seguida, adicione o script de rastreamento ao seu HTML e defina opcionalmente módulos personalizados."
     },
     "q5": {
-      "question": "¿Respeta EthicalMetrics la configuración 'Do Not Track' del navegador?",
-      "answer": "Sí, EthicalMetrics respeta automáticamente la configuración DNT (Do Not Track) del usuario y desactiva todo el seguimiento cuando está habilitada. Esto garantiza el respeto total por el consentimiento implícito del usuario."
+      "question": "EthicalMetrics respeita a configuração 'Do Not Track' do navegador?",
+      "answer": "Sim, EthicalMetrics automaticamente respeita a configuração DNT (Do Not Track) do usuário e desativa todo o rastreamento quando está habilitado. Isso garante total respeito ao consentimento implícito do usuário."
     },
     "q6": {
-      "question": "¿Qué tecnologías usa EthicalMetrics en su arquitectura?",
-      "answer": "El sistema está construido con Go para el servidor HTTP, Redis para almacenamiento, JavaScript vanilla para el cliente, autenticación basada en tokens UUID, y se puede desplegar con Docker en plataformas como Render."
+      "question": "Quais tecnologias EthicalMetrics usa em sua arquitetura?",
+      "answer": "O sistema é construído com Go para o servidor HTTP, Redis para armazenamento, JavaScript puro para o cliente, autenticação baseada em tokens UUID, e pode ser implantado com Docker em plataformas como Render."
     },
     "q7": {
-      "question": "¿Puedo personalizar el banner de consentimiento?",
-      "answer": "Sí, puedes personalizar fácilmente el banner de consentimiento añadiendo atributos data-* al script tag, incluyendo colores de fondo, texto del banner, colores de botones y mensajes personalizados."
+      "question": "Posso personalizar o banner de consentimento?",
+      "answer": "Sim, você pode facilmente personalizar o banner de consentimento adicionando atributos data-* à tag de script, incluindo cores de fundo, texto do banner, cores de botões e mensagens personalizadas."
     },
     "q8": {
-      "question": "¿Cómo accedo a mis estadísticas y dashboard?",
-      "answer": "Accedes a tu dashboard privado usando la URL con tu site_id y admin_token: https://ethicalmetrics.onrender.com/dashboard"
+      "question": "Como acesso minhas estatísticas e painel?",
+      "answer": "Acesse seu painel privado usando a URL com seu site_id e admin_token: https://ethicalmetrics.onrender.com/dashboard"
     },
     "q9": {
-      "question": "¿Está EthicalMetrics listo para producción o es experimental?",
-      "answer": "EthicalMetrics está en desarrollo activo y se describe como 'experimental y evolutivo'. El proyecto busca contribuidores y auditorías de la comunidad, con muchas funcionalidades avanzadas aún en desarrollo según el roadmap."
+      "question": "EthicalMetrics está pronto para produção ou é experimental?",
+      "answer": "EthicalMetrics está em desenvolvimento ativo e é descrito como 'experimental e evolutivo'. O projeto busca contribuidores e auditorias da comunidade, com muitos recursos avançados ainda em desenvolvimento de acordo com o roadmap."
     }
   },
   "footer": {
-    "subtitle": "Comienza ahora",
-    "title": "Hazlo diferente. Hazlo bien.",
-    "description": "Miles de sitios ya miden sin espiar. Únete al movimiento por una web más ética.",
-    "cta": "Crear una cuenta"
+    "subtitle": "Comece agora",
+    "title": "Faça de forma diferente. Faça bem.",
+    "description": "Milhares de sites já estão medindo sem espionagem. Junte-se ao movimento por uma web mais ética.",
+    "cta": "Criar uma conta"
   },
   "modal": {
-    "site_id": "ID de sitio:",
-    "admin_token": "Token de acceso:",
-    "script_label": "Script para tu web:",
-    "go_to_dashboard": "Ir a mi Dashboard",
-    "close": "Cerrar"
+    "site_id": "ID do site:",
+    "admin_token": "Token de acesso:",
+    "script_label": "Script para o seu site:",
+    "go_to_dashboard": "Ir para o meu Painel",
+    "close": "Fechar"
   },
   "dashboard": {
-    "title": "Dashboard — EthicalMetrics",
-    "compared_to": "comparado con",
-    "no_comparison": "Sin comparación",
+    "title": "Painel — EthicalMetrics",
+    "compared_to": "comparado com",
+    "no_comparison": "Sem comparação",
     "auto": "Automático",
     "hourly": "Por hora",
     "daily": "Diariamente",
-    "options": "Opciones",
-    "users_active": "Usuarios activos",
-    "duration_average": "Duración media",
-    "new-visitors": "Nuevos visitantes",
-    "unique-views": "Vistas únicas",
+    "options": "Opções",
+    "users_active": "Usuários ativos",
+    "duration_average": "Duração média",
+    "new-visitors": "Novos visitantes",
+    "unique-views": "Visualizações únicas",
     "module-usage": "Uso por módulo",
-    "daily-visits": "Visitas por día",
+    "daily-visits": "Visitas diárias",
     "devices": "Dispositivos",
     "countries": "Países",
-    "regions": "Regiones",
-    "new-sessions": "Nuevas sesiones",
+    "regions": "Regiões",
+    "new-sessions": "Novas sessões",
     "browsers": "Navegadores",
-    "references": "Referencias",
-    "most-viewed-pages": "Páginas más vistas",
-    "weekly-compare": "Comparativa semanal",
-    "monthly-compare": "Comparativa mensual",
-    "browser-languages": "Idiomas del navegador",
-    "os": "Sistemas operativos",
-    "cities": "Ciudades",
-    "retention": "Retención (global/página)",
-    "funnel": "Funnel básico"
+    "references": "Referências",
+    "most-viewed-pages": "Páginas mais visitadas",
+    "weekly-compare": "Comparação semanal",
+    "monthly-compare": "Comparação mensal",
+    "browser-languages": "Idiomas do navegador",
+    "os": "Sistemas operacionais",
+    "cities": "Cidades",
+    "retention": "Retenção (global/página)",
+    "funnel": "Funil básico"
   }
 }
